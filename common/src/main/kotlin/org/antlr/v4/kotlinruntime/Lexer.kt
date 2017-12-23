@@ -5,10 +5,10 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.LexerATNSimulator
-import org.antlr.v4.runtime.misc.IntegerStack
-import org.antlr.v4.runtime.misc.Interval
-import org.antlr.v4.runtime.misc.Pair
+import org.antlr.v4.kotlinruntime.atn.LexerATNSimulator
+import org.antlr.v4.kotlinruntime.misc.IntegerStack
+import org.antlr.v4.kotlinruntime.misc.Interval
+import org.antlr.v4.kotlinruntime.misc.Pair
 
 import java.util.ArrayList
 import java.util.EmptyStackException

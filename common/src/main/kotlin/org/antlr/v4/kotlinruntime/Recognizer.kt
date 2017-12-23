@@ -6,6 +6,7 @@
 
 package org.antlr.v4.kotlinruntime
 
+import org.antlr.v4.kotlinruntime.atn.ATNSimulator
 import org.antlr.v4.runtime.atn.ATN
 import org.antlr.v4.runtime.atn.ATNSimulator
 import org.antlr.v4.runtime.atn.ParseInfo
