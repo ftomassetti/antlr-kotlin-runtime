@@ -6,6 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
+import com.strumenta.kotlinmultiplatform.ArrayList
 import java.util.ArrayList
 
 /**

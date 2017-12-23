@@ -6,7 +6,10 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import java.util.Arrays
+import com.strumenta.kotlinmultiplatform.assert
+import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.StringBuilder
+import com.strumenta.kotlinmultiplatform.indices
 
 class ArrayPredictionContext(
         /** Parent can be null only if full ctx mode and we make an array
@@ -67,7 +70,7 @@ class ArrayPredictionContext(
         if (isEmpty) return "[]"
         val buf = StringBuilder()
         buf.append("[")
-        for (i in returnStates.indices) {
+        for (i in returnStates.indices()) {
             if (i > 0) buf.append(", ")
             if (returnStates[i] == PredictionContext.EMPTY_RETURN_STATE) {
                 buf.append("$")

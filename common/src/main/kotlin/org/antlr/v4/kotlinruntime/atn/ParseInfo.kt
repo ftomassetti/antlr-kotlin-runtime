@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.dfa.DFA
+import org.antlr.v4.kotlinruntime.dfa.DFA
 
 import java.util.ArrayList
 

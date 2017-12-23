@@ -6,11 +6,11 @@
 
 package org.antlr.v4.kotlinruntime.tree
 
-import org.antlr.v4.runtime.*
-import org.antlr.v4.runtime.atn.ATN
-import org.antlr.v4.runtime.misc.Interval
-import org.antlr.v4.runtime.misc.Predicate
-import org.antlr.v4.runtime.misc.Utils
+import org.antlr.v4.kotlinruntime.*
+import org.antlr.v4.kotlinruntime.atn.ATN
+import org.antlr.v4.kotlinruntime.misc.Interval
+import org.antlr.v4.kotlinruntime.misc.Predicate
+import org.antlr.v4.kotlinruntime.misc.Utils
 
 import java.util.*
 

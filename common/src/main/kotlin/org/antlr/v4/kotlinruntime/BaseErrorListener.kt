@@ -5,8 +5,8 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATNConfigSet
-import org.antlr.v4.runtime.dfa.DFA
+import org.antlr.v4.kotlinruntime.atn.ATNConfigSet
+import org.antlr.v4.kotlinruntime.dfa.DFA
 
 import java.util.BitSet
 

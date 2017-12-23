@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.tree
 
-import org.antlr.v4.runtime.TokenStream
-import org.antlr.v4.runtime.misc.Interval
+import org.antlr.v4.kotlinruntime.TokenStream
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 /** A tree that knows about an interval in a token stream
  * is some kind of syntax tree. Subinterfaces distinguish

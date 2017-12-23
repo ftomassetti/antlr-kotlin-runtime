@@ -6,13 +6,13 @@
 
 package org.antlr.v4.kotlinruntime.tree.pattern
 
-import org.antlr.v4.runtime.*
-import org.antlr.v4.runtime.atn.ATN
-import org.antlr.v4.runtime.misc.MultiMap
-import org.antlr.v4.runtime.misc.ParseCancellationException
-import org.antlr.v4.runtime.tree.ParseTree
-import org.antlr.v4.runtime.tree.RuleNode
-import org.antlr.v4.runtime.tree.TerminalNode
+import org.antlr.v4.kotlinruntime.*
+import org.antlr.v4.kotlinruntime.atn.ATN
+import org.antlr.v4.kotlinruntime.misc.MultiMap
+import org.antlr.v4.kotlinruntime.misc.ParseCancellationException
+import org.antlr.v4.kotlinruntime.tree.ParseTree
+import org.antlr.v4.kotlinruntime.tree.RuleNode
+import org.antlr.v4.kotlinruntime.tree.TerminalNode
 
 import java.util.ArrayList
 import java.util.Arrays

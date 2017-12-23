@@ -5,9 +5,9 @@
  */
 package org.antlr.v4.kotlinruntime.tree.xpath
 
-import org.antlr.v4.runtime.*
-import org.antlr.v4.runtime.atn.ATN
-import org.antlr.v4.runtime.misc.Interval
+import org.antlr.v4.kotlinruntime.*
+import org.antlr.v4.kotlinruntime.atn.ATN
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 /** Mimic the old XPathLexer from .g4 file  */
 open class XPathLexer(input: CharStream) : Lexer(input) {

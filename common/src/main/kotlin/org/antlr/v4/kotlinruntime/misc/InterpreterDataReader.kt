@@ -6,10 +6,10 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
-import org.antlr.v4.runtime.Vocabulary
-import org.antlr.v4.runtime.VocabularyImpl
-import org.antlr.v4.runtime.atn.ATN
-import org.antlr.v4.runtime.atn.ATNDeserializer
+import org.antlr.v4.kotlinruntime.Vocabulary
+import org.antlr.v4.kotlinruntime.VocabularyImpl
+import org.antlr.v4.kotlinruntime.atn.ATN
+import org.antlr.v4.kotlinruntime.atn.ATNDeserializer
 
 import java.io.BufferedReader
 import java.io.FileReader

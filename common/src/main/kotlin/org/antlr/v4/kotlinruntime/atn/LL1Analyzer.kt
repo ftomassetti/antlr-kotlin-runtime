@@ -6,12 +6,9 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.RuleContext
-import org.antlr.v4.runtime.Token
-import org.antlr.v4.runtime.misc.IntervalSet
-
-import java.util.BitSet
-import java.util.HashSet
+import org.antlr.v4.kotlinruntime.RuleContext
+import org.antlr.v4.kotlinruntime.Token
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 class LL1Analyzer(val atn: ATN) {
 

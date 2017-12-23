@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.dfa
 
-import org.antlr.v4.runtime.Vocabulary
-import org.antlr.v4.runtime.VocabularyImpl
+import org.antlr.v4.kotlinruntime.Vocabulary
+import org.antlr.v4.kotlinruntime.VocabularyImpl
 
 import java.util.Arrays
 

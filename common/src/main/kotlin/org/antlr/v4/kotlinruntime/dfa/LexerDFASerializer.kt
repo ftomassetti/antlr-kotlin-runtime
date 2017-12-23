@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.dfa
 
-import org.antlr.v4.runtime.VocabularyImpl
+import org.antlr.v4.kotlinruntime.VocabularyImpl
 
 class LexerDFASerializer(dfa: DFA) : DFASerializer(dfa, VocabularyImpl.EMPTY_VOCABULARY) {
 

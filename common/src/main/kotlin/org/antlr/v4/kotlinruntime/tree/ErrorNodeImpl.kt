@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.tree
 
-import org.antlr.v4.runtime.Token
+import org.antlr.v4.kotlinruntime.Token
 
 /** Represents a token that was consumed during resynchronization
  * rather than during a valid match operation. For example,

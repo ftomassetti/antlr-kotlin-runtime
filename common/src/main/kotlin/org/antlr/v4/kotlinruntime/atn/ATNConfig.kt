@@ -6,6 +6,9 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
+import com.strumenta.kotlinmultiplatform.StringBuilder
+import org.antlr.v4.kotlinruntime.Recognizer
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 import org.antlr.v4.runtime.Recognizer
 import org.antlr.v4.runtime.misc.MurmurHash
 

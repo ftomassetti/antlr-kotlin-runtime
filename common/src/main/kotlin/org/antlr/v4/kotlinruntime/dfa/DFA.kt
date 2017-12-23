@@ -5,12 +5,12 @@
  */
 package org.antlr.v4.kotlinruntime.dfa
 
-import org.antlr.v4.runtime.Parser
-import org.antlr.v4.runtime.Vocabulary
-import org.antlr.v4.runtime.VocabularyImpl
-import org.antlr.v4.runtime.atn.ATNConfigSet
-import org.antlr.v4.runtime.atn.DecisionState
-import org.antlr.v4.runtime.atn.StarLoopEntryState
+import org.antlr.v4.kotlinruntime.Parser
+import org.antlr.v4.kotlinruntime.Vocabulary
+import org.antlr.v4.kotlinruntime.VocabularyImpl
+import org.antlr.v4.kotlinruntime.atn.ATNConfigSet
+import org.antlr.v4.kotlinruntime.atn.DecisionState
+import org.antlr.v4.kotlinruntime.atn.StarLoopEntryState
 
 import java.util.*
 

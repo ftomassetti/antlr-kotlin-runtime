@@ -6,9 +6,9 @@
 
 package org.antlr.v4.kotlinruntime.dfa
 
-import org.antlr.v4.runtime.Token
-import org.antlr.v4.runtime.atn.*
-import org.antlr.v4.runtime.misc.MurmurHash
+import org.antlr.v4.kotlinruntime.Token
+import org.antlr.v4.kotlinruntime.atn.*
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 import java.util.Arrays
 import java.util.HashSet

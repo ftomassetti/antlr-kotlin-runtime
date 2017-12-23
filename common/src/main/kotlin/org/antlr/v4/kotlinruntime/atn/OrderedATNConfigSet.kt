@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.misc.ObjectEqualityComparator
+import org.antlr.v4.kotlinruntime.misc.ObjectEqualityComparator
 
 /**
  *

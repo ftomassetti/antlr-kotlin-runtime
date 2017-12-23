@@ -6,10 +6,10 @@
 
 package org.antlr.v4.kotlinruntime.tree.xpath
 
-import org.antlr.v4.runtime.ParserRuleContext
-import org.antlr.v4.runtime.tree.ParseTree
-import org.antlr.v4.runtime.tree.Tree
-import org.antlr.v4.runtime.tree.Trees
+import org.antlr.v4.kotlinruntime.ParserRuleContext
+import org.antlr.v4.kotlinruntime.tree.ParseTree
+import org.antlr.v4.kotlinruntime.tree.Tree
+import org.antlr.v4.kotlinruntime.tree.Trees
 
 import java.util.ArrayList
 

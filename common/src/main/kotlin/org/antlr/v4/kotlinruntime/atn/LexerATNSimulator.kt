@@ -6,10 +6,10 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.*
-import org.antlr.v4.runtime.dfa.DFA
-import org.antlr.v4.runtime.dfa.DFAState
-import org.antlr.v4.runtime.misc.Interval
+import org.antlr.v4.kotlinruntime.*
+import org.antlr.v4.kotlinruntime.dfa.DFA
+import org.antlr.v4.kotlinruntime.dfa.DFAState
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 import java.util.Locale
 

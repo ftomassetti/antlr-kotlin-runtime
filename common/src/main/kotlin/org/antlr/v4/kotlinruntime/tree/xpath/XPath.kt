@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.tree.xpath
 
-import org.antlr.v4.runtime.*
-import org.antlr.v4.runtime.tree.ParseTree
+import org.antlr.v4.kotlinruntime.*
+import org.antlr.v4.kotlinruntime.tree.ParseTree
 
 import java.io.IOException
 import java.io.StringReader

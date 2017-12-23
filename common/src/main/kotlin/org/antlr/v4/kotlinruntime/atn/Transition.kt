@@ -6,6 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
+import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.Collections
 import com.strumenta.kotlinmultiplatform.RuntimeException
 import org.antlr.v4.kotlinruntime.misc.IntervalSet
 

@@ -6,17 +6,17 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.*
-import org.antlr.v4.runtime.dfa.DFA
-import org.antlr.v4.runtime.dfa.DFAState
-import org.antlr.v4.runtime.misc.DoubleKeyMap
-import org.antlr.v4.runtime.misc.Interval
-import org.antlr.v4.runtime.misc.IntervalSet
-import org.antlr.v4.runtime.misc.Pair
+import org.antlr.v4.kotlinruntime.*
+import org.antlr.v4.kotlinruntime.dfa.DFA
+import org.antlr.v4.kotlinruntime.dfa.DFAState
+import org.antlr.v4.kotlinruntime.misc.DoubleKeyMap
+import org.antlr.v4.kotlinruntime.misc.Interval
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
+import org.antlr.v4.kotlinruntime.misc.Pair
 
 import java.util.*
 
-import org.antlr.v4.runtime.atn.ATNState.BLOCK_END
+import org.antlr.v4.kotlinruntime.atn.ATNState.BLOCK_END
 
 /**
  * The embodiment of the adaptive LL(*), ALL(*), parsing strategy.

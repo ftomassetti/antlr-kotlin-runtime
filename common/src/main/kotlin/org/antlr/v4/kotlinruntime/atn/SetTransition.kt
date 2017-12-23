@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.Token
-import org.antlr.v4.runtime.misc.IntervalSet
+import org.antlr.v4.kotlinruntime.Token
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 /** A transition containing a set of values.  */
 open class SetTransition// TODO (sam): should we really allow null here?

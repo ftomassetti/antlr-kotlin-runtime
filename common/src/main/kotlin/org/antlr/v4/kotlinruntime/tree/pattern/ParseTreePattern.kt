@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.tree.pattern
 
-import org.antlr.v4.runtime.tree.ParseTree
-import org.antlr.v4.runtime.tree.xpath.XPath
+import org.antlr.v4.kotlinruntime.tree.ParseTree
+import org.antlr.v4.kotlinruntime.tree.xpath.XPath
 
 import java.util.ArrayList
 

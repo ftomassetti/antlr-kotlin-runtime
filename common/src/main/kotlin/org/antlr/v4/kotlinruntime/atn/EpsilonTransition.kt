@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-class EpsilonTransition @JvmOverloads constructor(target: ATNState, private val outermostPrecedenceReturn: Int = -1) : Transition(target) {
+class EpsilonTransition constructor(target: ATNState, private val outermostPrecedenceReturn: Int = -1) : Transition(target) {
 
     override val serializationType: Int
         get() = Transition.EPSILON

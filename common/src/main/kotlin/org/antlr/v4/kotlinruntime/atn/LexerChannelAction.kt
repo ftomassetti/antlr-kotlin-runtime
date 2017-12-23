@@ -6,9 +6,9 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.Lexer
-import org.antlr.v4.runtime.Token
-import org.antlr.v4.runtime.misc.MurmurHash
+import org.antlr.v4.kotlinruntime.Lexer
+import org.antlr.v4.kotlinruntime.Token
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 /**
  * Implements the `channel` lexer action by calling

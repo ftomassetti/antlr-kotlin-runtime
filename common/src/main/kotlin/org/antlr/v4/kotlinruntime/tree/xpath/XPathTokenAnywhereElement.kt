@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.tree.xpath
 
-import org.antlr.v4.runtime.tree.ParseTree
-import org.antlr.v4.runtime.tree.Trees
+import org.antlr.v4.kotlinruntime.tree.ParseTree
+import org.antlr.v4.kotlinruntime.tree.Trees
 
 class XPathTokenAnywhereElement(tokenName: String, protected var tokenType: Int) : XPathElement(tokenName) {
 

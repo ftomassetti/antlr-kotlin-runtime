@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.misc.IntervalSet
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 import java.util.*
 

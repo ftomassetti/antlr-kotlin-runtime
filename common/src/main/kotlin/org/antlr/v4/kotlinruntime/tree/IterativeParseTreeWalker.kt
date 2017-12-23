@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.tree
 
-import org.antlr.v4.runtime.misc.IntegerStack
+import org.antlr.v4.kotlinruntime.misc.IntegerStack
 
 import java.util.ArrayDeque
 import java.util.Deque

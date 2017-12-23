@@ -6,9 +6,9 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.CharStream
-import org.antlr.v4.runtime.Lexer
-import org.antlr.v4.runtime.misc.MurmurHash
+import org.antlr.v4.kotlinruntime.CharStream
+import org.antlr.v4.kotlinruntime.Lexer
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 /**
  * This implementation of [LexerAction] is used for tracking input offsets

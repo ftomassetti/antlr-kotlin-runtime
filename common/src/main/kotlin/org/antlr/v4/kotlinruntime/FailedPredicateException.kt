@@ -5,9 +5,9 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATNState
-import org.antlr.v4.runtime.atn.AbstractPredicateTransition
-import org.antlr.v4.runtime.atn.PredicateTransition
+import org.antlr.v4.kotlinruntime.atn.ATNState
+import org.antlr.v4.kotlinruntime.atn.AbstractPredicateTransition
+import org.antlr.v4.kotlinruntime.atn.PredicateTransition
 
 import java.util.Locale
 

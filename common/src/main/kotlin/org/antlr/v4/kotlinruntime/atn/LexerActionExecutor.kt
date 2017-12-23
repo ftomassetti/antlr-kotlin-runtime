@@ -6,11 +6,15 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.CharStream
-import org.antlr.v4.runtime.IntStream
-import org.antlr.v4.runtime.Lexer
-import org.antlr.v4.runtime.dfa.DFA
-import org.antlr.v4.runtime.misc.MurmurHash
+import com.strumenta.kotlinmultiplatform.Arrays
+import org.antlr.v4.kotlinruntime.CharStream
+import org.antlr.v4.kotlinruntime.Lexer
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
+import org.antlr.v4.kotlinruntime.CharStream
+import org.antlr.v4.kotlinruntime.IntStream
+import org.antlr.v4.kotlinruntime.Lexer
+import org.antlr.v4.kotlinruntime.dfa.DFA
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 import java.util.Arrays
 

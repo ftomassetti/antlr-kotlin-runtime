@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.tree.ErrorNode
+import org.antlr.v4.kotlinruntime.tree.ErrorNode
 
 /**
  * The interface for defining strategies to deal with syntax errors encountered

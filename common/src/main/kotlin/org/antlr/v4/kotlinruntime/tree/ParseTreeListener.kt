@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.tree
 
-import org.antlr.v4.runtime.ParserRuleContext
+import org.antlr.v4.kotlinruntime.ParserRuleContext
 
 /** This interface describes the minimal core of methods triggered
  * by [ParseTreeWalker]. E.g.,

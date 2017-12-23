@@ -6,8 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.CharStream
-import org.antlr.v4.runtime.Lexer
+import org.antlr.v4.kotlinruntime.Lexer
 
 /**
  * Represents a single action which can be executed following the successful

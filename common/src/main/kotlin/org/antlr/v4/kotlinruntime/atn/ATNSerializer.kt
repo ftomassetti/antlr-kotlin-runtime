@@ -6,11 +6,11 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.Token
-import org.antlr.v4.runtime.misc.IntegerList
-import org.antlr.v4.runtime.misc.Interval
-import org.antlr.v4.runtime.misc.IntervalSet
-import org.antlr.v4.runtime.misc.Utils
+import org.antlr.v4.kotlinruntime.Token
+import org.antlr.v4.kotlinruntime.misc.IntegerList
+import org.antlr.v4.kotlinruntime.misc.Interval
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
+import org.antlr.v4.kotlinruntime.misc.Utils
 
 import java.io.InvalidClassException
 import java.util.*

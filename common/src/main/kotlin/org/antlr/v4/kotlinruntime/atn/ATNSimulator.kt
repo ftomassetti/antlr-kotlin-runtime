@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.dfa.DFAState
-import org.antlr.v4.runtime.misc.IntervalSet
+import org.antlr.v4.kotlinruntime.dfa.DFAState
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 import java.util.IdentityHashMap
 import java.util.UUID

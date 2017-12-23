@@ -5,15 +5,15 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.*
-import org.antlr.v4.runtime.dfa.DFA
-import org.antlr.v4.runtime.misc.IntegerStack
-import org.antlr.v4.runtime.misc.IntervalSet
-import org.antlr.v4.runtime.tree.*
-import org.antlr.v4.runtime.tree.pattern.ParseTreePattern
-import org.antlr.v4.runtime.tree.pattern.ParseTreePatternMatcher
-
-import java.util.*
+import com.strumenta.kotlinmultiplatform.ArrayList
+import com.strumenta.kotlinmultiplatform.RuntimeException
+import org.antlr.v4.kotlinruntime.atn.*
+import org.antlr.v4.kotlinruntime.dfa.DFA
+import org.antlr.v4.kotlinruntime.misc.IntegerStack
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
+import org.antlr.v4.kotlinruntime.tree.*
+import org.antlr.v4.kotlinruntime.tree.pattern.ParseTreePattern
+import org.antlr.v4.kotlinruntime.tree.pattern.ParseTreePatternMatcher
 
 /** This is all the parsing support code essentially; most of it is error recovery stuff.  */
 abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator>() {
@@ -364,7 +364,6 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
      * `ttype` and the error strategy could not recover from the
      * mismatched symbol
      */
-    @Throws(RecognitionException::class)
     fun match(ttype: Int): Token {
         var t = currentToken
         if (t.type == ttype) {
@@ -403,7 +402,6 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
      * a wildcard and the error strategy could not recover from the mismatched
      * symbol
      */
-    @Throws(RecognitionException::class)
     fun matchWildcard(): Token {
         var t = currentToken
         if (t.type > 0) {
@@ -454,7 +452,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
      */
     fun addParseListener(listener: ParseTreeListener?) {
         if (listener == null) {
-            throw NullPointerException("listener")
+            throw RuntimeException("listener")
         }
 
         if (_parseListeners == null) {

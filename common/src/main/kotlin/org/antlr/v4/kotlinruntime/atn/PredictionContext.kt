@@ -6,10 +6,10 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.Recognizer
-import org.antlr.v4.runtime.RuleContext
-import org.antlr.v4.runtime.misc.DoubleKeyMap
-import org.antlr.v4.runtime.misc.MurmurHash
+import org.antlr.v4.kotlinruntime.Recognizer
+import org.antlr.v4.kotlinruntime.RuleContext
+import org.antlr.v4.kotlinruntime.misc.DoubleKeyMap
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 import java.util.*
 

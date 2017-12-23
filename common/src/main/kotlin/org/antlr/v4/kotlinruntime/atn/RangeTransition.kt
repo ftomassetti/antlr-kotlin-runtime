@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.misc.IntervalSet
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 class RangeTransition(target: ATNState, val from: Int, val to: Int) : Transition(target) {
 

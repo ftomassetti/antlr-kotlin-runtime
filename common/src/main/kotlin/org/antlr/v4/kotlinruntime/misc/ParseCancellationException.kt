@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
-import org.antlr.v4.runtime.BailErrorStrategy
-import org.antlr.v4.runtime.RecognitionException
+import org.antlr.v4.kotlinruntime.BailErrorStrategy
+import org.antlr.v4.kotlinruntime.RecognitionException
 
 import java.util.concurrent.CancellationException
 

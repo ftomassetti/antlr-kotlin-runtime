@@ -8,9 +8,9 @@ package org.antlr.v4.kotlinruntime.atn
 
 import org.antlr.v4.kotlinruntime.atn.PredictionMode.Companion.hasConflictingAltSet
 import org.antlr.v4.kotlinruntime.atn.PredictionMode.Companion.hasStateAssociatedWithOneAlt
-import org.antlr.v4.runtime.misc.AbstractEqualityComparator
-import org.antlr.v4.runtime.misc.FlexibleHashMap
-import org.antlr.v4.runtime.misc.MurmurHash
+import org.antlr.v4.kotlinruntime.misc.AbstractEqualityComparator
+import org.antlr.v4.kotlinruntime.misc.FlexibleHashMap
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 import java.util.*
 
