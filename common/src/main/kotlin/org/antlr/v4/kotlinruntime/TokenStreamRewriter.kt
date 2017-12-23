@@ -5,10 +5,7 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Interval
-
-import java.util.ArrayList
-import java.util.HashMap
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 /**
  * Useful for rewriting out a buffered input token stream after doing some

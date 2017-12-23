@@ -6,8 +6,10 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
-import java.io.*
-import java.util.*
+import com.strumenta.kotlinmultiplatform.StringBuilder
+import com.strumenta.kotlinmultiplatform.indices
+import com.strumenta.kotlinmultiplatform.toCharArray
+
 
 object Utils {
     // Seriously: why isn't this built in to java? ugh!
@@ -24,7 +26,7 @@ object Utils {
 
     fun <T> join(array: Array<T>, separator: String): String {
         val builder = StringBuilder()
-        for (i in array.indices) {
+        for (i in array.indices()) {
             builder.append(array[i])
             if (i < array.size - 1) {
                 builder.append(separator)
@@ -65,8 +67,6 @@ object Utils {
         return buf.toString()
     }
 
-    @Throws(IOException::class)
-    @JvmOverloads
     fun writeFile(fileName: String, content: String, encoding: String? = null) {
         val f = File(fileName)
         val fos = FileOutputStream(f)
@@ -84,9 +84,6 @@ object Utils {
         }
     }
 
-
-    @Throws(IOException::class)
-    @JvmOverloads
     fun readFile(fileName: String, encoding: String? = null): CharArray {
         val f = File(fileName)
         val size = f.length().toInt()

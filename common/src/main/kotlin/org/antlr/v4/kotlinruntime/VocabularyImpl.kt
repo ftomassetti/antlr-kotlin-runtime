@@ -5,8 +5,6 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import java.util.Arrays
-
 /**
  * This class provides a default implementation of the [Vocabulary]
  * interface.
@@ -31,7 +29,7 @@ class VocabularyImpl
  * @see .getSymbolicName
  * @see .getDisplayName
  */
-@JvmOverloads constructor(literalNames: Array<String>?, symbolicNames: Array<String>?, displayNames: Array<String>? = null) : Vocabulary {
+constructor(literalNames: Array<String>?, symbolicNames: Array<String>?, displayNames: Array<String>? = null) : Vocabulary {
 
 
     private val literalNames: Array<String>

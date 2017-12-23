@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Interval
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 /**
  * An [IntStream] whose symbols are [Token] instances.

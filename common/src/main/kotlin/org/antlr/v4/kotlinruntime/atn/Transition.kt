@@ -6,9 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.misc.IntervalSet
-
-import java.util.*
+import com.strumenta.kotlinmultiplatform.RuntimeException
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 /** An ATN transition between any two ATN states.  Subclasses define
  * atom, set, epsilon, action, predicate, rule transitions.
@@ -46,7 +45,7 @@ abstract class Transition protected constructor(
 
     init {
         if (target == null) {
-            throw NullPointerException("target cannot be null.")
+            throw RuntimeException("target cannot be null.")
         }
     }
 

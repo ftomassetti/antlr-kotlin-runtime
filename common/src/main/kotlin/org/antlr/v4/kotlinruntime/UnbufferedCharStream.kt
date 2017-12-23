@@ -6,15 +6,7 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Interval
-
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.io.Reader
-import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
-import java.util.Arrays
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 /** Do not buffer up the entire char stream. It does keep a small buffer
  * for efficiency and also buffers while a mark exists (set by the

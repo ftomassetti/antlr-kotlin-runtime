@@ -5,8 +5,8 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.DecisionState
-import org.antlr.v4.runtime.misc.IntervalSet
+import org.antlr.v4.kotlinruntime.atn.DecisionState
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 /** The root of the ANTLR exception hierarchy. In general, ANTLR tracks just
  * 3 kinds of errors: prediction errors, failed predicate errors, and
