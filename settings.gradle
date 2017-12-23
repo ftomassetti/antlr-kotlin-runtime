@@ -1,6 +1,8 @@
 rootProject.name = 'antlr-kotlin-runtime-parent'
 include ':common'
 include ':jvm-target'
+include ':examples'
 
 project(':common').projectDir = "$rootDir/common" as File
 project(':jvm-target').projectDir = "$rootDir/jvm-target" as File
+project(':examples').projectDir = "$rootDir/examples" as File
