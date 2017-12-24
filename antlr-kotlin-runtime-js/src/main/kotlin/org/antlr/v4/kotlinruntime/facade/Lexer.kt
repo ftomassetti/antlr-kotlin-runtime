@@ -12,4 +12,8 @@ actual abstract class Lexer {
     protected actual var interpreter: ATNSimulator
         get() = TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         set(value) {}
+
+    actual final fun nextToken() : Token {
+        TODO("not implemented")
+    }
 }

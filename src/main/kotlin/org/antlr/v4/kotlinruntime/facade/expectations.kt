@@ -1,9 +1,15 @@
 package org.antlr.v4.kotlinruntime.facade
 
+expect interface Token {
+    fun getText() : String
+    fun getType() : Int
+}
+
 expect abstract class Lexer {
     constructor(grammarFileName: String, input: String)
     open fun getGrammarFileName() : String
     protected var interpreter : ATNSimulator
+    fun nextToken() : Token
 }
 
 expect abstract class CharStream
