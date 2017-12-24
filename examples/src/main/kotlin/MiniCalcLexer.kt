@@ -379,6 +379,6 @@ class MiniCalcLexer(val input: CharStream) : Lexer(input) {
 		interpreter = LexerATNSimulator(this, ATN, decisionToDFA, sharedContextCache)
 	}
 
-	override val grammarFileName = "MiniCalcLexer.g4"
+	override fun getGrammarFileName() = "MiniCalcLexer.g4"
 
 }
