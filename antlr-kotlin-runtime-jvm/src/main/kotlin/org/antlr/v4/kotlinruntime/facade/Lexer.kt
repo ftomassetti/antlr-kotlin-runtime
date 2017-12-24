@@ -2,6 +2,7 @@ package org.antlr.v4.kotlinruntime.facade
 
 import org.antlr.v4.runtime.ANTLRInputStream
 import org.antlr.v4.runtime.atn.ATN
+import org.antlr.v4.runtime.atn.LexerATNSimulator
 
 actual abstract class Lexer : org.antlr.v4.runtime.Lexer {
     private val _grammarFileName: String
@@ -11,12 +12,16 @@ actual abstract class Lexer : org.antlr.v4.runtime.Lexer {
 
     actual override open fun getGrammarFileName() = _grammarFileName
 
-    protected actual var interpreter: ATNSimulator
-        get() = TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        set(value) {}
+    actual protected fun setInterpreter(interpreter: ATNSimulator) {
+        _interp = interpreter.wrapped as LexerATNSimulator
+    }
 
-    actual final override fun nextToken() : Token {
-        return super.nextToken() as Token
+    //protected actual var interpreter: ATNSimulator
+    //    get() = TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    //    set(value) { _interp = value.wrapped as LexerATNSimulator; field = interpreter}
+
+    actual final fun getNextToken() : Token {
+        return TokenImpl(super.nextToken())
     }
 
     override fun getATN(): ATN {

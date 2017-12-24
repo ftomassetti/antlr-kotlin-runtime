@@ -8,4 +8,8 @@ actual class ATNDeserializer {
     actual fun deserialize(serializedATN: String): ATN {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    actual fun deserializeIntegers(serializedIntegersATN: Array<Int>) : ATN {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

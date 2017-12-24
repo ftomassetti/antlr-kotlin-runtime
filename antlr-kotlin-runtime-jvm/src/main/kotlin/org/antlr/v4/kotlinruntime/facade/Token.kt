@@ -1,8 +1,17 @@
 package org.antlr.v4.kotlinruntime.facade
 
-import org.antlr.v4.runtime.Token
+actual interface Token{
+    actual fun getText(): String
+    actual fun getType(): Int
+}
 
-actual interface Token : Token{
-    actual override fun getText(): String
-    actual override fun getType(): Int
+data class TokenImpl(val wrapped: org.antlr.v4.runtime.Token) : Token {
+    override fun getText(): String {
+        return wrapped.getText()
+    }
+
+    override fun getType(): Int {
+        return wrapped.getType()
+    }
+
 }

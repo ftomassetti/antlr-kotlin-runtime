@@ -2,7 +2,7 @@ package org.antlr.v4.kotlinruntime.facade
 
 actual abstract class CharStream : org.antlr.v4.runtime.CharStream
 
-actual abstract class DecisionState : org.antlr.v4.runtime.atn.DecisionState()
+actual class DecisionState(val wrapped: org.antlr.v4.runtime.atn.DecisionState)
 
 //actual class DFA(atnStartState: DecisionState, decision: Int = 0) : org.antlr.v4.runtime.dfa.DFA(atnStartState, decision) {
 //}
