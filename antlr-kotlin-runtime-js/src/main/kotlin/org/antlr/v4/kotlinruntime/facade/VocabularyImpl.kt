@@ -1,7 +1,12 @@
 package org.antlr.v4.kotlinruntime.facade
 
 actual class VocabularyImpl {
+
+    private val literalNames: List<String?>
+    private val symbolicNames: List<String?>
+
     actual constructor(literalNames: List<String?>, symbolicNames: List<String?>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.literalNames = literalNames
+        this.symbolicNames = symbolicNames
     }
 }

@@ -3,6 +3,7 @@ if (typeof kotlin === 'undefined') {
 }
 this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
   'use strict';
+  var asList = Kotlin.kotlin.collections.asList_us0mfu$;
   var Kind_OBJECT = Kotlin.Kind.OBJECT;
   var Kind_CLASS = Kotlin.Kind.CLASS;
   var Kind_INTERFACE = Kotlin.Kind.INTERFACE;
@@ -11,9 +12,8 @@ this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
   function Arrays() {
     Arrays_instance = this;
   }
-  var NotImplementedError_init = Kotlin.kotlin.NotImplementedError;
   Arrays.prototype.asList_i5x0yv$ = function (elements) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    return asList(elements);
   };
   Arrays.$metadata$ = {
     kind: Kind_OBJECT,
@@ -30,10 +30,12 @@ this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
   function ATN() {
   }
   ATN.prototype.getNumberOfDecisions = function () {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    console.log('ATN.getNumberOfDecisions');
+    return 0;
   };
   ATN.prototype.getDecisionState_za3lpa$ = function (i) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    console.log('ATN.getDecisionState');
+    return new DecisionState();
   };
   ATN.$metadata$ = {
     kind: Kind_CLASS,
@@ -41,12 +43,15 @@ this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
     interfaces: []
   };
   function ATNDeserializer() {
+    this.wrapped_0 = null;
   }
   ATNDeserializer.prototype.deserialize_61zpoe$ = function (serializedATN) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    console.log('ATNDeserializer.deserialize');
+    return new ATN();
   };
   ATNDeserializer.prototype.deserializeIntegers_9mvhws$ = function (serializedIntegersATN) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    console.log('ATNDeserializer.deserializeIntegers');
+    return new ATN();
   };
   ATNDeserializer.$metadata$ = {
     kind: Kind_CLASS,
@@ -56,7 +61,8 @@ this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
   function ATNDeserializer_init($this) {
     $this = $this || Object.create(ATNDeserializer.prototype);
     ATNDeserializer.call($this);
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    $this.wrapped_0 = new window.antlr4.atn.ATNDeserializer();
+    return $this;
   }
   function ATNSimulator() {
   }
@@ -84,7 +90,8 @@ this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
       decision = 0;
     $this = $this || Object.create(DFA.prototype);
     DFA.call($this);
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    console.log('DFA');
+    return $this;
   }
   function DecisionState() {
   }
@@ -96,13 +103,29 @@ this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
   function Lexer() {
   }
   Lexer.prototype.getGrammarFileName = function () {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    console.log('Lexer.getGrammarFileName');
+    return '';
   };
   Lexer.prototype.setInterpreter_rarhcv$ = function (interpreter) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    console.log('Lexer.setInterpreter');
+  };
+  function Lexer$getNextToken$ObjectLiteral() {
+  }
+  Lexer$getNextToken$ObjectLiteral.prototype.getText = function () {
+    console.log('Lexer.getNextToken getText');
+    return '';
+  };
+  Lexer$getNextToken$ObjectLiteral.prototype.getType = function () {
+    console.log('Lexer.getNextToken getType');
+    return -1;
+  };
+  Lexer$getNextToken$ObjectLiteral.$metadata$ = {
+    kind: Kind_CLASS,
+    interfaces: [Token]
   };
   Lexer.prototype.getNextToken = function () {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    console.log('Lexer.getNextToken');
+    return new Lexer$getNextToken$ObjectLiteral();
   };
   Lexer.$metadata$ = {
     kind: Kind_CLASS,
@@ -112,10 +135,12 @@ this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
   function Lexer_init(grammarFileName, input, $this) {
     $this = $this || Object.create(Lexer.prototype);
     Lexer.call($this);
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    console.log('Lexer');
+    return $this;
   }
   function createLexerATNSimulator(recog, atn, decisionToDFA, sharedContextCache) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'Not implemented');
+    console.log('createLexerATNSimulator');
+    return new LexerATNSimulator();
   }
   function LexerATNSimulator() {
     ATNSimulator.call(this);
@@ -126,6 +151,7 @@ this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
     interfaces: [ATNSimulator]
   };
   function PredictionContextCache() {
+    this.wrapped_0 = null;
   }
   PredictionContextCache.$metadata$ = {
     kind: Kind_CLASS,
@@ -135,7 +161,8 @@ this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
   function PredictionContextCache_init($this) {
     $this = $this || Object.create(PredictionContextCache.prototype);
     PredictionContextCache.call($this);
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    $this.wrapped_0 = new window.antlr4.PredictionContextCache();
+    return $this;
   }
   function Token() {
   }
@@ -145,6 +172,8 @@ this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
     interfaces: []
   };
   function VocabularyImpl() {
+    this.literalNames_0 = null;
+    this.symbolicNames_0 = null;
   }
   VocabularyImpl.$metadata$ = {
     kind: Kind_CLASS,
@@ -154,10 +183,13 @@ this['antlr-kotlin-runtime-js'] = function (_, Kotlin) {
   function VocabularyImpl_init(literalNames, symbolicNames, $this) {
     $this = $this || Object.create(VocabularyImpl.prototype);
     VocabularyImpl.call($this);
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    $this.literalNames_0 = literalNames;
+    $this.symbolicNames_0 = symbolicNames;
+    return $this;
   }
   function createDFA(atnStartState, decision) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+    console.log('createDFA');
+    return DFA_init(new DecisionState());
   }
   function createDFA_0(atnStartState) {
     return createDFA(atnStartState, 0);

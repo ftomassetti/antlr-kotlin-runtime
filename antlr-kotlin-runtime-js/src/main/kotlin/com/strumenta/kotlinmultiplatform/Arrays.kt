@@ -16,6 +16,6 @@ actual object Arrays {
     //    fun <T> equals(a: Array<T>, b: Array<T>): Boolean
 //    fun equals(a: IntArray, b: IntArray): Boolean
     actual fun <T> asList(vararg elements: T): List<T> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return elements.asList()
     }
 }

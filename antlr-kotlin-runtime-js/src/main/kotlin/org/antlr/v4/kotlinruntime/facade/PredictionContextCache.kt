@@ -1,7 +1,9 @@
 package org.antlr.v4.kotlinruntime.facade
 
 actual class PredictionContextCache {
+    private val wrapped: dynamic
+
     actual constructor() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        wrapped = js("new window.antlr4.PredictionContextCache()")
     }
 }
