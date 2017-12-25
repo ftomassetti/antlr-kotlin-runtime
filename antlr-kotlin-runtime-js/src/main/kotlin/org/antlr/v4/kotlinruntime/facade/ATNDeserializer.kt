@@ -9,14 +9,19 @@ actual class ATNDeserializer {
     }
 
     actual fun deserialize(serializedATN: String): ATN {
-        console.log("ATNDeserializer.deserialize")
+        //console.log("ATNDeserializer.deserialize")
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        return ATN()
+        //return ATN()
+        return ATN(wrapped.deserialize(serializedATN))
     }
 
     actual fun deserializeIntegers(serializedIntegersATN: Array<Int>) : ATN {
-        console.log("ATNDeserializer.deserializeIntegers")
+        //console.log("ATNDeserializer.deserializeIntegers")
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        return ATN()
+
+        val sb = StringBuilder()
+        serializedIntegersATN.forEach {
+            sb.append(it.toChar()) }
+        return deserialize(sb.toString())
     }
 }

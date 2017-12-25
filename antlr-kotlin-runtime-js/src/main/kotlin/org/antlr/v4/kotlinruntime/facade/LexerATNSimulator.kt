@@ -1,9 +1,17 @@
 package org.antlr.v4.kotlinruntime.facade
 
 actual fun createLexerATNSimulator(recog: Lexer?, atn: ATN, decisionToDFA: Array<DFA>, sharedContextCache: PredictionContextCache) : LexerATNSimulator {
-    //TODO("Not implemented")
-    console.log("createLexerATNSimulator")
-    return LexerATNSimulator()
+    val decisionToDFAunwrapped = decisionToDFA.map { it.wrapped }.toTypedArray()
+    val atnWrapped = atn.wrapped
+    val recogWwrapped = recog?.wrapped
+    val sharedContextCacheWrapped = sharedContextCache.wrapped
+    return LexerATNSimulator(js("new window.antlr4.atn.LexerATNSimulator(recogWwrapped, atnWrapped, decisionToDFAunwrapped, sharedContextCacheWrapped)"))
 }
 
-actual class LexerATNSimulator : ATNSimulator()
+actual class LexerATNSimulator : ATNSimulator {
+    val wrapped: dynamic
+
+    constructor(wrapped: dynamic) : super() {
+        this.wrapped = wrapped
+    }
+}

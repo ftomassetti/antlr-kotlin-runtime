@@ -1,37 +1,28 @@
 package org.antlr.v4.kotlinruntime.facade
 
 actual abstract class Lexer {
+    private val grammarFileName : String
+    val wrapped : dynamic
+
     actual constructor(grammarFileName: String, input: String) {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        console.log("Lexer")
+        this.grammarFileName = grammarFileName
+        this.wrapped = js("new window.antlr4.Lexer(new window.antlr4.InputStream(input))")
     }
 
     actual open fun getGrammarFileName(): String {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        console.log("Lexer.getGrammarFileName")
-        return ""
+        return grammarFileName
     }
 
     actual protected fun setInterpreter(interpreter: ATNSimulator) {
-        //TODO("not implemented")
-        console.log("Lexer.setInterpreter")
+        wrapped._interp = (interpreter as LexerATNSimulator).wrapped
     }
 
     actual final fun getNextToken() : Token {
-        //TODO("not implemented")
-        console.log("Lexer.getNextToken")
-        return object : Token {
-            override fun getText(): String {
-                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                console.log("Lexer.getNextToken getText")
-                return ""
-            }
+        val tokenWrapped = wrapped.nextToken()
+        //console.log("TokenWrapped= $tokenWrapped")
 
-            override fun getType(): Int {
-                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                console.log("Lexer.getNextToken getType")
-                return -1
-            }
-        }
+        //TODO("not implemented")
+        //console.log("Lexer.getNextToken")
+        return TokenImpl(tokenWrapped.type, tokenWrapped.text)
     }
 }
