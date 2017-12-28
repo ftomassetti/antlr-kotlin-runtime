@@ -40,7 +40,10 @@ expect class VocabularyImpl {
     constructor(literalNames: List<String?>, symbolicNames: List<String?>)
 }
 
-expect open class ATNSimulator
+expect open class ATNSimulator {
+    fun adaptivePredict(input: TokenStream, decision: Int,
+                        outerContext: ParserRuleContext): Int
+}
 
 expect class LexerATNSimulator : ATNSimulator
 
