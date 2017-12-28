@@ -6,13 +6,11 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATN
-import org.antlr.v4.runtime.atn.ATNSimulator
-import org.antlr.v4.runtime.atn.ParseInfo
-import org.antlr.v4.runtime.misc.Utils
-
-import java.util.*
-import java.util.concurrent.CopyOnWriteArrayList
+import com.strumenta.kotlinmultiplatform.Collections
+import org.antlr.v4.kotlinruntime.atn.ATN
+import org.antlr.v4.kotlinruntime.atn.ATNSimulator
+import org.antlr.v4.kotlinruntime.atn.ParseInfo
+import org.antlr.v4.kotlinruntime.misc.Utils
 
 abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
 

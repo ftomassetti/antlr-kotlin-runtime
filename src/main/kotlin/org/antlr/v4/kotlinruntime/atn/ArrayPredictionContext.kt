@@ -6,7 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import java.util.Arrays
+import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.assert
 
 class ArrayPredictionContext(
         /** Parent can be null only if full ctx mode and we make an array

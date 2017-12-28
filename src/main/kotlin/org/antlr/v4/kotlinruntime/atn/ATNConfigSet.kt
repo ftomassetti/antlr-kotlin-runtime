@@ -6,18 +6,17 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.misc.AbstractEqualityComparator
-import org.antlr.v4.runtime.misc.Array2DHashSet
-import org.antlr.v4.runtime.misc.DoubleKeyMap
-
-import java.util.*
+import com.strumenta.kotlinmultiplatform.BitSet
+import org.antlr.v4.kotlinruntime.misc.AbstractEqualityComparator
+import org.antlr.v4.kotlinruntime.misc.Array2DHashSet
+import org.antlr.v4.kotlinruntime.misc.DoubleKeyMap
 
 /**
  * Specialized [Set]`<`[ATNConfig]`>` that can track
  * info about the set, with support for combining similar configurations using a
  * graph-structured stack.
  */
-open class ATNConfigSet @JvmOverloads constructor(
+open class ATNConfigSet constructor(
         /** Indicates that this configuration set is part of a full context
          * LL prediction. It will be used to determine how to merge $. With SLL
          * it's a wildcard whereas it is not for LL context merge.

@@ -6,8 +6,6 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
-import java.io.Serializable
-
 class Pair<A, B>(val a: A, val b: B) : Serializable {
 
     override fun equals(obj: Any?): Boolean {

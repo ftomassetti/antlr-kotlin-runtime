@@ -6,8 +6,6 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
-import java.util.LinkedHashMap
-
 /** Sometimes we need to map a key to a value but key is two pieces of data.
  * This nested hash table saves creating a single key each time we access
  * map; avoids mem creation.

@@ -5,6 +5,10 @@
  */
 package org.antlr.v4.kotlinruntime.misc
 
+import org.antlr.v4.kotlinruntime.Lexer
+import org.antlr.v4.kotlinruntime.Token
+import org.antlr.v4.kotlinruntime.Vocabulary
+import org.antlr.v4.kotlinruntime.VocabularyImpl
 import org.antlr.v4.runtime.Lexer
 import org.antlr.v4.runtime.Token
 import org.antlr.v4.runtime.Vocabulary

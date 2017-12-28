@@ -41,7 +41,7 @@ abstract class Transition protected constructor(
      * consume an input symbol; otherwise, `false` if traversing this
      * transition consumes (matches) an input symbol.
      */
-    val isEpsilon: Boolean
+    open val isEpsilon: Boolean
         get() = false
 
     init {

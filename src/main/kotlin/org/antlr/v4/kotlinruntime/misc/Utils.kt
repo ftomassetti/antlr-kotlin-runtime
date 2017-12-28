@@ -6,6 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
+import com.strumenta.kotlinmultiplatform.BitSet
 import java.io.*
 import java.util.*
 
@@ -65,8 +66,6 @@ object Utils {
         return buf.toString()
     }
 
-    @Throws(IOException::class)
-    @JvmOverloads
     fun writeFile(fileName: String, content: String, encoding: String? = null) {
         val f = File(fileName)
         val fos = FileOutputStream(f)
@@ -84,9 +83,6 @@ object Utils {
         }
     }
 
-
-    @Throws(IOException::class)
-    @JvmOverloads
     fun readFile(fileName: String, encoding: String? = null): CharArray {
         val f = File(fileName)
         val size = f.length().toInt()

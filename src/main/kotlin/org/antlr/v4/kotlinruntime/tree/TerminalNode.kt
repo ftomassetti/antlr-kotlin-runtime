@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.tree
 
-import org.antlr.v4.runtime.Token
+import org.antlr.v4.kotlinruntime.Token
 
 interface TerminalNode : ParseTree {
     val symbol: Token

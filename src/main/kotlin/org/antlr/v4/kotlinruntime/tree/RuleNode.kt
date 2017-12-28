@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.tree
 
-import org.antlr.v4.runtime.RuleContext
+import org.antlr.v4.kotlinruntime.RuleContext
 
 interface RuleNode : ParseTree {
     val ruleContext: RuleContext

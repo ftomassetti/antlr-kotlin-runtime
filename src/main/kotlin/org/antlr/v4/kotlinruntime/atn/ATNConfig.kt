@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.Recognizer
-import org.antlr.v4.runtime.misc.MurmurHash
+import org.antlr.v4.kotlinruntime.Recognizer
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 /** A tuple: (ATN state, predicted alt, syntactic, semantic context).
  * The syntactic context is a graph-structured stack node whose

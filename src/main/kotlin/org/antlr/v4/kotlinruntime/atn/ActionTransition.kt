@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-class ActionTransition @JvmOverloads constructor(target: ATNState, val ruleIndex: Int, val actionIndex: Int = -1, val isCtxDependent: Boolean = false // e.g., $i ref in action
+class ActionTransition constructor(target: ATNState, val ruleIndex: Int, val actionIndex: Int = -1, val isCtxDependent: Boolean = false // e.g., $i ref in action
 ) : Transition(target) {
 
     override val serializationType: Int

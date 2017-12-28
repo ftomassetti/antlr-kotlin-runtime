@@ -5,7 +5,9 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import java.util.Arrays
+import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.Math
+import com.strumenta.kotlinmultiplatform.isUpperCase
 
 /**
  * This class provides a default implementation of the [Vocabulary]
@@ -31,7 +33,7 @@ class VocabularyImpl
  * @see .getSymbolicName
  * @see .getDisplayName
  */
-@JvmOverloads constructor(literalNames: Array<String>?, symbolicNames: Array<String>?, displayNames: Array<String>? = null) : Vocabulary {
+constructor(literalNames: Array<String?>?, symbolicNames: Array<String?>?, displayNames: Array<String>? = null) : Vocabulary {
 
 
     private val literalNames: Array<String>
@@ -121,8 +123,8 @@ class VocabularyImpl
                 return EMPTY_VOCABULARY
             }
 
-            val literalNames = Arrays.copyOf(tokenNames, tokenNames.size)
-            val symbolicNames = Arrays.copyOf(tokenNames, tokenNames.size)
+            val literalNames : Array<String?> = Arrays.copyOf(tokenNames as Array<String?>, tokenNames.size)
+            val symbolicNames : Array<String?> = Arrays.copyOf(tokenNames as Array<String?>, tokenNames.size)
             for (i in tokenNames.indices) {
                 val tokenName = tokenNames[i] ?: continue
 
@@ -131,7 +133,7 @@ class VocabularyImpl
                     if (firstChar == '\'') {
                         symbolicNames[i] = null
                         continue
-                    } else if (Character.isUpperCase(firstChar)) {
+                    } else if (Char.isUpperCase(firstChar)) {
                         literalNames[i] = null
                         continue
                     }
@@ -146,6 +148,7 @@ class VocabularyImpl
         }
     }
 }
+
 /**
  * Constructs a new instance of [VocabularyImpl] from the specified
  * literal and symbolic token names.

@@ -6,13 +6,11 @@
 
 package org.antlr.v4.kotlinruntime.tree
 
-import org.antlr.v4.runtime.*
-import org.antlr.v4.runtime.atn.ATN
-import org.antlr.v4.runtime.misc.Interval
-import org.antlr.v4.runtime.misc.Predicate
-import org.antlr.v4.runtime.misc.Utils
-
-import java.util.*
+import org.antlr.v4.kotlinruntime.*
+import org.antlr.v4.kotlinruntime.atn.ATN
+import org.antlr.v4.kotlinruntime.misc.Interval
+import org.antlr.v4.kotlinruntime.misc.Predicate
+import org.antlr.v4.kotlinruntime.misc.Utils
 
 /** A set of utility routines useful for all kinds of ANTLR trees.  */
 object Trees {
@@ -30,7 +28,6 @@ object Trees {
     /** Print out a whole tree in LISP form. [.getNodeText] is used on the
      * node payloads to get the text for the nodes.
      */
-    @JvmOverloads
     fun toStringTree(t: Tree, ruleNames: List<String>? = null): String {
         var s = Utils.escapeWhitespace(getNodeText(t, ruleNames), false)
         if (t.childCount == 0) return s

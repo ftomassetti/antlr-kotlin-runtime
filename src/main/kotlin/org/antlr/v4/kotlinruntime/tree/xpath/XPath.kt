@@ -6,12 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.tree.xpath
 
-import org.antlr.v4.runtime.*
-import org.antlr.v4.runtime.tree.ParseTree
-
-import java.io.IOException
-import java.io.StringReader
-import java.util.*
+import org.antlr.v4.kotlinruntime.*
+import org.antlr.v4.kotlinruntime.tree.ParseTree
 
 /**
  * Represent a subset of XPath XML path syntax for use in identifying nodes in

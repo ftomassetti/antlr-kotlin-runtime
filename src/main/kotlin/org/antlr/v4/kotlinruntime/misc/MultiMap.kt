@@ -6,9 +6,6 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
-import java.util.ArrayList
-import java.util.LinkedHashMap
-
 class MultiMap<K, V> : LinkedHashMap<K, List<V>>() {
 
     val pairs: List<Pair<K, V>>

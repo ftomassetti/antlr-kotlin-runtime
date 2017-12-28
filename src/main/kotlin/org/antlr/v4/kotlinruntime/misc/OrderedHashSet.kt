@@ -6,9 +6,6 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
-import java.util.ArrayList
-import java.util.LinkedHashSet
-
 /** A HashMap that remembers the order that the elements were added.
  * You can alter the ith element with set(i,value) too :)  Unique list.
  * I need the replace/set-element-i functionality so I'm subclassing

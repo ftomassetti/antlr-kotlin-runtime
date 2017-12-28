@@ -57,7 +57,6 @@ class LogManager {
         log(null, msg)
     }
 
-    @Throws(IOException::class)
     fun save(filename: String) {
         val fw = FileWriter(filename)
         val bw = BufferedWriter(fw)
@@ -68,7 +67,6 @@ class LogManager {
         }
     }
 
-    @Throws(IOException::class)
     fun save(): String {
         //String dir = System.getProperty("java.io.tmpdir");
         val dir = "."
@@ -89,16 +87,4 @@ class LogManager {
         return buf.toString()
     }
 
-    companion object {
-
-        @Throws(IOException::class)
-        @JvmStatic
-        fun main(args: Array<String>) {
-            val mgr = LogManager()
-            mgr.log("atn", "test msg")
-            mgr.log("dfa", "test msg 2")
-            println(mgr)
-            mgr.save()
-        }
-    }
 }

@@ -20,7 +20,6 @@ object MurmurHash {
      * @param seed the seed
      * @return the intermediate hash value
      */
-    @JvmOverloads
     fun initialize(seed: Int = DEFAULT_SEED): Int {
         return seed
     }

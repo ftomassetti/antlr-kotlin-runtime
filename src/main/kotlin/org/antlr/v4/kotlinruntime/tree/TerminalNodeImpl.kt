@@ -6,10 +6,10 @@
 
 package org.antlr.v4.kotlinruntime.tree
 
-import org.antlr.v4.runtime.Parser
-import org.antlr.v4.runtime.RuleContext
-import org.antlr.v4.runtime.Token
-import org.antlr.v4.runtime.misc.Interval
+import org.antlr.v4.kotlinruntime.Parser
+import org.antlr.v4.kotlinruntime.RuleContext
+import org.antlr.v4.kotlinruntime.Token
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 open class TerminalNodeImpl(override var symbol: Token?) : TerminalNode {
     override var parent: ParseTree

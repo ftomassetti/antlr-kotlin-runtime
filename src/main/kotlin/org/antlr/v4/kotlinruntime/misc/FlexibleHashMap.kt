@@ -7,12 +7,11 @@
 package org.antlr.v4.kotlinruntime.misc
 
 import org.antlr.v4.kotlinruntime.misc.FlexibleHashMap.Entry
-import java.util.*
 
 /** A limited map (many unsupported operations) that lets me use
  * varying hashCode/equals.
  */
-class FlexibleHashMap<K, V> @JvmOverloads constructor(comparator: AbstractEqualityComparator<in K>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : Map<K, V> {
+class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityComparator<in K>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : Map<K, V> {
 
 
     protected val comparator: AbstractEqualityComparator<in K>
@@ -227,20 +226,5 @@ class FlexibleHashMap<K, V> @JvmOverloads constructor(comparator: AbstractEquali
             return arrayOfNulls<LinkedList<*>>(length) as Array<LinkedList<Entry<K, V>>>
         }
 
-        @JvmStatic
-        fun main(args: Array<String>) {
-            val map = FlexibleHashMap<String, Int>()
-            map.put("hi", 1)
-            map.put("mom", 2)
-            map.put("foo", 3)
-            map.put("ach", 4)
-            map.put("cbba", 5)
-            map.put("d", 6)
-            map.put("edf", 7)
-            map.put("mom", 8)
-            map.put("hi", 9)
-            println(map)
-            println(map.toTableString())
-        }
     }
 }

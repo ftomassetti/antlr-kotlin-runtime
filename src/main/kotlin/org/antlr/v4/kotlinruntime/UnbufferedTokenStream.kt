@@ -6,11 +6,12 @@
 
 package org.antlr.v4.kotlinruntime
 
+import org.antlr.v4.kotlinruntime.misc.Interval
 import org.antlr.v4.runtime.misc.Interval
 
 import java.util.Arrays
 
-class UnbufferedTokenStream<T : Token> @JvmOverloads constructor(tokenSource: TokenSource, bufferSize: Int = 256) : TokenStream {
+class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, bufferSize: Int = 256) : TokenStream {
     override var tokenSource: TokenSource
         protected set
 

@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Pair
+import org.antlr.v4.kotlinruntime.misc.Pair
 
 /** The default mechanism for creating tokens. It's used by default in Lexer and
  * the error handling strategy (to create missing tokens).  Notifying the parser

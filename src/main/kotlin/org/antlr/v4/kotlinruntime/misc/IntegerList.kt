@@ -5,8 +5,6 @@
  */
 package org.antlr.v4.kotlinruntime.misc
 
-import java.util.Arrays
-
 /**
  *
  * @author Sam Harwell
@@ -301,6 +299,6 @@ open class IntegerList {
         private val EMPTY_DATA = IntArray(0)
 
         private val INITIAL_SIZE = 4
-        private val MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8
+        private val MAX_ARRAY_SIZE = Int.MAX_VALUE - 8
     }
 }

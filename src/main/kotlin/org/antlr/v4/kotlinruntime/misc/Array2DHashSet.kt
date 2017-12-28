@@ -6,10 +6,10 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
-import java.util.*
+import com.strumenta.kotlinmultiplatform.Math
 
 /** [Set] implementation with closed hashing (open addressing).  */
-class Array2DHashSet<T> @JvmOverloads constructor(comparator: AbstractEqualityComparator<in T>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : Set<T> {
+class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : Set<T> {
 
 
     protected val comparator: AbstractEqualityComparator<in T>
