@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.*
+import org.antlr.v4.kotlinruntime.*
 
 /**
  * This class represents profiling event information for a syntax error

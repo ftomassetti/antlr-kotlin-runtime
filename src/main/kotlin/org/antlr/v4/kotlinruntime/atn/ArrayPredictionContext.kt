@@ -14,7 +14,7 @@ class ArrayPredictionContext(
          * from [.EMPTY] and non-empty. We merge [.EMPTY] by using null parent and
          * returnState == [.EMPTY_RETURN_STATE].
          */
-        val parents: Array<PredictionContext>?,
+        val parents: Array<PredictionContext?>?,
         /** Sorted for merge, no duplicates; if present,
          * [.EMPTY_RETURN_STATE] is always last.
          */

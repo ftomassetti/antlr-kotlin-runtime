@@ -6,9 +6,9 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.misc.IntervalSet
-
-import java.util.*
+import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.Collections
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 /**
  * The following images show the relation of states and

@@ -7,6 +7,9 @@
 package org.antlr.v4.kotlinruntime
 
 import com.strumenta.kotlinmultiplatform.Collections
+import com.strumenta.kotlinmultiplatform.CopyOnWriteArrayList
+import com.strumenta.kotlinmultiplatform.NullPointerException
+import com.strumenta.kotlinmultiplatform.WeakHashMap
 import org.antlr.v4.kotlinruntime.atn.ATN
 import org.antlr.v4.kotlinruntime.atn.ATNSimulator
 import org.antlr.v4.kotlinruntime.atn.ParseInfo

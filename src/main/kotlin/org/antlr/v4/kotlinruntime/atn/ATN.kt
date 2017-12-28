@@ -9,13 +9,7 @@ package org.antlr.v4.kotlinruntime.atn
 import org.antlr.v4.kotlinruntime.RuleContext
 import org.antlr.v4.kotlinruntime.Token
 import org.antlr.v4.kotlinruntime.misc.IntervalSet
-import org.antlr.v4.runtime.ParserRuleContext
-import org.antlr.v4.runtime.RuleContext
-import org.antlr.v4.runtime.Token
-import org.antlr.v4.runtime.misc.IntervalSet
-
-import java.util.ArrayList
-import java.util.LinkedHashMap
+import org.antlr.v4.kotlinruntime.ParserRuleContext
 
 /**  */
 class ATN
@@ -31,7 +25,7 @@ class ATN
         val maxTokenType: Int) {
 
 
-    val states: MutableList<ATNState> = ArrayList<ATNState>()
+    val states: MutableList<ATNState?> = ArrayList<ATNState?>()
 
     /** Each subrule/rule is a decision point and we must track them so we
      * can go back later and build DFA predictors for them.  This includes

@@ -5,9 +5,7 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Utils
-
-import java.io.IOException
+import org.antlr.v4.kotlinruntime.misc.Utils
 
 /**
  * This is an [ANTLRInputStream] that is loaded from a file all at once
@@ -15,8 +13,7 @@ import java.io.IOException
  *
  */
 @Deprecated("as of 4.7 Please use {@link CharStreams} interface.")
-class ANTLRFileStream @Throws(IOException::class)
-@JvmOverloads constructor(fileName: String, encoding: String? = null) : ANTLRInputStream() {
+class ANTLRFileStream constructor(fileName: String, encoding: String? = null) : ANTLRInputStream() {
     override var sourceName: String
         protected set
 
@@ -25,7 +22,6 @@ class ANTLRFileStream @Throws(IOException::class)
         load(fileName, encoding)
     }
 
-    @Throws(IOException::class)
     fun load(fileName: String, encoding: String?) {
         data = Utils.readFile(fileName, encoding)
         this.n = data.size

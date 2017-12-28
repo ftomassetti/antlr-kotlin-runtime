@@ -6,12 +6,11 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.Recognizer
-import org.antlr.v4.runtime.RuleContext
-import org.antlr.v4.runtime.misc.DoubleKeyMap
-import org.antlr.v4.runtime.misc.MurmurHash
-
-import java.util.*
+import com.strumenta.kotlinmultiplatform.assert
+import org.antlr.v4.kotlinruntime.Recognizer
+import org.antlr.v4.kotlinruntime.RuleContext
+import org.antlr.v4.kotlinruntime.misc.DoubleKeyMap
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 abstract class PredictionContext protected constructor(
         /**
@@ -145,7 +144,7 @@ abstract class PredictionContext protected constructor(
          * doesn't mean wildcard: `$ + x = [$,x]`. Here,
          * `$` = [.EMPTY_RETURN_STATE].
          */
-        val EMPTY_RETURN_STATE = Integer.MAX_VALUE
+        val EMPTY_RETURN_STATE = Int.MAX_VALUE
 
         private val INITIAL_HASH = 1
 
@@ -321,7 +320,7 @@ abstract class PredictionContext protected constructor(
                 // into array; can't merge.
                 // ax + by = [ax,by]
                 val payloads = intArrayOf(a.returnState, b.returnState)
-                var parents = arrayOf<PredictionContext>(a.parent, b.parent)
+                var parents = arrayOf<PredictionContext?>(a.parent, b.parent)
                 if (a.returnState > b.returnState) { // sort by payload
                     payloads[0] = b.returnState
                     payloads[1] = a.returnState

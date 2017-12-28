@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.ParseCancellationException
+import org.antlr.v4.kotlinruntime.misc.ParseCancellationException
 
 /**
  * This implementation of [ANTLRErrorStrategy] responds to syntax errors

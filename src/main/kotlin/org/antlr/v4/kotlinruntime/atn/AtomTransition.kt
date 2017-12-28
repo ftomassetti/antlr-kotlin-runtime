@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.misc.IntervalSet
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 /** TODO: make all transitions sets? no, should remove set edges  */
 class AtomTransition(target: ATNState,

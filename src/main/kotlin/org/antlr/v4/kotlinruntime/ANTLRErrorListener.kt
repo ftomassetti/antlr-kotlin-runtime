@@ -6,13 +6,12 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATNConfigSet
-import org.antlr.v4.runtime.atn.DecisionInfo
-import org.antlr.v4.runtime.atn.ParserATNSimulator
-import org.antlr.v4.runtime.atn.PredictionMode
-import org.antlr.v4.runtime.dfa.DFA
-
-import java.util.BitSet
+import com.strumenta.kotlinmultiplatform.BitSet
+import org.antlr.v4.kotlinruntime.atn.ATNConfigSet
+import org.antlr.v4.kotlinruntime.atn.DecisionInfo
+import org.antlr.v4.kotlinruntime.atn.ParserATNSimulator
+import org.antlr.v4.kotlinruntime.atn.PredictionMode
+import org.antlr.v4.kotlinruntime.dfa.DFA
 
 /** How to emit recognition errors.  */
 interface ANTLRErrorListener {

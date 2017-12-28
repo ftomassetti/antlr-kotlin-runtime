@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.ANTLRErrorListener
-import org.antlr.v4.runtime.TokenStream
+import org.antlr.v4.kotlinruntime.ANTLRErrorListener
+import org.antlr.v4.kotlinruntime.TokenStream
 
 /**
  * This class represents profiling event information for a context sensitivity.

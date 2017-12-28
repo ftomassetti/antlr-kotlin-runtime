@@ -33,7 +33,12 @@ expect object Collections {
 }
 
 object Math {
-    fun max(size: Int, max: Int) : Int {
+
+    fun min(a: Int, b: Int) : Int {
+        TODO()
+    }
+
+    fun max(a: Int, b: Int) : Int {
         TODO()
     }
 
@@ -44,4 +49,14 @@ object Math {
 
 fun Char.Companion.isUpperCase(firstChar: Char): Boolean {
     TODO()
+}
+
+expect open class CopyOnWriteArrayList<T> : MutableList<T> {
+
+}
+
+expect class NullPointerException : Throwable
+
+expect class WeakHashMap<K, V> {
+    constructor()
 }

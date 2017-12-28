@@ -7,6 +7,7 @@
 package org.antlr.v4.kotlinruntime.atn
 
 import com.strumenta.kotlinmultiplatform.BitSet
+import com.strumenta.kotlinmultiplatform.Math
 import org.antlr.v4.kotlinruntime.misc.AbstractEqualityComparator
 import org.antlr.v4.kotlinruntime.misc.Array2DHashSet
 import org.antlr.v4.kotlinruntime.misc.DoubleKeyMap
@@ -324,7 +325,7 @@ open class ATNConfigSet constructor(
         throw UnsupportedOperationException()
     }
 
-    abstract class AbstractConfigHashSet @JvmOverloads constructor(comparator: AbstractEqualityComparator<in ATNConfig>, initialCapacity: Int = 16, initialBucketCapacity: Int = 2) : Array2DHashSet<ATNConfig>(comparator, initialCapacity, initialBucketCapacity) {
+    abstract class AbstractConfigHashSet constructor(comparator: AbstractEqualityComparator<in ATNConfig>, initialCapacity: Int = 16, initialBucketCapacity: Int = 2) : Array2DHashSet<ATNConfig>(comparator, initialCapacity, initialBucketCapacity) {
 
         protected fun asElementType(o: Any): ATNConfig? {
             return if (o !is ATNConfig) {

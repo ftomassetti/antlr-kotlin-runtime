@@ -6,10 +6,8 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Interval
-
-import java.util.ArrayList
-import java.util.HashSet
+import com.strumenta.kotlinmultiplatform.NullPointerException
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 /**
  * This implementation of [TokenStream] loads tokens from a

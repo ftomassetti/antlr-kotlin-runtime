@@ -5,13 +5,10 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Interval
-
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.io.Reader
-import java.util.Arrays
+import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.Math
+import com.strumenta.kotlinmultiplatform.assert
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 /**
  * Vacuum all input from a [Reader]/[InputStream] and then treat it
@@ -56,24 +53,19 @@ open class ANTLRInputStream : CharStream {
         this.n = numberOfActualCharsInArray
     }
 
-    @Throws(IOException::class)
-    @JvmOverloads constructor(r: Reader, initialSize: Int = INITIAL_BUFFER_SIZE, readChunkSize: Int = READ_BUFFER_SIZE) {
+    constructor(r: Reader, initialSize: Int = INITIAL_BUFFER_SIZE, readChunkSize: Int = READ_BUFFER_SIZE) {
         load(r, initialSize, readChunkSize)
     }
 
-    @Throws(IOException::class)
     constructor(input: InputStream) : this(InputStreamReader(input), INITIAL_BUFFER_SIZE) {
     }
 
-    @Throws(IOException::class)
     constructor(input: InputStream, initialSize: Int) : this(InputStreamReader(input), initialSize) {
     }
 
-    @Throws(IOException::class)
     constructor(input: InputStream, initialSize: Int, readChunkSize: Int) : this(InputStreamReader(input), initialSize, readChunkSize) {
     }
 
-    @Throws(IOException::class)
     fun load(r: Reader?, size: Int, readChunkSize: Int) {
         var size = size
         var readChunkSize = readChunkSize

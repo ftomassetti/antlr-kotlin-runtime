@@ -6,8 +6,6 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import java.util.ArrayList
-
 /**
  * This class contains profiling gathered for a particular decision.
  *

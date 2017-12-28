@@ -84,7 +84,7 @@ open class ATNConfig {
         this.reachesIntoOuterContext = old.reachesIntoOuterContext
     }
 
-    @JvmOverloads constructor(state: ATNState,
+    constructor(state: ATNState,
                               alt: Int,
                               context: PredictionContext,
                               semanticContext: SemanticContext = SemanticContext.NONE) {
@@ -102,9 +102,9 @@ open class ATNConfig {
                 semanticContext: SemanticContext) : this(c, c.state, c.context, semanticContext) {
     }
 
-    @JvmOverloads constructor(c: ATNConfig, state: ATNState,
-                              context: PredictionContext = c.context,
-                              semanticContext: SemanticContext = c.semanticContext) {
+    constructor(c: ATNConfig, state: ATNState,
+                              context: PredictionContext? = c.context,
+                              semanticContext: SemanticContext? = c.semanticContext) {
         this.state = state
         this.alt = c.alt
         this.context = context
