@@ -1,4 +1,7 @@
-import org.antlr.v4.kotlinruntime.facade.Token
+
+import org.antlr.v4.kotlinruntime.ANTLRInputStream
+import org.antlr.v4.kotlinruntime.CharStream
+import org.antlr.v4.kotlinruntime.Token
 import java.lang.RuntimeException
 
 fun main(args: Array<String>) {
@@ -12,11 +15,12 @@ fun main(args: Array<String>) {
 //        }
 //    }
 
-    val lexer = MiniCalcLexer("1 + 2")
+    val input = ANTLRInputStream("1 + 2")
+    val lexer = MiniCalcLexer(input)
     var token : Token? = null
     do {
-        token = lexer.getNextToken()
+        token = lexer.nextToken()
         println("TOKEN $token")
 
-    } while (token?.getType() != -1)
+    } while (token?.type != -1)
 }

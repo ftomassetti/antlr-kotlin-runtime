@@ -759,4 +759,8 @@ class ATNDeserializer constructor(deserializationOptions: ATNDeserializationOpti
 //            return UUID(mostSigBits, leastSigBits)
 //        }
     }
+
+    fun deserializeIntegers(serializedIntegersATN: Array<Int>): ATN {
+        TODO()
+    }
 }
