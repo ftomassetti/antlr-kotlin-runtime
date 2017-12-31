@@ -118,7 +118,7 @@ constructor(literalNames: Array<String?>?, symbolicNames: Array<String?>?, displ
          * @return A [Vocabulary] instance which uses `tokenNames` for
          * the display names of tokens.
          */
-        fun fromTokenNames(tokenNames: Array<String>?): Vocabulary {
+        fun fromTokenNames(tokenNames: Array<String?>?): Vocabulary {
             if (tokenNames == null || tokenNames.size == 0) {
                 return EMPTY_VOCABULARY
             }

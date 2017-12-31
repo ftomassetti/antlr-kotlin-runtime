@@ -1,5 +1,7 @@
 package com.strumenta.kotlinmultiplatform
 
+import org.antlr.v4.kotlinruntime.Token
+
 expect fun <T> Array<T>.indices() : List<Int>
 
 expect fun IntArray.indices() : List<Int>
@@ -77,7 +79,7 @@ expect class NullPointerException : Throwable {
     constructor(message: String)
 }
 
-expect class WeakHashMap<K, V> {
+expect class WeakHashMap<K, V> : HashMap<K,V>{
     constructor()
 }
 
@@ -101,3 +103,5 @@ expect fun Char.Companion.toChars(codePoint: Int, resultArray: CharArray, result
 expect fun Char.Companion.charCount(i: Int): Byte
 
 expect fun <T> Array<T>.clone(): Array<T>
+
+expect fun <T> arraycopy(tokens: Array<T>, p: Int, tokens1: Array<T>, i: Int, i1: Int)

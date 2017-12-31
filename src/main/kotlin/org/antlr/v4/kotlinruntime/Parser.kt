@@ -15,7 +15,7 @@ import org.antlr.v4.kotlinruntime.tree.pattern.ParseTreePatternMatcher
 
 //
 ///** This is all the parsing support code essentially; most of it is error recovery stuff.  */
-//abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator>() {
+abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator>() {
 //
 //    /**
 //     * The error handling strategy for the parser. The default value is a new
@@ -874,5 +874,5 @@ import org.antlr.v4.kotlinruntime.tree.pattern.ParseTreePatternMatcher
 //         */
 //        private val bypassAltsAtnCache = WeakHashMap<String, ATN>()
 //    }
-//}
+}
 

@@ -5,6 +5,7 @@
  */
 package org.antlr.v4.kotlinruntime
 
+import com.strumenta.kotlinmultiplatform.BitSet
 import com.strumenta.kotlinmultiplatform.NullPointerException
 import org.antlr.v4.kotlinruntime.atn.ATNConfigSet
 import org.antlr.v4.kotlinruntime.dfa.DFA
@@ -30,7 +31,7 @@ class ProxyErrorListener(private val delegates: Collection<ANTLRErrorListener>?)
                              charPositionInLine: Int,
                              msg: String,
                              e: RecognitionException) {
-        for (listener in delegates) {
+        for (listener in delegates!!) {
             listener.syntaxError(recognizer, offendingSymbol, line, charPositionInLine, msg, e)
         }
     }
@@ -42,7 +43,7 @@ class ProxyErrorListener(private val delegates: Collection<ANTLRErrorListener>?)
                                  exact: Boolean,
                                  ambigAlts: BitSet,
                                  configs: ATNConfigSet) {
-        for (listener in delegates) {
+        for (listener in delegates!!) {
             listener.reportAmbiguity(recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs)
         }
     }
@@ -53,7 +54,7 @@ class ProxyErrorListener(private val delegates: Collection<ANTLRErrorListener>?)
                                              stopIndex: Int,
                                              conflictingAlts: BitSet,
                                              configs: ATNConfigSet) {
-        for (listener in delegates) {
+        for (listener in delegates!!) {
             listener.reportAttemptingFullContext(recognizer, dfa, startIndex, stopIndex, conflictingAlts, configs)
         }
     }
@@ -64,7 +65,7 @@ class ProxyErrorListener(private val delegates: Collection<ANTLRErrorListener>?)
                                           stopIndex: Int,
                                           prediction: Int,
                                           configs: ATNConfigSet) {
-        for (listener in delegates) {
+        for (listener in delegates!!) {
             listener.reportContextSensitivity(recognizer, dfa, startIndex, stopIndex, prediction, configs)
         }
     }

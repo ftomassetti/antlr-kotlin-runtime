@@ -31,7 +31,7 @@ interface IntStream {
      * returns [.UNKNOWN_SOURCE_NAME].
      */
 
-    val sourceName: String
+    val sourceName: String?
 
     /**
      * Consumes the current symbol in the stream. This method has the following

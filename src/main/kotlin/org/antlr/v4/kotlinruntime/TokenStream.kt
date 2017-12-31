@@ -17,7 +17,7 @@ interface TokenStream : IntStream {
      * Gets the underlying [TokenSource] which provides tokens for this
      * stream.
      */
-    val tokenSource: TokenSource
+    val tokenSource: TokenSource?
 
     /**
      * Return the text of all tokens in the stream. This method behaves like the

@@ -272,17 +272,21 @@ import org.antlr.v4.kotlinruntime.misc.Pair
 // * both SLL and LL parsing. Erroneous input will therefore require 2 passes over
 // * the input.
 // */
-//open class ParserATNSimulator(
-//        /**
-//         * @since 4.3
-//         */
-//        val parser: Parser?, atn: ATN,
-//        val decisionToDFA: Array<DFA>,
-//        sharedContextCache: PredictionContextCache)//		DOTGenerator dot = new DOTGenerator(null);
-////		System.out.println(dot.getDOT(atn.rules.get(0), parser.getRuleNames()));
-////		System.out.println(dot.getDOT(atn.rules.get(1), parser.getRuleNames()));
-//    : ATNSimulator(atn, sharedContextCache) {
-//
+open class ParserATNSimulator(
+        /**
+         * @since 4.3
+         */
+        val parser: Parser?, atn: ATN,
+        val decisionToDFA: Array<DFA>,
+        sharedContextCache: PredictionContextCache)//		DOTGenerator dot = new DOTGenerator(null);
+//		System.out.println(dot.getDOT(atn.rules.get(0), parser.getRuleNames()));
+//		System.out.println(dot.getDOT(atn.rules.get(1), parser.getRuleNames()));
+    : ATNSimulator(atn, sharedContextCache) {
+    override fun reset() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    //
 //    /** SLL, LL, or LL + exact ambig detection?  */
 //
 //    var predictionMode = PredictionMode.LL
@@ -2112,4 +2116,4 @@ import org.antlr.v4.kotlinruntime.misc.Pair
 //            return null
 //        }
 //    }
-//}
+}

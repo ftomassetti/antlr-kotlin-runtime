@@ -5,6 +5,7 @@
  */
 package org.antlr.v4.kotlinruntime
 
+import com.strumenta.kotlinmultiplatform.Arrays
 import org.antlr.v4.kotlinruntime.atn.ATN
 import org.antlr.v4.kotlinruntime.misc.Interval
 import org.antlr.v4.kotlinruntime.tree.ParseTree
@@ -63,6 +64,9 @@ import org.antlr.v4.kotlinruntime.tree.Trees
  * @see ParserRuleContext
  */
 open class RuleContext : RuleNode {
+    override fun setParent(parent: RuleContext) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     /** What context invoked this rule?  */
     /** @since 4.7. {@see ParseTree#setParent} comment
@@ -84,13 +88,13 @@ open class RuleContext : RuleNode {
 
     // satisfy the ParseTree / SyntaxTree interface
 
-    open val sourceInterval: Interval
+    override open val sourceInterval: Interval
         get() = Interval.INVALID
 
-    val ruleContext: RuleContext
+    override val ruleContext: RuleContext
         get() = this
 
-    val payload: RuleContext
+    override val payload: RuleContext
         get() = this
 
     /** Return the combined text of all child nodes. This method only considers
@@ -101,7 +105,7 @@ open class RuleContext : RuleNode {
      * added to the parse trees, they will not appear in the output of this
      * method.
      */
-    val text: String
+    override val text: String
         get() {
             if (childCount == 0) {
                 return ""
@@ -109,14 +113,13 @@ open class RuleContext : RuleNode {
 
             val builder = StringBuilder()
             for (i in 0 until childCount) {
-                builder.append(getChild(i)!!.getText())
+                builder.append(getChild(i)!!.text)
             }
 
             return builder.toString()
         }
 
-    open val ruleIndex: Int
-        get() = -1
+    open var ruleIndex: Int = -1
 
     /** For rule associated with this parse tree internal node, return
      * the outer alternative number used to match the input. Default
@@ -139,7 +142,7 @@ open class RuleContext : RuleNode {
         get() = ATN.INVALID_ALT_NUMBER
         set(altNumber) {}
 
-    open val childCount: Int
+    override open val childCount: Int
         get() = 0
 
     constructor() {}
@@ -160,30 +163,30 @@ open class RuleContext : RuleNode {
         return n
     }
 
-    open fun getChild(i: Int): ParseTree? {
+    override open fun getChild(i: Int): ParseTree? {
         return null
     }
 
-    fun <T> accept(visitor: ParseTreeVisitor<out T>): T {
-        return visitor.visitChildren(this)
+    override fun <T> accept(visitor: ParseTreeVisitor<out T>): T {
+        return visitor.visitChildren(this)!!
     }
 
     /** Print out a whole tree, not just a node, in LISP format
      * (root child1 .. childN). Print just a node if this is a leaf.
      * We have to know the recognizer so we can get rule names.
      */
-    fun toStringTree(recog: Parser): String {
+    override fun toStringTree(recog: Parser): String {
         return Trees.toStringTree(this, recog)
     }
 
     /** Print out a whole tree, not just a node, in LISP format
      * (root child1 .. childN). Print just a node if this is a leaf.
      */
-    fun toStringTree(ruleNames: List<String>): String {
+    fun toStringTree(ruleNames: List<String>?): String {
         return Trees.toStringTree(this, ruleNames)
     }
 
-    fun toStringTree(): String {
+    override fun toStringTree(): String {
         return toStringTree(null as List<String>?)
     }
 
@@ -192,7 +195,7 @@ open class RuleContext : RuleNode {
     }
 
     // recog null unless ParserRuleContext, in which case we use subclass toString(...)
-    fun toString(recog: Recognizer<*, *>?, stop: RuleContext = ParserRuleContext.EMPTY): String {
+    fun toString(recog: Recognizer<*, *>?, stop: RuleContext = RuleContext.EMPTY): String {
         val ruleNames = if (recog != null) recog!!.ruleNames else null
         val ruleNamesList = if (ruleNames != null) Arrays.asList<String>(*ruleNames!!) else null
         return toString(ruleNamesList, stop)
@@ -209,7 +212,7 @@ open class RuleContext : RuleNode {
                 }
             } else {
                 val ruleIndex = p.ruleIndex
-                val ruleName = if (ruleIndex >= 0 && ruleIndex < ruleNames.size) ruleNames[ruleIndex] else Integer.toString(ruleIndex)
+                val ruleName = if (ruleIndex >= 0 && ruleIndex < ruleNames.size) ruleNames[ruleIndex] else ruleIndex.toString()
                 buf.append(ruleName)
             }
 

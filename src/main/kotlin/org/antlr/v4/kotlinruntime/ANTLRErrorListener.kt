@@ -50,7 +50,7 @@ interface ANTLRErrorListener {
      * surrounding rule.
      */
     fun syntaxError(recognizer: Recognizer<*, *>,
-                    offendingSymbol: Any,
+                    offendingSymbol: Any?,
                     line: Int,
                     charPositionInLine: Int,
                     msg: String,

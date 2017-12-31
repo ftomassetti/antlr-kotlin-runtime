@@ -20,7 +20,7 @@ import org.antlr.v4.kotlinruntime.Token
  */
 interface ParseTree : SyntaxTree {
     // the following methods narrow the return type; they are not additional methods
-    override var parent: ParseTree?
+    //override var parent: ParseTree?
 
     /** Return the combined text of all leaf nodes. Does not get any
      * off-channel tokens (if any) so won't return whitespace and

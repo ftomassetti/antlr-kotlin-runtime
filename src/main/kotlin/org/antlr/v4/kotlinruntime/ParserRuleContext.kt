@@ -32,8 +32,12 @@ import org.antlr.v4.kotlinruntime.tree.*
 // * group values such as this aggregate.  The getters/setters are there to
 // * satisfy the superclass interface.
 // */
-//open class ParserRuleContext : RuleContext {
-//    /** If we are debugging or building a parse tree for a visitor,
+open class ParserRuleContext : RuleContext {
+    override fun setParent(parent: RuleContext) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    //    /** If we are debugging or building a parse tree for a visitor,
 //     * we need to track all of the tokens and rule invocations associated
 //     * with this rule's context. This is empty for parsing w/o tree constr.
 //     * operation because we don't the need to track the details about
@@ -102,7 +106,7 @@ import org.antlr.v4.kotlinruntime.tree.*
 //            } else Interval.of(start!!.tokenIndex, stop!!.tokenIndex)
 //        }
 //
-//    constructor() {}
+    constructor() {}
 //
 //    /** COPY a ctx (I'm deliberately not using copy constructor) to avoid
 //     * confusion with creating node with parent. Does not copy children
@@ -135,7 +139,7 @@ import org.antlr.v4.kotlinruntime.tree.*
 //        }
 //    }
 //
-//    constructor(parent: ParserRuleContext, invokingStateNumber: Int) : super(parent, invokingStateNumber) {}
+    constructor(parent: ParserRuleContext, invokingStateNumber: Int) : super(parent, invokingStateNumber) {}
 //
 //    // Double dispatch methods for listeners
 //
@@ -322,5 +326,5 @@ import org.antlr.v4.kotlinruntime.tree.*
 //                ", stop=" + stop +
 //                '}'
 //    }
-//}
+}
 

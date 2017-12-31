@@ -44,7 +44,7 @@ constructor(
          * the next token in [.tokens] (or the previous token if the end of
          * the input has been reached).
          */
-        private val sourceName: String? = null) : TokenSource {
+        public override val sourceName: String? = null) : TokenSource {
 
     /**
      * The index into [.tokens] of token to return by the next call to
@@ -79,7 +79,7 @@ constructor(
             // position in the input
     val charPositionInLine: Int
         get() {
-            if (i < tokens.size) {
+            if (i < tokens!!.size) {
                 return tokens.get(i).charPositionInLine
             } else if (eofToken != null) {
                 return eofToken!!.charPositionInLine
@@ -108,7 +108,7 @@ constructor(
             // position in the input
     val line: Int
         get() {
-            if (i < tokens.size) {
+            if (i < tokens!!.size) {
                 return tokens.get(i).line
             } else if (eofToken != null) {
                 return eofToken!!.line
@@ -135,8 +135,8 @@ constructor(
     override// no input stream information is available
     val inputStream: CharStream?
         get() {
-            if (i < tokens.size) {
-                return tokens.get(i).inputStream
+            if (i < tokens!!.size) {
+                return tokens!!.get(i).inputStream
             } else if (eofToken != null) {
                 return eofToken!!.inputStream
             } else if (tokens.size > 0) {
@@ -155,7 +155,7 @@ constructor(
      * {@inheritDoc}
      */
     override fun nextToken(): Token {
-        if (i >= tokens.size) {
+        if (i >= tokens!!.size) {
             if (eofToken == null) {
                 var start = -1
                 if (tokens.size > 0) {
@@ -169,7 +169,7 @@ constructor(
                 eofToken = tokenFactory.create(Pair<TokenSource, CharStream>(this, inputStream), Token.EOF, "EOF", Token.DEFAULT_CHANNEL, start, stop, line, charPositionInLine)
             }
 
-            return eofToken
+            return eofToken!!
         }
 
         val t = tokens.get(i)
@@ -184,14 +184,14 @@ constructor(
     /**
      * {@inheritDoc}
      */
-    override fun getSourceName(): String {
+    fun getSourceName(): String {
         if (sourceName != null) {
             return sourceName
         }
 
         val inputStream = inputStream
         return if (inputStream != null) {
-            inputStream!!.sourceName
+            inputStream!!.sourceName!!
         } else "List"
 
     }

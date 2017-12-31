@@ -6,11 +6,14 @@
 
 package org.antlr.v4.kotlinruntime
 
+import com.strumenta.kotlinmultiplatform.Arrays
 import com.strumenta.kotlinmultiplatform.Math
+import com.strumenta.kotlinmultiplatform.arraycopy
+import com.strumenta.kotlinmultiplatform.assert
 import org.antlr.v4.kotlinruntime.misc.Interval
 
 class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, bufferSize: Int = 256) : TokenStream {
-    override var tokenSource: TokenSource
+    override var tokenSource: TokenSource? = null
         protected set
 
     /**
@@ -18,7 +21,7 @@ class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, buf
      * we keep adding to buffer. Otherwise, [consume()][.consume] resets so
      * we start filling at index 0 again.
      */
-    protected var tokens: Array<Token>
+    protected var tokens: Array<Token?>
 
     /**
      * The number of tokens currently in [tokens][.tokens].
@@ -48,13 +51,13 @@ class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, buf
     /**
      * This is the `LT(-1)` token for the current position.
      */
-    protected var lastToken: Token
+    protected var lastToken: Token? = null
 
     /**
      * When `numMarkers > 0`, this is the `LT(-1)` token for the
      * first token in [.tokens]. Otherwise, this is `null`.
      */
-    protected var lastTokenBufferStart: Token
+    protected var lastTokenBufferStart: Token? = null
 
     /**
      * Absolute token index. It's the index of the token about to be read via
@@ -71,8 +74,8 @@ class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, buf
     override val text: String
         get() = ""
 
-    override val sourceName: String
-        get() = tokenSource.sourceName
+    override val sourceName: String?
+        get() = tokenSource!!.sourceName
 
     protected val bufferStartIndex: Int
         get() = currentTokenIndex - p
@@ -90,12 +93,12 @@ class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, buf
             throw IndexOutOfBoundsException("get(" + i + ") outside buffer: " +
                     bufferStartIndex + ".." + (bufferStartIndex + n))
         }
-        return tokens[i - bufferStartIndex]
+        return tokens[i - bufferStartIndex]!!
     }
 
     override fun LT(i: Int): Token {
         if (i == -1) {
-            return lastToken
+            return lastToken!!
         }
 
         sync(i)
@@ -105,11 +108,11 @@ class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, buf
         }
 
         if (index >= n) {
-            assert(n > 0 && tokens[n - 1].type == Token.EOF)
-            return tokens[n - 1]
+            assert(n > 0 && tokens[n - 1]!!.type == Token.EOF)
+            return tokens[n - 1]!!
         }
 
-        return tokens[index]
+        return tokens[index]!!
     }
 
     override fun LA(i: Int): Int {
@@ -122,8 +125,8 @@ class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, buf
     }
 
 
-    override fun getText(start: Token, stop: Token): String {
-        return getText(Interval.of(start.tokenIndex, stop.tokenIndex))
+    override fun getText(start: Token?, stop: Token?): String {
+        return getText(Interval.of(start!!.tokenIndex, stop!!.tokenIndex))
     }
 
     override fun consume() {
@@ -164,11 +167,11 @@ class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, buf
      */
     protected fun fill(n: Int): Int {
         for (i in 0 until n) {
-            if (this.n > 0 && tokens[this.n - 1].type == Token.EOF) {
+            if (this.n > 0 && tokens[this.n - 1]!!.type == Token.EOF) {
                 return i
             }
 
-            val t = tokenSource.nextToken()
+            val t = tokenSource!!.nextToken()
             add(t)
         }
 
@@ -177,7 +180,7 @@ class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, buf
 
     protected fun add(t: Token) {
         if (n >= tokens.size) {
-            tokens = Arrays.copyOf<Token>(tokens, tokens.size * 2)
+            tokens = Arrays.copyOf<Token?>(tokens, tokens.size * 2)
         }
 
         if (t is WritableToken) {
@@ -216,7 +219,7 @@ class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, buf
             if (p > 0) {
                 // Copy tokens[p]..tokens[n-1] to tokens[0]..tokens[(n-1)-p], reset ptrs
                 // p is last valid token; move nothing if p==n as we have no valid char
-                System.arraycopy(tokens, p, tokens, 0, n - p) // shift n-p tokens from p to 0
+                arraycopy(tokens, p, tokens, 0, n - p) // shift n-p tokens from p to 0
                 n = n - p
                 p = 0
             }
@@ -280,7 +283,7 @@ class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, buf
         val buf = StringBuilder()
         for (i in a..b) {
             val t = tokens[i]
-            buf.append(t.text)
+            buf.append(t!!.text)
         }
 
         return buf.toString()

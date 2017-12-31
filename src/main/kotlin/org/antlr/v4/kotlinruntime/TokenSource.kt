@@ -49,14 +49,14 @@ interface TokenSource {
      * the input, or `null` if no input stream is available for the token
      * source.
      */
-    val inputStream: CharStream
+    val inputStream: CharStream?
 
     /**
      * Gets the name of the underlying input source. This method returns a
      * non-null, non-empty string. If such a name is not known, this method
      * returns [IntStream.UNKNOWN_SOURCE_NAME].
      */
-    val sourceName: String
+    val sourceName: String?
 
     /**
      * Gets the [TokenFactory] this token source is currently using for

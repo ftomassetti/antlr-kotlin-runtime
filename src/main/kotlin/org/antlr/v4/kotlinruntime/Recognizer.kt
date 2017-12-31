@@ -7,13 +7,14 @@
 package org.antlr.v4.kotlinruntime
 
 import com.strumenta.kotlinmultiplatform.Collections
-import com.strumenta.kotlinmultiplatform.CopyOnWriteArrayList
 import com.strumenta.kotlinmultiplatform.NullPointerException
 import com.strumenta.kotlinmultiplatform.WeakHashMap
 import org.antlr.v4.kotlinruntime.atn.ATN
 import org.antlr.v4.kotlinruntime.atn.ATNSimulator
 import org.antlr.v4.kotlinruntime.atn.ParseInfo
 import org.antlr.v4.kotlinruntime.misc.Utils
+
+typealias CopyOnWriteArrayList<E> = ArrayList<E>
 
 abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
 
@@ -35,7 +36,7 @@ abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
      * @param interpreter The ATN interpreter used by the recognizer for
      * prediction.
      */
-    var interpreter: ATNInterpreter
+    var interpreter: ATNInterpreter? = null
 
     /** Indicate that the recognizer has changed internal state that is
      * consistent with the ATN state passed in.  This way we always know
@@ -54,7 +55,7 @@ abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
      *
      */
     @get:Deprecated("Use {@link #getVocabulary()} instead.")
-    abstract val tokenNames: Array<String>
+    abstract val tokenNames: Array<String?>?
 
     abstract val ruleNames: Array<String>?
 
@@ -64,7 +65,7 @@ abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
      * @return A [Vocabulary] instance providing information about the
      * vocabulary used by the grammar.
      */
-    val vocabulary: Vocabulary
+    open val vocabulary: Vocabulary
         get() = VocabularyImpl.fromTokenNames(tokenNames)
 
     /**
@@ -94,7 +95,7 @@ abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
 
                     result.put("EOF", Token.EOF)
                     result = Collections.unmodifiableMap(result)
-                    tokenTypeMapCache.put(vocabulary, result)
+                    tokenTypeMapCache.put(vocabulary, result!!)
                 }
 
                 return result
@@ -112,13 +113,13 @@ abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
             val ruleNames = ruleNames ?: throw UnsupportedOperationException("The current recognizer does not provide a list of rule names.")
 
             synchronized(ruleIndexMapCache) {
-                var result: Map<String, Int>? = ruleIndexMapCache[ruleNames]
+                var result: MutableMap<String, Int>? = ruleIndexMapCache[ruleNames]
                 if (result == null) {
                     result = Collections.unmodifiableMap(Utils.toMap(ruleNames))
-                    ruleIndexMapCache.put(ruleNames, result)
+                    ruleIndexMapCache.put(ruleNames, result!!)
                 }
 
-                return result
+                return result!!
             }
         }
 
@@ -160,7 +161,7 @@ abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
     val errorListenerDispatch: ANTLRErrorListener
         get() = ProxyErrorListener(errorListeners)
 
-    abstract var inputStream: IntStream
+    abstract var inputStream: CharStream?
 
 
     abstract var tokenFactory: TokenFactory<*>
@@ -240,7 +241,7 @@ abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
     companion object {
         val EOF = -1
 
-        private val tokenTypeMapCache = WeakHashMap<Vocabulary, Map<String, Int>>()
-        private val ruleIndexMapCache = WeakHashMap<Array<String>, Map<String, Int>>()
+        private val tokenTypeMapCache = WeakHashMap<Vocabulary, MutableMap<String, Int>>()
+        private val ruleIndexMapCache = WeakHashMap<Array<String>, MutableMap<String, Int>>()
     }
 }

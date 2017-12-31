@@ -15,7 +15,7 @@ import org.antlr.v4.kotlinruntime.misc.Interval
 
 /** "dup" of ParserInterpreter  */
 class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
-                        val decisionToDFA: Array<DFA>,
+                        val decisionToDFA: Array<DFA?>,
                         sharedContextCache: PredictionContextCache) : ATNSimulator(atn, sharedContextCache) {
 
     /** The current token's starting index into the character stream.
@@ -66,7 +66,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
         }
     }
 
-    constructor(atn: ATN, decisionToDFA: Array<DFA>,
+    constructor(atn: ATN, decisionToDFA: Array<DFA?>,
                 sharedContextCache: PredictionContextCache) : this(null, atn, decisionToDFA, sharedContextCache) {
     }
 
@@ -85,10 +85,10 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
             this.startIndex = input.index()
             this.prevAccept.reset()
             val dfa = decisionToDFA[mode]
-            return if (dfa.s0 == null) {
+            return if (dfa!!.s0 == null) {
                 matchATN(input)
             } else {
-                execATN(input, dfa.s0 as DFAState)
+                execATN(input, dfa!!.s0 as DFAState)
             }
         } finally {
             input.release(mark)
@@ -124,13 +124,13 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
 
         val next = addDFAState(s0_closure)
         if (!suppressEdge) {
-            decisionToDFA[mode].s0 = next
+            decisionToDFA[mode]!!.s0 = next
         }
 
         val predict = execATN(input, next)
 
         if (debug) {
-            outMessage("DFA after matchATN: ${decisionToDFA[old_mode].toLexerString()}\n")
+            outMessage("DFA after matchATN: ${decisionToDFA[old_mode]!!.toLexerString()}\n")
         }
 
         return predict
@@ -201,7 +201,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
             s = target // flip; current DFA target becomes new src/from state
         }
 
-        return failOrAccept(prevAccept, input, s!!.configs, t)
+        return failOrAccept(prevAccept, input, s!!.configs!!, t)
     }
 
     /**
@@ -248,7 +248,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
 
         // if we don't find an existing DFA state
         // Fill reach starting from closure, following t transitions
-        getReachableConfigSet(input, s!!.configs, reach, t)
+        getReachableConfigSet(input, s!!.configs!!, reach, t)
 
         if (reach.isEmpty()) { // we got nowhere on t from s
             if (!reach.hasSemanticContext) {
@@ -658,7 +658,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
 
 
     fun getDFA(mode: Int): DFA {
-        return decisionToDFA[mode]
+        return decisionToDFA[mode]!!
     }
 
     /** Get the text matched so far for the current token.

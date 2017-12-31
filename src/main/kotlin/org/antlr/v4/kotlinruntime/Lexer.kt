@@ -5,6 +5,8 @@
  */
 package org.antlr.v4.kotlinruntime
 
+import com.strumenta.kotlinmultiplatform.outMessage
+import com.strumenta.kotlinmultiplatform.toCharArray
 import org.antlr.v4.kotlinruntime.atn.LexerATNSimulator
 import org.antlr.v4.kotlinruntime.misc.IntegerStack
 import org.antlr.v4.kotlinruntime.misc.Interval
@@ -18,7 +20,7 @@ import org.antlr.v4.kotlinruntime.misc.Pair
 abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
 
     override var inputStream: CharStream? = null
-    protected var _tokenFactorySourcePair: Pair<TokenSource, CharStream>
+    protected var _tokenFactorySourcePair: Pair<TokenSource, CharStream>? = null
 
     /** How to create token objects  */
     override var tokenFactory: TokenFactory<out Token> = CommonTokenFactory.DEFAULT
@@ -66,18 +68,18 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
     var _text: String? = null
 
     override val sourceName: String
-        get() = inputStream!!.sourceName
+        get() = inputStream!!.sourceName!!
 
     override var line: Int
-        get() = interpreter.getLine()
+        get() = interpreter!!.line
         set(line) {
-            interpreter.setLine(line)
+            interpreter!!.line = line
         }
 
     override var charPositionInLine: Int
-        get() = interpreter.getCharPositionInLine()
+        get() = interpreter!!.charPositionInLine
         set(charPositionInLine) {
-            interpreter.setCharPositionInLine(charPositionInLine)
+            interpreter!!.charPositionInLine = charPositionInLine
         }
 
     /** What is the index of the current character of lookahead?  */
@@ -92,23 +94,23 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
      */
     var text: String
         get() = if (_text != null) {
-            _text
-        } else interpreter.getText(inputStream)
+            _text!!
+        } else interpreter!!.getText(inputStream!!)
         set(text) {
             this._text = text
         }
 
-    val channelNames: Array<String>?
+    open val channelNames: Array<String>?
         get() = null
 
-    val modeNames: Array<String>?
+    open val modeNames: Array<String>?
         get() = null
 
     /** Used to print out token names like ID during debugging and
      * error reporting.  The generated parsers implement a method
      * that overrides this to point to their String[] tokenNames.
      */
-    override val tokenNames: Array<String>?
+    override val tokenNames: Array<String?>?
         @Deprecated("")
         get() = null
 
@@ -150,13 +152,13 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
         _mode = Lexer.DEFAULT_MODE
         _modeStack.clear()
 
-        interpreter.reset()
+        interpreter!!.reset()
     }
 
     /** Return a token from this source; i.e., match a token on the char
      * stream.
      */
-    override fun nextToken(): Token? {
+    override fun nextToken(): Token {
         if (inputStream == null) {
             throw IllegalStateException("nextToken requires a non-null input stream.")
         }
@@ -168,14 +170,14 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
             outer@ while (true) {
                 if (_hitEOF) {
                     emitEOF()
-                    return token
+                    return token!!
                 }
 
                 token = null
                 channel = Token.DEFAULT_CHANNEL
                 _tokenStartCharIndex = inputStream!!.index()
-                _tokenStartCharPositionInLine = interpreter.getCharPositionInLine()
-                _tokenStartLine = interpreter.getLine()
+                _tokenStartCharPositionInLine = interpreter!!.charPositionInLine
+                _tokenStartLine = interpreter!!.line
                 _text = null
                 do {
                     type = Token.INVALID_TYPE
@@ -184,7 +186,7 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
                     //								   " at index "+input.index());
                     var ttype: Int
                     try {
-                        ttype = interpreter.match(inputStream, _mode)
+                        ttype = interpreter!!.match(inputStream!!, _mode)
                     } catch (e: LexerNoViableAltException) {
                         notifyListeners(e)        // report error
                         recover(e)
@@ -200,7 +202,7 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
                     }
                 } while (type == MORE)
                 if (token == null) emit()
-                return token
+                return token!!
             }
         } finally {
             // make sure we release marker after match or
@@ -234,14 +236,14 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
     }
 
     fun popMode(): Int {
-        if (_modeStack.isEmpty()) throw EmptyStackException()
-        if (LexerATNSimulator.debug) System.out.println("popMode back to " + _modeStack.peek())
+        if (_modeStack.isEmpty) throw RuntimeException()
+        if (LexerATNSimulator.debug) outMessage("popMode back to " + _modeStack.peek())
         mode(_modeStack.pop())
         return _mode
     }
 
     /** Set the char stream and reset the lexer  */
-    override fun setInputStream(input: IntStream) {
+    fun setInputStream(input: IntStream) {
         this.inputStream = null
         this._tokenFactorySourcePair = Pair<TokenSource, CharStream>(this, inputStream)
         reset()
@@ -266,7 +268,7 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
      * custom Token objects or provide a new factory.
      */
     fun emit(): Token {
-        val t = tokenFactory.create(_tokenFactorySourcePair, type, _text, channel, _tokenStartCharIndex, charIndex - 1,
+        val t = tokenFactory.create(_tokenFactorySourcePair!!, type, _text, channel, _tokenStartCharIndex, charIndex - 1,
                 _tokenStartLine, _tokenStartCharPositionInLine)
         emit(t)
         return t
@@ -275,7 +277,7 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
     fun emitEOF(): Token {
         val cpos = charPositionInLine
         val line = line
-        val eof = tokenFactory.create(_tokenFactorySourcePair, Token.EOF, null, Token.DEFAULT_CHANNEL, inputStream!!.index(), inputStream!!.index() - 1,
+        val eof = tokenFactory.create(_tokenFactorySourcePair!!, Token.EOF, null, Token.DEFAULT_CHANNEL, inputStream!!.index(), inputStream!!.index() - 1,
                 line, cpos)
         emit(eof)
         return eof
@@ -284,7 +286,7 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
     fun recover(e: LexerNoViableAltException) {
         if (inputStream!!.LA(1) != IntStream.EOF) {
             // skip a char and try again
-            interpreter.consume(inputStream)
+            interpreter!!.consume(inputStream!!)
         }
     }
 
@@ -308,9 +310,9 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
         var s = c.toChar().toString()
         when (c) {
             Token.EOF -> s = "<EOF>"
-            '\n' -> s = "\\n"
-            '\t' -> s = "\\t"
-            '\r' -> s = "\\r"
+            '\n'.toInt() -> s = "\\n"
+            '\t'.toInt() -> s = "\\t"
+            '\r'.toInt() -> s = "\\r"
         }
         return s
     }
