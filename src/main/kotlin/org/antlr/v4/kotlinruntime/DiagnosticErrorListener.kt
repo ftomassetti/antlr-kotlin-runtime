@@ -6,12 +6,11 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATNConfig
-import org.antlr.v4.runtime.atn.ATNConfigSet
-import org.antlr.v4.runtime.dfa.DFA
-import org.antlr.v4.runtime.misc.Interval
-
-import java.util.BitSet
+import com.strumenta.kotlinmultiplatform.BitSet
+import org.antlr.v4.kotlinruntime.atn.ATNConfig
+import org.antlr.v4.kotlinruntime.atn.ATNConfigSet
+import org.antlr.v4.kotlinruntime.dfa.DFA
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 /**
  * This implementation of [ANTLRErrorListener] can be used to identify
@@ -42,7 +41,7 @@ class DiagnosticErrorListener
  * @param exactOnly `true` to report only exact ambiguities, otherwise
  * `false` to report all ambiguities.
  */
-@JvmOverloads constructor(
+constructor(
         /**
          * When `true`, only exactly known ambiguities are reported.
          */
@@ -63,7 +62,7 @@ class DiagnosticErrorListener
         val decision = getDecisionDescription(recognizer, dfa)
         val conflictingAlts = getConflictingAlts(ambigAlts, configs)
         val text = recognizer.tokenStream!!.getText(Interval.of(startIndex, stopIndex))
-        val message = String.format(format, decision, conflictingAlts, text)
+        val message = "reportAmbiguity d=$decision: ambigAlts=$conflictingAlts, input='$text'"
         recognizer.notifyErrorListeners(message)
     }
 
@@ -73,10 +72,9 @@ class DiagnosticErrorListener
                                              stopIndex: Int,
                                              conflictingAlts: BitSet,
                                              configs: ATNConfigSet) {
-        val format = "reportAttemptingFullContext d=%s, input='%s'"
         val decision = getDecisionDescription(recognizer, dfa)
         val text = recognizer.tokenStream!!.getText(Interval.of(startIndex, stopIndex))
-        val message = String.format(format, decision, text)
+        val message = "reportAttemptingFullContext d=$decision, input='$text'"
         recognizer.notifyErrorListeners(message)
     }
 
@@ -89,7 +87,7 @@ class DiagnosticErrorListener
         val format = "reportContextSensitivity d=%s, input='%s'"
         val decision = getDecisionDescription(recognizer, dfa)
         val text = recognizer.tokenStream!!.getText(Interval.of(startIndex, stopIndex))
-        val message = String.format(format, decision, text)
+        val message = "reportContextSensitivity d=$decision, input='$text'"
         recognizer.notifyErrorListeners(message)
     }
 
@@ -105,7 +103,7 @@ class DiagnosticErrorListener
         val ruleName = ruleNames!![ruleIndex]
         return if (ruleName == null || ruleName!!.isEmpty()) {
             decision.toString()
-        } else String.format("%d (%s)", decision, ruleName)
+        } else "$decision ($ruleName)"
 
     }
 

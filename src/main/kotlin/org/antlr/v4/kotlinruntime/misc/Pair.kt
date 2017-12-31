@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
-class Pair<A, B>(val a: A, val b: B) {
+class Pair<A, B>(val a: A?, val b: B?) {
 
     override fun equals(obj: Any?): Boolean {
         if (obj === this) {

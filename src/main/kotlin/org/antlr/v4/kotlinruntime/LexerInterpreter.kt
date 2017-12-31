@@ -6,13 +6,11 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATN
-import org.antlr.v4.runtime.atn.ATNType
-import org.antlr.v4.runtime.atn.LexerATNSimulator
-import org.antlr.v4.runtime.atn.PredictionContextCache
-import org.antlr.v4.runtime.dfa.DFA
-
-import java.util.ArrayList
+import org.antlr.v4.kotlinruntime.atn.ATN
+import org.antlr.v4.kotlinruntime.atn.ATNType
+import org.antlr.v4.kotlinruntime.atn.LexerATNSimulator
+import org.antlr.v4.kotlinruntime.atn.PredictionContextCache
+import org.antlr.v4.kotlinruntime.dfa.DFA
 
 class LexerInterpreter(override val grammarFileName: String, private val vocabulary: Vocabulary?, ruleNames: Collection<String>, channelNames: Collection<String>, modeNames: Collection<String>, override val atn: ATN, input: CharStream) : Lexer(input) {
 
@@ -48,7 +46,7 @@ class LexerInterpreter(override val grammarFileName: String, private val vocabul
         this.channelNames = channelNames.toTypedArray()
         this.modeNames = modeNames.toTypedArray()
 
-        this._decisionToDFA = arrayOfNulls<DFA>(atn.getNumberOfDecisions())
+        this._decisionToDFA = arrayOfNulls<DFA>(atn.numberOfDecisions)
         for (i in _decisionToDFA.indices) {
             _decisionToDFA[i] = DFA(atn.getDecisionState(i), i)
         }

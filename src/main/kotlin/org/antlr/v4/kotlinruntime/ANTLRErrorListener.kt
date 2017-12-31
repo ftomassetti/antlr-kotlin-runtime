@@ -9,7 +9,7 @@ package org.antlr.v4.kotlinruntime
 import com.strumenta.kotlinmultiplatform.BitSet
 import org.antlr.v4.kotlinruntime.atn.ATNConfigSet
 import org.antlr.v4.kotlinruntime.atn.DecisionInfo
-import org.antlr.v4.kotlinruntime.atn.ParserATNSimulator
+//import org.antlr.v4.kotlinruntime.atn.ParserATNSimulator
 import org.antlr.v4.kotlinruntime.atn.PredictionMode
 import org.antlr.v4.kotlinruntime.dfa.DFA
 

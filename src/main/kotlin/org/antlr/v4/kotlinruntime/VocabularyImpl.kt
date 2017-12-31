@@ -33,21 +33,21 @@ class VocabularyImpl
  * @see .getSymbolicName
  * @see .getDisplayName
  */
-constructor(literalNames: Array<String?>?, symbolicNames: Array<String?>?, displayNames: Array<String>? = null) : Vocabulary {
+constructor(literalNames: Array<String?>?, symbolicNames: Array<String?>?, displayNames: Array<String?>? = null) : Vocabulary {
 
 
-    private val literalNames: Array<String>
+    private val literalNames: Array<String?>
 
-    private val symbolicNames: Array<String>
+    private val symbolicNames: Array<String?>
 
-    private val displayNames: Array<String>
+    private val displayNames: Array<String?>
 
     override val maxTokenType: Int
 
     init {
         this.literalNames = literalNames ?: EMPTY_NAMES
         this.symbolicNames = symbolicNames ?: EMPTY_NAMES
-        this.displayNames = displayNames ?: EMPTY_NAMES
+        this.displayNames = displayNames as Array<String?> ?: EMPTY_NAMES
         // See note here on -1 part: https://github.com/antlr/antlr4/pull/1146
         this.maxTokenType = Math.max(this.displayNames.size,
                 Math.max(this.literalNames.size, this.symbolicNames.size)) - 1
@@ -85,7 +85,7 @@ constructor(literalNames: Array<String?>?, symbolicNames: Array<String?>?, displ
         }
 
         val symbolicName = getSymbolicName(tokenType)
-        return symbolicName ?: Integer.toString(tokenType)
+        return symbolicName ?: tokenType.toString()
 
     }
 

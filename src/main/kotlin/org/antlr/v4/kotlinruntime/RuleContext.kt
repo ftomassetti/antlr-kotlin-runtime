@@ -67,7 +67,7 @@ open class RuleContext : RuleNode {
     /** What context invoked this rule?  */
     /** @since 4.7. {@see ParseTree#setParent} comment
      */
-    open var parent: RuleContext? = null
+    open override var parent: RuleContext? = null
 
     /** What state invoked the rule associated with this context?
      * The "return address" is the followState of invokingState
@@ -192,14 +192,12 @@ open class RuleContext : RuleNode {
     }
 
     // recog null unless ParserRuleContext, in which case we use subclass toString(...)
-    @JvmOverloads
     fun toString(recog: Recognizer<*, *>?, stop: RuleContext = ParserRuleContext.EMPTY): String {
         val ruleNames = if (recog != null) recog!!.ruleNames else null
         val ruleNamesList = if (ruleNames != null) Arrays.asList<String>(*ruleNames!!) else null
         return toString(ruleNamesList, stop)
     }
 
-    @JvmOverloads
     fun toString(ruleNames: List<String>?, stop: RuleContext? = null): String {
         val buf = StringBuilder()
         var p: RuleContext? = this

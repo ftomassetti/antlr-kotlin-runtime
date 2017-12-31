@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Interval
-import org.antlr.v4.runtime.misc.Pair
+import org.antlr.v4.kotlinruntime.misc.Interval
+import org.antlr.v4.kotlinruntime.misc.Pair
 
 /**
  * This default implementation of [TokenFactory] creates
@@ -25,7 +25,7 @@ class CommonTokenFactory
  *
  * @param copyText The value for [.copyText].
  */
-@JvmOverloads constructor(
+constructor(
         /**
          * Indicates whether [CommonToken.setText] should be called after
          * constructing tokens to explicitly set the text. This is useful for cases

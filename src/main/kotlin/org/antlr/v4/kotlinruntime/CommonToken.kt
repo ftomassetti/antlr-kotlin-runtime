@@ -56,7 +56,7 @@ open class CommonToken : WritableToken {
      *
      * @see .getText
      */
-    protected open override var text: String? = null
+    //protected open override var text: String? = null
 
     /**
      * This is the backing field for [.getTokenIndex] and
@@ -78,7 +78,7 @@ open class CommonToken : WritableToken {
     override var stopIndex: Int = 0
 
     override val tokenSource: TokenSource
-        get() = source.a
+        get() = source.a!!
 
     override val inputStream: CharStream?
         get() = source.b
@@ -100,8 +100,8 @@ open class CommonToken : WritableToken {
         this.startIndex = start
         this.stopIndex = stop
         if (source.a != null) {
-            this.line = source.a.getLine()
-            this.charPositionInLine = source.a.getCharPositionInLine()
+            this.line = source.a.line
+            this.charPositionInLine = source.a.charPositionInLine
         }
     }
 
@@ -147,7 +147,7 @@ open class CommonToken : WritableToken {
             source = (oldToken as CommonToken).source
         } else {
             text = oldToken.text
-            source = Pair<TokenSource, CharStream>(oldToken.tokenSource, oldToken.inputStream)
+            source = Pair<TokenSource, CharStream>(oldToken.tokenSource!!, oldToken.inputStream!!)
         }
     }
 
@@ -155,19 +155,22 @@ open class CommonToken : WritableToken {
         this.line = line
     }
 
-    override fun getText(): String? {
-        if (text != null) {
-            return text
-        }
+    override var text: String?
+        get() {
+            if (text != null) {
+                return text
+            }
 
-        val input = inputStream ?: return null
-        val n = input.size()
-        return if (startIndex < n && stopIndex < n) {
-            input.getText(Interval.of(startIndex, stopIndex))
-        } else {
-            "<EOF>"
+            val input = inputStream ?: return null
+            val n = input.size()
+            return if (startIndex < n && stopIndex < n) {
+                input.getText(Interval.of(startIndex, stopIndex))
+            } else {
+                "<EOF>"
+            }
         }
-    }
+        set(value) {}
+
 
     /**
      * Explicitly set the text for this token. If {code text} is not
@@ -208,7 +211,7 @@ open class CommonToken : WritableToken {
         if (channel > 0) {
             channelStr = ",channel=" + channel
         }
-        var txt = getText()
+        var txt = text
         if (txt != null) {
             txt = txt.replace("\n", "\\n")
             txt = txt.replace("\r", "\\r")

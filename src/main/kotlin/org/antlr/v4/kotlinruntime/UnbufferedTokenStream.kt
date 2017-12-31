@@ -6,10 +6,8 @@
 
 package org.antlr.v4.kotlinruntime
 
+import com.strumenta.kotlinmultiplatform.Math
 import org.antlr.v4.kotlinruntime.misc.Interval
-import org.antlr.v4.runtime.misc.Interval
-
-import java.util.Arrays
 
 class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, bufferSize: Int = 256) : TokenStream {
     override var tokenSource: TokenSource

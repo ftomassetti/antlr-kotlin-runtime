@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Interval
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 /**
  * An [IntStream] whose symbols are [Token] instances.
@@ -43,7 +43,7 @@ interface TokenStream : IntStream {
      *
      * @see IntStream.LA
      */
-    fun LT(k: Int): Token
+    fun LT(k: Int): Token?
 
     /**
      * Gets the [Token] at the specified `index` in the stream. When
@@ -142,5 +142,5 @@ interface TokenStream : IntStream {
      * @throws UnsupportedOperationException if this stream does not support
      * this method for the specified tokens
      */
-    fun getText(start: Token, stop: Token): String
+    fun getText(start: Token?, stop: Token?): String?
 }

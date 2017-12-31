@@ -57,7 +57,6 @@ class BailErrorStrategy : DefaultErrorStrategy() {
     /** Make sure we don't attempt to recover inline; if the parser
      * successfully recovers, it won't throw an exception.
      */
-    @Throws(RecognitionException::class)
     override fun recoverInline(recognizer: Parser): Token {
         val e = InputMismatchException(recognizer)
         var context = recognizer.context

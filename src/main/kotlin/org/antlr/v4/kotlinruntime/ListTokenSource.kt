@@ -6,7 +6,9 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Pair
+import com.strumenta.kotlinmultiplatform.Math
+import com.strumenta.kotlinmultiplatform.NullPointerException
+import org.antlr.v4.kotlinruntime.misc.Pair
 
 /**
  * Provides an implementation of [TokenSource] as a wrapper around a list
@@ -31,7 +33,7 @@ class ListTokenSource
  *
  * @exception NullPointerException if `tokens` is `null`
  */
-@JvmOverloads constructor(
+constructor(
         /**
          * The wrapped collection of [Token] objects to return.
          */

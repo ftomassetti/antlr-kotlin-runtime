@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATN
+import org.antlr.v4.kotlinruntime.atn.ATN
 
 /** A handy class for use with
  *

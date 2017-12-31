@@ -6,11 +6,9 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATNConfigSet
-import org.antlr.v4.runtime.misc.Interval
-import org.antlr.v4.runtime.misc.Utils
-
-import java.util.Locale
+import org.antlr.v4.kotlinruntime.atn.ATNConfigSet
+import org.antlr.v4.kotlinruntime.misc.Interval
+import org.antlr.v4.kotlinruntime.misc.Utils
 
 class LexerNoViableAltException(lexer: Lexer,
                                 input: CharStream,
@@ -29,6 +27,6 @@ class LexerNoViableAltException(lexer: Lexer,
             symbol = Utils.escapeWhitespace(symbol, false)
         }
 
-        return String.format(Locale.getDefault(), "%s('%s')", LexerNoViableAltException::class.java!!.getSimpleName(), symbol)
+        return "LexerNoViableAltException('$symbol')"
     }
 }

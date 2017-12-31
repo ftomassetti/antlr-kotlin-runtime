@@ -6,6 +6,9 @@
 
 package org.antlr.v4.kotlinruntime
 
+import com.strumenta.kotlinmultiplatform.Math
+import com.strumenta.kotlinmultiplatform.errMessage
+
 /**
  * This class provides access to the current version of the ANTLR 4 runtime
  * library as compile-time and runtime constants, along with methods for
@@ -161,12 +164,10 @@ object RuntimeMetaData {
         runtimeConflictsWithCompileTimeTool = runtimeVersion != compileTimeVersion && getMajorMinorVersion(runtimeVersion) != getMajorMinorVersion(compileTimeVersion)
 
         if (runtimeConflictsWithGeneratingTool) {
-            System.err.printf("ANTLR Tool version %s used for code generation does not match the current runtime version %s",
-                    generatingToolVersion, runtimeVersion)
+            errMessage("ANTLR Tool version $generatingToolVersion used for code generation does not match the current runtime version $runtimeVersion")
         }
         if (runtimeConflictsWithCompileTimeTool) {
-            System.err.printf("ANTLR Runtime version %s used for parser compilation does not match the current runtime version %s",
-                    compileTimeVersion, runtimeVersion)
+            errMessage("ANTLR Runtime version $compileTimeVersion used for parser compilation does not match the current runtime version $runtimeVersion")
         }
     }
 

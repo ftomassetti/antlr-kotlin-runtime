@@ -5,20 +5,23 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATNState
-import org.antlr.v4.runtime.atn.AbstractPredicateTransition
-import org.antlr.v4.runtime.atn.PredicateTransition
+import org.antlr.v4.kotlinruntime.atn.AbstractPredicateTransition
+import org.antlr.v4.kotlinruntime.atn.PredicateTransition
 
-import java.util.Locale
+
+private fun formatMessage(predicate: String?, message: String?): String {
+    return message ?: "failed predicate: {$predicate}?"
+
+}
 
 /** A semantic predicate failed during validation.  Validation of predicates
  * occurs when normally parsing the alternative just like matching a token.
  * Disambiguating predicate evaluation occurs when we test a predicate during
  * prediction.
  */
-class FailedPredicateException @JvmOverloads constructor(recognizer: Parser,
+class FailedPredicateException constructor(recognizer: Parser,
                                                          val predicate: String? = null,
-                                                         message: String? = null) : RecognitionException(formatMessage(predicate, message), recognizer, recognizer.inputStream, recognizer.context) {
+                                                         message: String? = null) : RecognitionException(formatMessage(predicate, message), recognizer, recognizer.inputStream!!, recognizer.context!!) {
     val ruleIndex: Int
     val predIndex: Int
 
@@ -37,8 +40,5 @@ class FailedPredicateException @JvmOverloads constructor(recognizer: Parser,
     }
 
 
-    private fun formatMessage(predicate: String?, message: String?): String {
-        return message ?: String.format(Locale.getDefault(), "failed predicate: {%s}?", predicate)
 
-    }
 }

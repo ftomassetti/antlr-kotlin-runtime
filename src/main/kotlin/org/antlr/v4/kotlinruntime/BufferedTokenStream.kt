@@ -7,6 +7,7 @@
 package org.antlr.v4.kotlinruntime
 
 import com.strumenta.kotlinmultiplatform.NullPointerException
+import com.strumenta.kotlinmultiplatform.assert
 import org.antlr.v4.kotlinruntime.misc.Interval
 
 /**
@@ -26,7 +27,7 @@ open class BufferedTokenStream(
         /**
          * The [TokenSource] from which tokens for this stream are fetched.
          */
-        protected var tokenSource: TokenSource?) : TokenStream {
+        override var tokenSource: TokenSource) : TokenStream {
 
     /**
      * A collection of all tokens fetched from the token source. The list is
@@ -78,9 +79,9 @@ open class BufferedTokenStream(
         }
     }
 
-    override fun getTokenSource(): TokenSource {
-        return tokenSource
-    }
+//    override fun getTokenSource(): TokenSource {
+//        return tokenSource
+//    }
 
     override fun index(): Int {
         return p
@@ -271,7 +272,6 @@ open class BufferedTokenStream(
      * the token type BitSet.  Return null if no tokens were found.  This
      * method looks at both on and off channel tokens.
      */
-    @JvmOverloads
     fun getTokens(start: Int, stop: Int, types: Set<Int>? = null): List<Token>? {
         lazyInit()
         if (start < 0 || stop >= tokens.size ||
@@ -363,7 +363,6 @@ open class BufferedTokenStream(
      * the current token up until we see a token on DEFAULT_TOKEN_CHANNEL or
      * EOF. If channel is -1, find any non default channel token.
      */
-    @JvmOverloads
     fun getHiddenTokensToRight(tokenIndex: Int, channel: Int = -1): List<Token>? {
         lazyInit()
         if (tokenIndex < 0 || tokenIndex >= tokens.size) {
@@ -386,7 +385,6 @@ open class BufferedTokenStream(
      * the current token up until we see a token on DEFAULT_TOKEN_CHANNEL.
      * If channel is -1, find any non default channel token.
      */
-    @JvmOverloads
     fun getHiddenTokensToLeft(tokenIndex: Int, channel: Int = -1): List<Token>? {
         lazyInit()
         if (tokenIndex < 0 || tokenIndex >= tokens.size) {
@@ -441,8 +439,7 @@ open class BufferedTokenStream(
         return getText(ctx.sourceInterval)
     }
 
-
-    override fun getText(start: Token?, stop: Token?): String {
+    override fun getText(start: Token?, stop: Token?): String? {
         return if (start != null && stop != null) {
             getText(Interval.of(start!!.tokenIndex, stop!!.tokenIndex))
         } else ""

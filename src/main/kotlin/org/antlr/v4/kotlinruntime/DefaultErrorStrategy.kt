@@ -6,11 +6,12 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATN
-import org.antlr.v4.runtime.atn.ATNState
-import org.antlr.v4.runtime.atn.RuleTransition
-import org.antlr.v4.runtime.misc.IntervalSet
-import org.antlr.v4.runtime.misc.Pair
+import com.strumenta.kotlinmultiplatform.errMessage
+import org.antlr.v4.kotlinruntime.atn.ATN
+import org.antlr.v4.kotlinruntime.atn.ATNState
+import org.antlr.v4.kotlinruntime.atn.RuleTransition
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
+import org.antlr.v4.kotlinruntime.misc.Pair
 
 /**
  * This is the default implementation of [ANTLRErrorStrategy] used for
@@ -137,8 +138,8 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
         } else if (e is FailedPredicateException) {
             reportFailedPredicate(recognizer, e as FailedPredicateException)
         } else {
-            System.err.println("unknown recognition error type: " + e.javaClass.getName())
-            recognizer.notifyErrorListeners(e.offendingToken, e.message, e)
+            errMessage("unknown recognition error type: " + e)
+            recognizer.notifyErrorListeners(e.offendingToken!!, e.message!!, e)
         }
     }
 
@@ -227,7 +228,6 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
      * some reason speed is suffering for you, you can turn off this
      * functionality by simply overriding this method as a blank { }.
      */
-    @Throws(RecognitionException::class)
     override fun sync(recognizer: Parser) {
         val s = recognizer.interpreter.atn.states.get(recognizer.state)
         //		System.err.println("sync @ "+s.stateNumber+"="+s.getClass().getSimpleName());
@@ -241,7 +241,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
 
         // try cheaper subset first; might get lucky. seems to shave a wee bit off
         val nextTokens = recognizer.atn.nextTokens(s)
-        if (nextTokens.contains(la)) {
+        if (nextTokens!!.contains(la)) {
             // We are sure the token matches
             nextTokensContext = null
             nextTokensState = ATNState.INVALID_STATE_NUMBER
@@ -299,12 +299,12 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
             if (e.startToken.type == Token.EOF)
                 input = "<EOF>"
             else
-                input = tokens!!.getText(e.startToken, e.offendingToken)
+                input = tokens!!.getText(e.startToken, e.offendingToken)!!
         } else {
             input = "<unknown input>"
         }
         val msg = "no viable alternative at input " + escapeWSAndQuote(input)
-        recognizer.notifyErrorListeners(e.offendingToken, msg, e)
+        recognizer.notifyErrorListeners(e.offendingToken!!, msg, e)
     }
 
     /**
@@ -321,7 +321,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
                                       e: InputMismatchException) {
         val msg = "mismatched input " + getTokenErrorDisplay(e.offendingToken) +
                 " expecting " + e.expectedTokens!!.toString(recognizer.vocabulary)
-        recognizer.notifyErrorListeners(e.offendingToken, msg, e)
+        recognizer.notifyErrorListeners(e.offendingToken!!, msg, e)
     }
 
     /**
@@ -338,7 +338,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
                                         e: FailedPredicateException) {
         val ruleName = recognizer.ruleNames!![recognizer.context!!.ruleIndex]
         val msg = "rule " + ruleName + " " + e.message
-        recognizer.notifyErrorListeners(e.offendingToken, msg, e)
+        recognizer.notifyErrorListeners(e.offendingToken!!, msg, e)
     }
 
     /**
@@ -469,7 +469,6 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
      * is in the set of tokens that can follow the `')'` token reference
      * in rule `atom`. It can assume that you forgot the `')'`.
      */
-    @Throws(RecognitionException::class)
     override fun recoverInline(recognizer: Parser): Token {
         // SINGLE TOKEN DELETION
         val matchedSymbol = singleTokenDeletion(recognizer)
@@ -490,7 +489,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
         if (nextTokensContext == null) {
             e = InputMismatchException(recognizer)
         } else {
-            e = InputMismatchException(recognizer, nextTokensState, nextTokensContext)
+            e = InputMismatchException(recognizer, nextTokensState, nextTokensContext!!)
         }
 
         throw e
@@ -591,26 +590,27 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
      * override this method to create the appropriate tokens.
      */
     protected fun getMissingSymbol(recognizer: Parser): Token {
-        val currentSymbol = recognizer.currentToken
-        val expecting = getExpectedTokens(recognizer)
-        var expectedTokenType = Token.INVALID_TYPE
-        if (!expecting.isNil()) {
-            expectedTokenType = expecting.getMinElement() // get any element
-        }
-        val tokenText: String
-        if (expectedTokenType == Token.EOF)
-            tokenText = "<missing EOF>"
-        else
-            tokenText = "<missing " + recognizer.vocabulary.getDisplayName(expectedTokenType) + ">"
-        var current = currentSymbol
-        val lookback = recognizer.inputStream!!.LT(-1)
-        if (current.type == Token.EOF && lookback != null) {
-            current = lookback
-        }
-        return recognizer.tokenFactory.create(Pair<TokenSource, CharStream>(current.tokenSource, current.tokenSource.inputStream), expectedTokenType, tokenText,
-                Token.DEFAULT_CHANNEL,
-                -1, -1,
-                current.line, current.charPositionInLine)
+        TODO()
+//        val currentSymbol = recognizer.currentToken
+//        val expecting = getExpectedTokens(recognizer)
+//        var expectedTokenType = Token.INVALID_TYPE
+//        if (!expecting.isNil()) {
+//            expectedTokenType = expecting.getMinElement() // get any element
+//        }
+//        val tokenText: String
+//        if (expectedTokenType == Token.EOF)
+//            tokenText = "<missing EOF>"
+//        else
+//            tokenText = "<missing " + recognizer.vocabulary.getDisplayName(expectedTokenType) + ">"
+//        var current = currentSymbol
+//        val lookback = recognizer.inputStream!!.LT(-1)
+//        if (current.type == Token.EOF && lookback != null) {
+//            current = lookback
+//        }
+//        return recognizer.tokenFactory.create(Pair<TokenSource, CharStream>(current.tokenSource, current.tokenSource.inputStream), expectedTokenType, tokenText,
+//                Token.DEFAULT_CHANNEL,
+//                -1, -1,
+//                current.line, current.charPositionInLine)
     }
 
 
@@ -640,7 +640,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
     }
 
     protected fun getSymbolText(symbol: Token): String {
-        return symbol.text
+        return symbol.text!!
     }
 
     protected fun getSymbolType(symbol: Token): Int {

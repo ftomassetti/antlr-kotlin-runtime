@@ -7,6 +7,9 @@
 package org.antlr.v4.kotlinruntime
 
 interface WritableToken : Token {
+
+    override var text: String?
+
     fun setText(text: String)
 
     fun setType(ttype: Int)

@@ -5,10 +5,9 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATNConfigSet
-import org.antlr.v4.runtime.dfa.DFA
-
-import java.util.BitSet
+import com.strumenta.kotlinmultiplatform.BitSet
+import org.antlr.v4.kotlinruntime.atn.ATNConfigSet
+import org.antlr.v4.kotlinruntime.dfa.DFA
 
 /**
  * Provides an empty default implementation of [ANTLRErrorListener]. The

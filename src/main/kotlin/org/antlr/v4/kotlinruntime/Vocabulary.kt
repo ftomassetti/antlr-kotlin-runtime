@@ -57,7 +57,7 @@ interface Vocabulary {
      * @return The string literal associated with the specified token type, or
      * `null` if no string literal is associated with the type.
      */
-    fun getLiteralName(tokenType: Int): String
+    fun getLiteralName(tokenType: Int): String?
 
     /**
      * Gets the symbolic name associated with a token type. The string returned
@@ -104,7 +104,7 @@ interface Vocabulary {
      * @return The symbolic name associated with the specified token type, or
      * `null` if no symbolic name is associated with the type.
      */
-    fun getSymbolicName(tokenType: Int): String
+    fun getSymbolicName(tokenType: Int): String?
 
     /**
      * Gets the display name of a token type.
