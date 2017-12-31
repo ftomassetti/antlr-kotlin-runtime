@@ -6,12 +6,10 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.RuleContext
-import org.antlr.v4.runtime.Token
-import org.antlr.v4.runtime.misc.IntervalSet
-
-import java.util.BitSet
-import java.util.HashSet
+import com.strumenta.kotlinmultiplatform.BitSet
+import org.antlr.v4.kotlinruntime.RuleContext
+import org.antlr.v4.kotlinruntime.Token
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 class LL1Analyzer(val atn: ATN) {
 
@@ -25,7 +23,7 @@ class LL1Analyzer(val atn: ATN) {
      * @param s the ATN state
      * @return the expected symbols for each outgoing transition of `s`.
      */
-    fun getDecisionLookahead(s: ATNState?): Array<IntervalSet>? {
+    fun getDecisionLookahead(s: ATNState?): Array<IntervalSet?>? {
         //		System.out.println("LOOK("+s.stateNumber+")");
         if (s == null) {
             return null
@@ -36,11 +34,11 @@ class LL1Analyzer(val atn: ATN) {
             look[alt] = IntervalSet()
             val lookBusy = HashSet<ATNConfig>()
             val seeThruPreds = false // fail to get lookahead upon pred
-            _LOOK(s!!.transition(alt).target, null, PredictionContext.EMPTY,
-                    look[alt], lookBusy, BitSet(), seeThruPreds, false)
+            _LOOK(s!!.transition(alt).target!!, null, PredictionContext.EMPTY,
+                    look[alt]!!, lookBusy, BitSet(), seeThruPreds, false)
             // Wipe out lookahead for this alternative if we found nothing
             // or we had a predicate when we !seeThruPreds
-            if (look[alt].size() === 0 || look[alt].contains(HIT_PRED)) {
+            if (look[alt]!!.size() === 0 || look[alt]!!.contains(HIT_PRED)) {
                 look[alt] = null
             }
         }
@@ -91,7 +89,7 @@ class LL1Analyzer(val atn: ATN) {
     fun LOOK(s: ATNState, stopState: ATNState?, ctx: RuleContext?): IntervalSet {
         val r = IntervalSet()
         val seeThruPreds = true // ignore preds; get all lookahead
-        val lookContext = if (ctx != null) PredictionContext.fromRuleContext(s.atn, ctx) else null
+        val lookContext = if (ctx != null) PredictionContext.fromRuleContext(s.atn!!, ctx) else null
         _LOOK(s, stopState, lookContext,
                 r, HashSet<ATNConfig>(), BitSet(), seeThruPreds, true)
         return r
@@ -136,7 +134,7 @@ class LL1Analyzer(val atn: ATN) {
                         calledRuleStack: BitSet,
                         seeThruPreds: Boolean, addEOF: Boolean) {
         //		System.out.println("_LOOK("+s.stateNumber+", ctx="+ctx);
-        val c = ATNConfig(s, 0, ctx)
+        val c = ATNConfig(s, 0, ctx!!)
         if (!lookBusy.add(c)) return
 
         if (s === stopState) {
@@ -166,7 +164,7 @@ class LL1Analyzer(val atn: ATN) {
                     for (i in 0 until ctx!!.size()) {
                         val returnState = atn.states.get(ctx!!.getReturnState(i))
                         //					    System.out.println("popping back to "+retState);
-                        _LOOK(returnState, stopState, ctx!!.getParent(i), look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
+                        _LOOK(returnState!!, stopState, ctx!!.getParent(i), look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
                     }
                 } finally {
                     if (removed) {
@@ -180,39 +178,40 @@ class LL1Analyzer(val atn: ATN) {
         val n = s.numberOfTransitions
         for (i in 0 until n) {
             val t = s.transition(i)
-            if (t.javaClass == RuleTransition::class.java) {
-                if (calledRuleStack.get((t as RuleTransition).target.ruleIndex)) {
-                    continue
-                }
-
-                val newContext = SingletonPredictionContext.create(ctx, (t as RuleTransition).followState.stateNumber)
-
-                try {
-                    calledRuleStack.set((t as RuleTransition).target.ruleIndex)
-                    _LOOK(t.target, stopState, newContext, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
-                } finally {
-                    calledRuleStack.clear((t as RuleTransition).target.ruleIndex)
-                }
-            } else if (t is AbstractPredicateTransition) {
-                if (seeThruPreds) {
-                    _LOOK(t.target, stopState, ctx, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
-                } else {
-                    look.add(HIT_PRED)
-                }
-            } else if (t.isEpsilon) {
-                _LOOK(t.target, stopState, ctx, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
-            } else if (t.javaClass == WildcardTransition::class.java) {
-                look.addAll(IntervalSet.of(Token.MIN_USER_TOKEN_TYPE, atn.maxTokenType))
-            } else {
-                //				System.out.println("adding "+ t);
-                var set = t.label()
-                if (set != null) {
-                    if (t is NotSetTransition) {
-                        set = set!!.complement(IntervalSet.of(Token.MIN_USER_TOKEN_TYPE, atn.maxTokenType))
-                    }
-                    look.addAll(set)
-                }
-            }
+            TODO()
+//            if (t.javaClass == RuleTransition::class.java) {
+//                if (calledRuleStack.get((t as RuleTransition).target.ruleIndex)) {
+//                    continue
+//                }
+//
+//                val newContext = SingletonPredictionContext.create(ctx, (t as RuleTransition).followState.stateNumber)
+//
+//                try {
+//                    calledRuleStack.set((t as RuleTransition).target.ruleIndex)
+//                    _LOOK(t.target, stopState, newContext, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
+//                } finally {
+//                    calledRuleStack.clear((t as RuleTransition).target.ruleIndex)
+//                }
+//            } else if (t is AbstractPredicateTransition) {
+//                if (seeThruPreds) {
+//                    _LOOK(t.target, stopState, ctx, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
+//                } else {
+//                    look.add(HIT_PRED)
+//                }
+//            } else if (t.isEpsilon) {
+//                _LOOK(t.target, stopState, ctx, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
+//            } else if (t.javaClass == WildcardTransition::class.java) {
+//                look.addAll(IntervalSet.of(Token.MIN_USER_TOKEN_TYPE, atn.maxTokenType))
+//            } else {
+//                //				System.out.println("adding "+ t);
+//                var set = t.label()
+//                if (set != null) {
+//                    if (t is NotSetTransition) {
+//                        set = set!!.complement(IntervalSet.of(Token.MIN_USER_TOKEN_TYPE, atn.maxTokenType))
+//                    }
+//                    look.addAll(set)
+//                }
+//            }
         }
     }
 

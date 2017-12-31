@@ -9,16 +9,16 @@ package org.antlr.v4.kotlinruntime.atn
 import com.strumenta.kotlinmultiplatform.Arrays
 import com.strumenta.kotlinmultiplatform.assert
 
-//class ArrayPredictionContext(
-//        /** Parent can be null only if full ctx mode and we make an array
-//         * from [.EMPTY] and non-empty. We merge [.EMPTY] by using null parent and
-//         * returnState == [.EMPTY_RETURN_STATE].
-//         */
-//        val parents: Array<PredictionContext?>?,
-//        /** Sorted for merge, no duplicates; if present,
-//         * [.EMPTY_RETURN_STATE] is always last.
-//         */
-//        val returnStates: IntArray?) : PredictionContext(PredictionContext.calculateHashCode(parents!!, returnStates)) {
+class ArrayPredictionContext(
+        /** Parent can be null only if full ctx mode and we make an array
+         * from [.EMPTY] and non-empty. We merge [.EMPTY] by using null parent and
+         * returnState == [.EMPTY_RETURN_STATE].
+         */
+        val parents: Array<PredictionContext?>?,
+        /** Sorted for merge, no duplicates; if present,
+         * [.EMPTY_RETURN_STATE] is always last.
+         */
+        val returnStates: IntArray?) : PredictionContext(PredictionContext.calculateHashCode(parents!!, returnStates)) {
 //
 //    override// since EMPTY_RETURN_STATE can only appear in the last position, we
 //            // don't need to verify that size==1
@@ -32,37 +32,38 @@ import com.strumenta.kotlinmultiplatform.assert
 //        assert(returnStates != null && returnStates.size > 0)
 //    }//		System.err.println("CREATE ARRAY: "+Arrays.toString(parents)+", "+Arrays.toString(returnStates));
 //
-//    override fun size(): Int {
-//        return returnStates.size
-//    }
-//
-//    override fun getParent(index: Int): PredictionContext? {
-//        return parents[index]
-//    }
-//
-//    override fun getReturnState(index: Int): Int {
-//        return returnStates[index]
-//    }
+    override fun size(): Int {
+        return returnStates!!.size
+    }
+
+    override fun getParent(index: Int): PredictionContext? {
+        return parents!![index]!!
+    }
+
+    override fun getReturnState(index: Int): Int {
+        return returnStates!![index]
+    }
 //
 //    //	@Override
 //    //	public int findReturnState(int returnState) {
 //    //		return Arrays.binarySearch(returnStates, returnState);
 //    //	}
 //
-//    override fun equals(o: Any?): Boolean {
-//        if (this === o) {
-//            return true
-//        } else if (o !is ArrayPredictionContext) {
-//            return false
-//        }
-//
-//        if (this.hashCode() != o.hashCode()) {
-//            return false // can't be same if hash is different
-//        }
-//
-//        val a = o as ArrayPredictionContext?
-//        return Arrays.equals(returnStates, a!!.returnStates) && Arrays.equals(parents, a.parents)
-//    }
+    override fun equals(o: Any?): Boolean {
+        if (this === o) {
+            return true
+        } else if (o !is ArrayPredictionContext) {
+            return false
+        }
+
+        if (this.hashCode() != o.hashCode()) {
+            return false // can't be same if hash is different
+        }
+
+        val a = o as ArrayPredictionContext?
+        TODO()
+        //return Arrays.equals(returnStates, a!!.returnStates) && Arrays.equals(parents, a.parents)
+    }
 //
 //    override fun toString(): String {
 //        if (isEmpty) return "[]"
@@ -85,4 +86,4 @@ import com.strumenta.kotlinmultiplatform.assert
 //        buf.append("]")
 //        return buf.toString()
 //    }
-//}
+}

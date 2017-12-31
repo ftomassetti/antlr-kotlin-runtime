@@ -52,7 +52,7 @@ class LexerChannelAction
      * value provided by [.getChannel].
      */
     override fun execute(lexer: Lexer) {
-        lexer.setChannel(channel)
+        lexer.channel = channel
     }
 
     override fun hashCode(): Int {
@@ -73,6 +73,6 @@ class LexerChannelAction
     }
 
     override fun toString(): String {
-        return String.format("channel(%d)", channel)
+        return "channel($channel)"
     }
 }

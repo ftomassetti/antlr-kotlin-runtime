@@ -26,6 +26,11 @@ expect class BitSet {
     constructor()
 
     fun set(value: Int)
+    fun clear(ruleIndex: Int)
+    fun get(ruleIndex: Int): Boolean
+    fun cardinality(): Int
+    fun nextSetBit(i: Int): Int
+    fun or(alts: BitSet)
 }
 
 //expect class ArrayList<T> : List<T>
@@ -33,6 +38,8 @@ expect class BitSet {
 expect object Collections {
     fun unmodifiableList(asList: Any): Any
     fun <T, U> unmodifiableMap(t: T): U
+    fun <T : Comparable<T>>min(precedencePredicates: List<T>): T
+    fun <T : Comparable<T>>max(precedencePredicates: List<T>): T
 
 }
 
@@ -59,13 +66,16 @@ fun Char.Companion.isUpperCase(firstChar: Char): Boolean {
 //
 //}
 
-expect class NullPointerException : Throwable
+expect class NullPointerException : Throwable {
+    constructor()
+    constructor(message: String)
+}
 
 expect class WeakHashMap<K, V> {
     constructor()
 }
 
-expect class IdentityHashMap<K, V> : Map<K, V> {
+expect class IdentityHashMap<K, V> : MutableMap<K, V> {
     constructor()
 }
 

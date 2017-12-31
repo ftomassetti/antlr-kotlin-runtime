@@ -6,13 +6,12 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
+import com.strumenta.kotlinmultiplatform.BitSet
 import org.antlr.v4.kotlinruntime.atn.PredictionMode.Companion.hasConflictingAltSet
 import org.antlr.v4.kotlinruntime.atn.PredictionMode.Companion.hasStateAssociatedWithOneAlt
-import org.antlr.v4.runtime.misc.AbstractEqualityComparator
-import org.antlr.v4.runtime.misc.FlexibleHashMap
-import org.antlr.v4.runtime.misc.MurmurHash
-
-import java.util.*
+import org.antlr.v4.kotlinruntime.misc.AbstractEqualityComparator
+import org.antlr.v4.kotlinruntime.misc.FlexibleHashMap
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 /**
  * This enumeration defines the prediction modes available in ANTLR 4 along with
@@ -87,7 +86,31 @@ enum class PredictionMode {
     LL_EXACT_AMBIG_DETECTION;
 
     /** A Map that uses just the state and the stack context as the key.  */
-    internal class AltAndContextMap : FlexibleHashMap<ATNConfig, BitSet>(AltAndContextConfigEqualityComparator.INSTANCE)
+    internal class AltAndContextMap : FlexibleHashMap<ATNConfig, BitSet>(AltAndContextConfigEqualityComparator.INSTANCE) {
+        override fun get(key: ATNConfig): BitSet? {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override val entries: Set<Map.Entry<ATNConfig, BitSet>>
+            get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+        override val keys: Set<ATNConfig>
+            get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+        override fun containsValue(value: BitSet): Boolean {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override val size: Int
+            get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+        override val values: Collection<BitSet>
+            get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+        override fun containsKey(key: ATNConfig): Boolean {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+    }
 
     private class AltAndContextConfigEqualityComparator private constructor() : AbstractEqualityComparator<ATNConfig>() {
 
@@ -95,7 +118,7 @@ enum class PredictionMode {
          * The hash code is only a function of the [ATNState.stateNumber]
          * and [ATNConfig.context].
          */
-        fun hashCode(o: ATNConfig): Int {
+        override fun hashCode(o: ATNConfig): Int {
             var hashCode = MurmurHash.initialize(7)
             hashCode = MurmurHash.update(hashCode, o.state.stateNumber)
             hashCode = MurmurHash.update(hashCode, o.context)
@@ -103,7 +126,7 @@ enum class PredictionMode {
             return hashCode
         }
 
-        fun equals(a: ATNConfig?, b: ATNConfig?): Boolean {
+        override fun equals(a: ATNConfig?, b: ATNConfig?): Boolean {
             if (a === b) return true
             return if (a == null || b == null) false else a!!.state.stateNumber == b!!.state.stateNumber && a!!.context == b!!.context
         }
@@ -248,8 +271,9 @@ enum class PredictionMode {
                     // dup configs, tossing out semantic predicates
                     val dup = ATNConfigSet()
                     for (c in configs) {
-                        c = ATNConfig(c, SemanticContext.NONE)
-                        dup.add(c)
+                        var mutableC = c
+                        mutableC = ATNConfig(mutableC, SemanticContext.NONE)
+                        dup.add(mutableC)
                     }
                     configs = dup
                 }

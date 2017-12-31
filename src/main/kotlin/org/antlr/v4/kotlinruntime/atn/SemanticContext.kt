@@ -6,12 +6,12 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.Recognizer
-import org.antlr.v4.runtime.RuleContext
-import org.antlr.v4.runtime.misc.MurmurHash
-import org.antlr.v4.runtime.misc.Utils
-
-import java.util.*
+import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.Collections
+import org.antlr.v4.kotlinruntime.Recognizer
+import org.antlr.v4.kotlinruntime.RuleContext
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
+import org.antlr.v4.kotlinruntime.misc.Utils
 
 /** A tree structure used to record the semantic context in which
  * an ATN configuration is valid.  It's either a single predicate,
@@ -57,7 +57,7 @@ abstract class SemanticContext {
      * semantic context after precedence predicates are evaluated.
      *
      */
-    open fun evalPrecedence(parser: Recognizer<*, *>, parserCallStack: RuleContext): SemanticContext {
+    open fun evalPrecedence(parser: Recognizer<*, *>, parserCallStack: RuleContext): SemanticContext? {
         return this
     }
 
@@ -80,7 +80,7 @@ abstract class SemanticContext {
 
         override fun eval(parser: Recognizer<*, *>, parserCallStack: RuleContext): Boolean {
             val localctx = if (isCtxDependent) parserCallStack else null
-            return parser.sempred(localctx, ruleIndex, predIndex)
+            return parser.sempred(localctx!!, ruleIndex, predIndex)
         }
 
         override fun hashCode(): Int {
@@ -121,7 +121,7 @@ abstract class SemanticContext {
             return parser.precpred(parserCallStack, precedence)
         }
 
-        override fun evalPrecedence(parser: Recognizer<*, *>, parserCallStack: RuleContext): SemanticContext {
+        override fun evalPrecedence(parser: Recognizer<*, *>, parserCallStack: RuleContext): SemanticContext? {
             return if (parser.precpred(parserCallStack, precedence)) {
                 SemanticContext.NONE
             } else {
@@ -216,7 +216,8 @@ abstract class SemanticContext {
         }
 
         override fun hashCode(): Int {
-            return MurmurHash.hashCode(opnds, AND::class.java!!.hashCode())
+            TODO()
+            //return MurmurHash.hashCode(opnds, AND::class.java!!.hashCode())
         }
 
         /**
@@ -234,7 +235,7 @@ abstract class SemanticContext {
             return true
         }
 
-        override fun evalPrecedence(parser: Recognizer<*, *>, parserCallStack: RuleContext): SemanticContext {
+        override fun evalPrecedence(parser: Recognizer<*, *>, parserCallStack: RuleContext): SemanticContext? {
             var differs = false
             val operands = ArrayList<SemanticContext>()
             for (context in opnds) {
@@ -310,7 +311,8 @@ abstract class SemanticContext {
         }
 
         override fun hashCode(): Int {
-            return MurmurHash.hashCode(opnds, OR::class.java!!.hashCode())
+            TODO()
+            //return MurmurHash.hashCode(opnds, OR::class.java!!.hashCode())
         }
 
         /**
@@ -328,7 +330,7 @@ abstract class SemanticContext {
             return false
         }
 
-        override fun evalPrecedence(parser: Recognizer<*, *>, parserCallStack: RuleContext): SemanticContext {
+        override fun evalPrecedence(parser: Recognizer<*, *>, parserCallStack: RuleContext): SemanticContext? {
             var differs = false
             val operands = ArrayList<SemanticContext>()
             for (context in opnds) {
@@ -419,3 +421,4 @@ abstract class SemanticContext {
         }
     }
 }
+

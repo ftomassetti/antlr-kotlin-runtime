@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.Lexer
-import org.antlr.v4.runtime.misc.MurmurHash
+import org.antlr.v4.kotlinruntime.Lexer
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 /**
  * Implements the `pushMode` lexer action by calling
@@ -72,6 +72,6 @@ class LexerPushModeAction
     }
 
     override fun toString(): String {
-        return String.format("pushMode(%d)", mode)
+        return "pushMode($mode)"
     }
 }

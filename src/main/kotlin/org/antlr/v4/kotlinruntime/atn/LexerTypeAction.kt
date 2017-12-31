@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.Lexer
-import org.antlr.v4.runtime.misc.MurmurHash
+import org.antlr.v4.kotlinruntime.Lexer
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 /**
  * Implements the `type` lexer action by calling [Lexer.setType]
@@ -50,7 +50,7 @@ class LexerTypeAction
      * value provided by [.getType].
      */
     override fun execute(lexer: Lexer) {
-        lexer.setType(type)
+        lexer.type = type
     }
 
     override fun hashCode(): Int {
@@ -71,6 +71,6 @@ class LexerTypeAction
     }
 
     override fun toString(): String {
-        return String.format("type(%d)", type)
+        return "type($type)"
     }
 }

@@ -96,14 +96,14 @@ open class ATNConfigSet constructor(
 //            return preds
 //        }
 //
-//    // can't mod, no need for lookup cache
-//    var isReadonly: Boolean
-//        get() = readonly
-//        set(readonly) {
-//            this.readonly = readonly
-//            configLookup = null
-//        }
-//
+    // can't mod, no need for lookup cache
+    var isReadonly: Boolean
+        get() = readonly
+        set(readonly) {
+            this.readonly = readonly
+            configLookup = null
+        }
+
     /**
      * The reason that we need this is because we don't want the hash map to use
      * the standard hash code and equals. We need all configurations with the same
@@ -159,53 +159,53 @@ open class ATNConfigSet constructor(
 //        this.dipsIntoOuterContext = old.dipsIntoOuterContext
 //    }
 //
-//    override fun add(config: ATNConfig): Boolean {
-//        return add(config, null)
-//    }
-//
-//    /**
-//     * Adding a new config means merging contexts with existing configs for
-//     * `(s, i, pi, _)`, where `s` is the
-//     * [ATNConfig.state], `i` is the [ATNConfig.alt], and
-//     * `pi` is the [ATNConfig.semanticContext]. We use
-//     * `(s,i,pi)` as key.
-//     *
-//     *
-//     * This method updates [.dipsIntoOuterContext] and
-//     * [.hasSemanticContext] when necessary.
-//     */
-//    fun add(
-//            config: ATNConfig,
-//            mergeCache: DoubleKeyMap<PredictionContext, PredictionContext, PredictionContext>?): Boolean {
-//        if (readonly) throw IllegalStateException("This set is readonly")
-//        if (config.semanticContext !== SemanticContext.NONE) {
-//            hasSemanticContext = true
-//        }
-//        if (config.outerContextDepth > 0) {
-//            dipsIntoOuterContext = true
-//        }
-//        val existing = configLookup!!.getOrAdd(config)
-//        if (existing === config) { // we added this new one
-//            cachedHashCode = -1
-//            configs.add(config)  // track order here
-//            return true
-//        }
-//        // a previous (s,i,pi,_), merge with it and save result
-//        val rootIsWildcard = !fullCtx
-//        val merged = PredictionContext.merge(existing.context, config.context, rootIsWildcard, mergeCache)
-//        // no need to check for existing.context, config.context in cache
-//        // since only way to create new graphs is "call rule" and here. We
-//        // cache at both places.
-//        existing.reachesIntoOuterContext = Math.max(existing.reachesIntoOuterContext, config.reachesIntoOuterContext)
-//
-//        // make sure to preserve the precedence filter suppression during the merge
-//        if (config.isPrecedenceFilterSuppressed) {
-//            existing.isPrecedenceFilterSuppressed = true
-//        }
-//
-//        existing.context = merged // replace context; no need to alt mapping
-//        return true
-//    }
+    fun add(config: ATNConfig): Boolean {
+        return add(config, null)
+    }
+
+    /**
+     * Adding a new config means merging contexts with existing configs for
+     * `(s, i, pi, _)`, where `s` is the
+     * [ATNConfig.state], `i` is the [ATNConfig.alt], and
+     * `pi` is the [ATNConfig.semanticContext]. We use
+     * `(s,i,pi)` as key.
+     *
+     *
+     * This method updates [.dipsIntoOuterContext] and
+     * [.hasSemanticContext] when necessary.
+     */
+    fun add(
+            config: ATNConfig,
+            mergeCache: DoubleKeyMap<PredictionContext, PredictionContext, PredictionContext>?): Boolean {
+        if (readonly) throw IllegalStateException("This set is readonly")
+        if (config.semanticContext !== SemanticContext.NONE) {
+            hasSemanticContext = true
+        }
+        if (config.outerContextDepth > 0) {
+            dipsIntoOuterContext = true
+        }
+        val existing = configLookup!!.getOrAdd(config)
+        if (existing === config) { // we added this new one
+            cachedHashCode = -1
+            configs.add(config)  // track order here
+            return true
+        }
+        // a previous (s,i,pi,_), merge with it and save result
+        val rootIsWildcard = !fullCtx
+        val merged = PredictionContext.merge(existing.context, config.context, rootIsWildcard, mergeCache)
+        // no need to check for existing.context, config.context in cache
+        // since only way to create new graphs is "call rule" and here. We
+        // cache at both places.
+        existing.reachesIntoOuterContext = Math.max(existing.reachesIntoOuterContext, config.reachesIntoOuterContext)
+
+        // make sure to preserve the precedence filter suppression during the merge
+        if (config.isPrecedenceFilterSuppressed) {
+            existing.isPrecedenceFilterSuppressed = true
+        }
+
+        existing.context = merged // replace context; no need to alt mapping
+        return true
+    }
 //
 //    /** Return a List holding list of configs  */
 //    fun elements(): List<ATNConfig> {

@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.ParserInterpreter
-import org.antlr.v4.runtime.dfa.DFA
+import org.antlr.v4.kotlinruntime.ParserInterpreter
+import org.antlr.v4.kotlinruntime.dfa.DFA
 
 class StarLoopEntryState : DecisionState() {
     var loopBackState: StarLoopbackState? = null

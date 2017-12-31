@@ -6,8 +6,6 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import java.util.HashMap
-
 /** Used to cache [PredictionContext] objects. Its used for the shared
  * context cash associated with contexts in DFA states. This cache
  * can be used for both lexers and parsers.
@@ -31,7 +29,7 @@ class PredictionContextCache {
     }
 
     operator fun get(ctx: PredictionContext): PredictionContext {
-        return cache[ctx]
+        return cache[ctx]!!
     }
 
     fun size(): Int {

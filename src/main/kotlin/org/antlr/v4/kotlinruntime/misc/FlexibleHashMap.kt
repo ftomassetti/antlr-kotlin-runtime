@@ -11,7 +11,7 @@ import org.antlr.v4.kotlinruntime.misc.FlexibleHashMap.Entry
 /** A limited map (many unsupported operations) that lets me use
  * varying hashCode/equals.
  */
-class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityComparator<in K>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : Map<K, V> {
+open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityComparator<in K>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : Map<K, V> {
 
 
     protected val comparator: AbstractEqualityComparator<in K>

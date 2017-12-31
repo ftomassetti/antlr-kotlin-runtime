@@ -235,7 +235,7 @@ abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
         return true
     }
 
-    fun action(_localctx: RuleContext, ruleIndex: Int, actionIndex: Int) {}
+    fun action(_localctx: RuleContext?, ruleIndex: Int, actionIndex: Int) {}
 
     companion object {
         val EOF = -1

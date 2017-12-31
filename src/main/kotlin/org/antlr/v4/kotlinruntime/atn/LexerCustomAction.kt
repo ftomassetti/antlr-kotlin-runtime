@@ -6,10 +6,10 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.CharStream
-import org.antlr.v4.runtime.Lexer
-import org.antlr.v4.runtime.Recognizer
-import org.antlr.v4.runtime.misc.MurmurHash
+import org.antlr.v4.kotlinruntime.CharStream
+import org.antlr.v4.kotlinruntime.Lexer
+import org.antlr.v4.kotlinruntime.Recognizer
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
 /**
  * Executes a custom lexer action by calling [Recognizer.action] with the

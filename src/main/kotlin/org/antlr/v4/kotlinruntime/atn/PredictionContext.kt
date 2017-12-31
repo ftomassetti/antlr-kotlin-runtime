@@ -6,6 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
+import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.IdentityHashMap
 import com.strumenta.kotlinmultiplatform.assert
 import org.antlr.v4.kotlinruntime.Recognizer
 import org.antlr.v4.kotlinruntime.RuleContext
@@ -103,9 +105,9 @@ abstract class PredictionContext protected constructor(
                         localBuffer.append(' ')
                     }
 
-                    val atn = recognizer!!.getATN()
+                    val atn = recognizer!!.atn
                     val s = atn.states.get(stateNumber)
-                    val ruleName = recognizer!!.getRuleNames()[s.ruleIndex]
+                    val ruleName = recognizer!!.ruleNames!![s!!.ruleIndex]
                     localBuffer.append(ruleName)
                 } else if (p.getReturnState(index) != EMPTY_RETURN_STATE) {
                     if (!p.isEmpty) {
@@ -168,7 +170,7 @@ abstract class PredictionContext protected constructor(
             parent = PredictionContext.fromRuleContext(atn, outerContext!!.parent)
 
             val state = atn.states.get(outerContext!!.invokingState)
-            val transition = state.transition(0) as RuleTransition
+            val transition = state!!.transition(0) as RuleTransition
             return SingletonPredictionContext.create(parent, transition.followState.stateNumber)
         }
 
@@ -211,11 +213,11 @@ abstract class PredictionContext protected constructor(
             assert(a != null && b != null) // must be empty context, never null
 
             // share same graph if both same
-            if (a === b || a == b) return a
+            if (a === b || a == b) return a!!
 
             if (a is SingletonPredictionContext && b is SingletonPredictionContext) {
-                return mergeSingletons(a as SingletonPredictionContext?,
-                        b as SingletonPredictionContext?,
+                return mergeSingletons(a as SingletonPredictionContext,
+                        b as SingletonPredictionContext,
                         rootIsWildcard, mergeCache)
             }
 
@@ -226,15 +228,16 @@ abstract class PredictionContext protected constructor(
                 if (b is EmptyPredictionContext) return b
             }
 
-            // convert singleton so both are arrays to normalize
-            if (a is SingletonPredictionContext) {
-                a = ArrayPredictionContext((a as SingletonPredictionContext?)!!)
-            }
-            if (b is SingletonPredictionContext) {
-                b = ArrayPredictionContext((b as SingletonPredictionContext?)!!)
-            }
-            return mergeArrays(a as ArrayPredictionContext?, b as ArrayPredictionContext?,
-                    rootIsWildcard, mergeCache)
+            TODO()
+//            // convert singleton so both are arrays to normalize
+//            if (a is SingletonPredictionContext) {
+//                a = ArrayPredictionContext((a as SingletonPredictionContext?)!!)
+//            }
+//            if (b is SingletonPredictionContext) {
+//                b = ArrayPredictionContext((b as SingletonPredictionContext?)!!)
+//            }
+//            return mergeArrays(a as ArrayPredictionContext?, b as ArrayPredictionContext?,
+//                    rootIsWildcard, mergeCache)
         }
 
         /**
@@ -312,9 +315,10 @@ abstract class PredictionContext protected constructor(
                         payloads[1] = a.returnState
                     }
                     val parents = arrayOf(singleParent, singleParent)
-                    val a_ = ArrayPredictionContext(parents, payloads)
-                    if (mergeCache != null) mergeCache!!.put(a, b, a_)
-                    return a_
+                    TODO()
+                    //val a_ = ArrayPredictionContext(parents!!, payloads)
+                    //if (mergeCache != null) mergeCache!!.put(a, b, a_)
+                    //return a_
                 }
                 // parents differ and can't merge them. Just pack together
                 // into array; can't merge.
@@ -386,16 +390,17 @@ abstract class PredictionContext protected constructor(
                 if (b === EMPTY) return EMPTY  // a + * = *
             } else {
                 if (a === EMPTY && b === EMPTY) return EMPTY // $ + $ = $
-                if (a === EMPTY) { // $ + x = [x,$]
-                    val payloads = intArrayOf(b.returnState, EMPTY_RETURN_STATE)
-                    val parents = arrayOf<PredictionContext>(b.parent, null)
-                    return ArrayPredictionContext(parents, payloads)
-                }
-                if (b === EMPTY) { // x + $ = [x,$] ($ is always last if present)
-                    val payloads = intArrayOf(a.returnState, EMPTY_RETURN_STATE)
-                    val parents = arrayOf<PredictionContext>(a.parent, null)
-                    return ArrayPredictionContext(parents, payloads)
-                }
+                TODO()
+//                if (a === EMPTY) { // $ + x = [x,$]
+//                    val payloads = intArrayOf(b.returnState, EMPTY_RETURN_STATE)
+//                    val parents = arrayOf<PredictionContext>(b.parent, null)
+//                    return ArrayPredictionContext(parents, payloads)
+//                }
+//                if (b === EMPTY) { // x + $ = [x,$] ($ is always last if present)
+//                    val payloads = intArrayOf(a.returnState, EMPTY_RETURN_STATE)
+//                    val parents = arrayOf<PredictionContext>(a.parent, null)
+//                    return ArrayPredictionContext(parents, payloads)
+//                }
             }
             return null
         }
@@ -441,13 +446,13 @@ abstract class PredictionContext protected constructor(
             var j = 0 // walks b
             var k = 0 // walks target M array
 
-            var mergedReturnStates = IntArray(a.returnStates.size + b.returnStates.size)
-            var mergedParents = arrayOfNulls<PredictionContext>(a.returnStates.size + b.returnStates.size)
+            var mergedReturnStates = IntArray(a.returnStates!!.size + b.returnStates!!.size)
+            var mergedParents = arrayOfNulls<PredictionContext>(a.returnStates!!.size + b.returnStates.size)
             // walk and merge to yield mergedParents, mergedReturnStates
-            while (i < a.returnStates.size && j < b.returnStates.size) {
-                val a_parent = a.parents[i]
-                val b_parent = b.parents[j]
-                if (a.returnStates[i] == b.returnStates[j]) {
+            while (i < a.returnStates!!.size && j < b.returnStates!!.size) {
+                val a_parent = a.parents!![i]
+                val b_parent = b.parents!![j]
+                if (a.returnStates[i] == b.returnStates!![j]) {
                     // same payload (stack tops are equal), must yield merged singleton
                     val payload = a.returnStates[i]
                     // $+$ = $
@@ -479,14 +484,14 @@ abstract class PredictionContext protected constructor(
             // copy over any payloads remaining in either array
             if (i < a.returnStates.size) {
                 for (p in i until a.returnStates.size) {
-                    mergedParents[k] = a.parents[p]
+                    mergedParents[k] = a.parents!![p]
                     mergedReturnStates[k] = a.returnStates[p]
                     k++
                 }
             } else {
-                for (p in j until b.returnStates.size) {
-                    mergedParents[k] = b.parents[p]
-                    mergedReturnStates[k] = b.returnStates[p]
+                for (p in j until b.returnStates!!.size) {
+                    mergedParents[k] = b.parents!![p]
+                    mergedReturnStates[k] = b.returnStates!![p]
                     k++
                 }
             }
@@ -499,8 +504,9 @@ abstract class PredictionContext protected constructor(
                     if (mergeCache != null) mergeCache!!.put(a, b, a_)
                     return a_
                 }
-                mergedParents = Arrays.copyOf<PredictionContext>(mergedParents, k)
-                mergedReturnStates = Arrays.copyOf(mergedReturnStates, k)
+                mergedParents = Arrays.copyOf<PredictionContext?>(mergedParents, k)
+                TODO()
+                //mergedReturnStates = Arrays.copyOf(mergedReturnStates, k)
             }
 
             val M = ArrayPredictionContext(mergedParents, mergedReturnStates)
@@ -516,7 +522,8 @@ abstract class PredictionContext protected constructor(
                 return b
             }
 
-            combineCommonParents(mergedParents)
+            TODO()
+            //combineCommonParents(mergedParents)
 
             if (mergeCache != null) mergeCache!!.put(a, b, M)
             return M
@@ -537,7 +544,8 @@ abstract class PredictionContext protected constructor(
             }
 
             for (p in parents.indices) {
-                parents[p] = uniqueParents[parents[p]]
+                TODO()
+                //parents[p] = uniqueParents[parents[p]]
             }
         }
 
@@ -548,7 +556,9 @@ abstract class PredictionContext protected constructor(
             buf.append("rankdir=LR;\n")
 
             val nodes = getAllContextNodes(context)
-            Collections.sort(nodes, java.util.Comparator<PredictionContext> { o1, o2 -> o1.id - o2.id })
+
+            TODO()
+            //Collections.sort(nodes, java.util.Comparator<PredictionContext> { o1, o2 -> o1.id - o2.id })
 
             for (current in nodes) {
                 if (current is SingletonPredictionContext) {
@@ -564,7 +574,7 @@ abstract class PredictionContext protected constructor(
                 buf.append(" [shape=box, label=\"")
                 buf.append("[")
                 var first = true
-                for (inv in arr.returnStates) {
+                for (inv in arr!!.returnStates!!) {
                     if (!first) buf.append(", ")
                     if (inv == EMPTY_RETURN_STATE)
                         buf.append("$")

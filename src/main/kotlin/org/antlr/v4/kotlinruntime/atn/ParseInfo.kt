@@ -6,9 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.dfa.DFA
-
-import java.util.ArrayList
+import org.antlr.v4.kotlinruntime.dfa.DFA
 
 /**
  * This class provides access to specific and aggregate statistics gathered
@@ -140,26 +138,26 @@ class ParseInfo(protected val atnSimulator: ProfilingATNSimulator) {
             return k
         }
 
-    /**
-     * Gets the total number of DFA states stored in the DFA cache for all
-     * decisions in the ATN.
-     */
-    val dfaSize: Int
-        get() {
-            var n = 0
-            val decisionToDFA = atnSimulator.decisionToDFA
-            for (i in decisionToDFA.indices) {
-                n += getDFASize(i)
-            }
-            return n
-        }
-
-    /**
-     * Gets the total number of DFA states stored in the DFA cache for a
-     * particular decision.
-     */
-    fun getDFASize(decision: Int): Int {
-        val decisionToDFA = atnSimulator.decisionToDFA[decision]
-        return decisionToDFA.states.size()
-    }
+//    /**
+//     * Gets the total number of DFA states stored in the DFA cache for all
+//     * decisions in the ATN.
+//     */
+//    val dfaSize: Int
+//        get() {
+//            var n = 0
+//            val decisionToDFA = atnSimulator.decisionToDFA
+//            for (i in decisionToDFA.indices) {
+//                n += getDFASize(i)
+//            }
+//            return n
+//        }
+//
+//    /**
+//     * Gets the total number of DFA states stored in the DFA cache for a
+//     * particular decision.
+//     */
+//    fun getDFASize(decision: Int): Int {
+//        val decisionToDFA = atnSimulator.decisionToDFA[decision]
+//        return decisionToDFA.states.size()
+//    }
 }

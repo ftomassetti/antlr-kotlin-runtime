@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Interval
+import org.antlr.v4.kotlinruntime.misc.Interval
 
 /** A source of characters for an ANTLR lexer.  */
 interface CharStream : IntStream {
@@ -27,4 +27,8 @@ interface CharStream : IntStream {
      * getting the text of the specified interval
      */
     fun getText(interval: Interval): String
+
+    companion object {
+        val EOF = IntStream.EOF
+    }
 }

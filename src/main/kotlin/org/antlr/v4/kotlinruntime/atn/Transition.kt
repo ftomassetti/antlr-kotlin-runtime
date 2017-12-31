@@ -6,9 +6,10 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.misc.IntervalSet
-
-import java.util.*
+import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.Collections
+import com.strumenta.kotlinmultiplatform.NullPointerException
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 /** An ATN transition between any two ATN states.  Subclasses define
  * atom, set, epsilon, action, predicate, rule transitions.
@@ -85,19 +86,19 @@ abstract class Transition protected constructor(
                 "PRECEDENCE"
         ))
 
-        val serializationTypes = Collections.unmodifiableMap<Class<out Transition>, Int>(object : HashMap<Class<out Transition>, Int>() {
-            init {
-                put(EpsilonTransition::class.java, EPSILON)
-                put(RangeTransition::class.java, RANGE)
-                put(RuleTransition::class.java, RULE)
-                put(PredicateTransition::class.java, PREDICATE)
-                put(AtomTransition::class.java, ATOM)
-                put(ActionTransition::class.java, ACTION)
-                put(SetTransition::class.java, SET)
-                put(NotSetTransition::class.java, NOT_SET)
-                put(WildcardTransition::class.java, WILDCARD)
-                put(PrecedencePredicateTransition::class.java, PRECEDENCE)
-            }
-        })
+//        val serializationTypes = Collections.unmodifiableMap<Class<out Transition>, Int>(object : HashMap<Class<out Transition>, Int>() {
+//            init {
+//                put(EpsilonTransition::class.java, EPSILON)
+//                put(RangeTransition::class.java, RANGE)
+//                put(RuleTransition::class.java, RULE)
+//                put(PredicateTransition::class.java, PREDICATE)
+//                put(AtomTransition::class.java, ATOM)
+//                put(ActionTransition::class.java, ACTION)
+//                put(SetTransition::class.java, SET)
+//                put(NotSetTransition::class.java, NOT_SET)
+//                put(WildcardTransition::class.java, WILDCARD)
+//                put(PrecedencePredicateTransition::class.java, PRECEDENCE)
+//            }
+//        })
     }
 }

@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-import org.antlr.v4.runtime.misc.IntervalSet
+import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 class RangeTransition(target: ATNState, val from: Int, val to: Int) : Transition(target) {
 
@@ -22,11 +22,12 @@ class RangeTransition(target: ATNState, val from: Int, val to: Int) : Transition
     }
 
     override fun toString(): String {
-        return StringBuilder("'")
-                .appendCodePoint(from)
-                .append("'..'")
-                .appendCodePoint(to)
-                .append("'")
-                .toString()
+        TODO()
+//        return StringBuilder("'")
+//                .appendCodePoint(from)
+//                .append("'..'")
+//                .appendCodePoint(to)
+//                .append("'")
+//                .toString()
     }
 }
