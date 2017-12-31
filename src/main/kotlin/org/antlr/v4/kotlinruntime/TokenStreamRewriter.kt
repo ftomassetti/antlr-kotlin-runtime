@@ -5,10 +5,11 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Interval
+import com.strumenta.kotlinmultiplatform.Math
+import com.strumenta.kotlinmultiplatform.Type
+import com.strumenta.kotlinmultiplatform.isInstance
+import org.antlr.v4.kotlinruntime.misc.Interval
 
-import java.util.ArrayList
-import java.util.HashMap
 
 /**
  * Useful for rewriting out a buffered input token stream after doing some
@@ -102,7 +103,7 @@ class TokenStreamRewriter(
      * I'm calling these things "programs."
      * Maps String (name)  rewrite (List)
      */
-    protected val programs: MutableMap<String, List<RewriteOperation>>
+    protected val programs: MutableMap<String, MutableList<RewriteOperation?>>
 
     /** Map String (program name)  Integer index  */
     protected val lastRewriteTokenIndexes: MutableMap<String, Int>
@@ -142,11 +143,12 @@ class TokenStreamRewriter(
         }
 
         override fun toString(): String {
-            var opName = javaClass.getName()
-            val `$index` = opName.indexOf('$')
-            opName = opName.substring(`$index` + 1, opName.length)
-            return "<" + opName + "@" + tokenStream.get(index) +
-                    ":\"" + text + "\">"
+            TODO()
+//            var opName = javaClass.getName()
+//            val `$index` = opName.indexOf('$')
+//            opName = opName.substring(`$index` + 1, opName.length)
+//            return "<" + opName + "@" + tokenStream.get(index) +
+//                    ":\"" + text + "\">"
         }
     }
 
@@ -211,7 +213,6 @@ class TokenStreamRewriter(
     }
 
     /** Reset the program so that no instructions exist  */
-    @JvmOverloads
     fun deleteProgram(programName: String = DEFAULT_PROGRAM_NAME) {
         rollback(programName, MIN_TOKEN_INDEX)
     }
@@ -275,7 +276,7 @@ class TokenStreamRewriter(
         if (from > to || from < 0 || to < 0 || to >= tokenStream.size()) {
             throw IllegalArgumentException("replace: range invalid: " + from + ".." + to + "(size=" + tokenStream.size() + ")")
         }
-        val op = ReplaceOp(from, to, text)
+        val op = ReplaceOp(from, to, text!!)
         val rewrites = getProgram(programName)
         op.instructionIndex = rewrites.size
         rewrites.add(op)
@@ -320,16 +321,16 @@ class TokenStreamRewriter(
         lastRewriteTokenIndexes.put(programName, i)
     }
 
-    protected fun getProgram(name: String): MutableList<RewriteOperation> {
-        var `is`: List<RewriteOperation>? = programs[name]
+    protected fun getProgram(name: String): MutableList<RewriteOperation?> {
+        var `is`: MutableList<RewriteOperation?>? = programs[name]
         if (`is` == null) {
             `is` = initializeProgram(name)
         }
         return `is`
     }
 
-    private fun initializeProgram(name: String): List<RewriteOperation> {
-        val `is` = ArrayList<RewriteOperation>(PROGRAM_INIT_SIZE)
+    private fun initializeProgram(name: String): MutableList<RewriteOperation?> {
+        val `is` = ArrayList<RewriteOperation?>(PROGRAM_INIT_SIZE)
         programs.put(name, `is`)
         return `is`
     }
@@ -347,7 +348,6 @@ class TokenStreamRewriter(
         return getText(DEFAULT_PROGRAM_NAME, interval)
     }
 
-    @JvmOverloads
     fun getText(programName: String, interval: Interval = Interval.of(0, tokenStream.size() - 1)): String {
         val rewrites = programs[programName]
         var start = interval.a
@@ -363,7 +363,7 @@ class TokenStreamRewriter(
         val buf = StringBuilder()
 
         // First, optimize instruction stream
-        val indexToOp = reduceToSingleOperationPerIndex(rewrites)
+        val indexToOp = reduceToSingleOperationPerIndex(rewrites)!!
 
         // Walk buffer, executing instructions and emitting tokens
         var i = start
@@ -442,7 +442,7 @@ class TokenStreamRewriter(
      *
      * Return a map from token index to operation.
      */
-    protected fun reduceToSingleOperationPerIndex(rewrites: MutableList<RewriteOperation>): MutableMap<Int, RewriteOperation> {
+    protected fun reduceToSingleOperationPerIndex(rewrites: MutableList<RewriteOperation?>): MutableMap<Int, RewriteOperation> {
         //		System.out.println("rewrites="+rewrites);
 
         // WALK REPLACES
@@ -450,7 +450,7 @@ class TokenStreamRewriter(
             val op = (rewrites[i] ?: continue) as? ReplaceOp ?: continue
             val rop = rewrites[i] as ReplaceOp
             // Wipe prior inserts within range
-            val inserts = getKindOfOps<InsertBeforeOp>(rewrites, InsertBeforeOp::class.java, i)
+            val inserts = getKindOfOps<InsertBeforeOp>(rewrites, "InsertBeforeOp", i)
             for (iop in inserts) {
                 if (iop.index == rop.index) {
                     // E.g., insert before 2, delete 2..2; update replace
@@ -463,7 +463,7 @@ class TokenStreamRewriter(
                 }
             }
             // Drop any prior replaces contained within
-            val prevReplaces = getKindOfOps<ReplaceOp>(rewrites, ReplaceOp::class.java, i)
+            val prevReplaces = getKindOfOps<ReplaceOp>(rewrites, "ReplaceOp", i)
             for (prevRop in prevReplaces) {
                 if (prevRop.index >= rop.index && prevRop.lastIndex <= rop.lastIndex) {
                     // delete replace as it's a no-op.
@@ -491,13 +491,13 @@ class TokenStreamRewriter(
             val op = (rewrites[i] ?: continue) as? InsertBeforeOp ?: continue
             val iop = rewrites[i] as InsertBeforeOp
             // combine current insert with prior if any at same index
-            val prevInserts = getKindOfOps<InsertBeforeOp>(rewrites, InsertBeforeOp::class.java, i)
+            val prevInserts = getKindOfOps<InsertBeforeOp>(rewrites, "InsertBeforeOp", i)
             for (prevIop in prevInserts) {
                 if (prevIop.index == iop.index) {
-                    if (InsertAfterOp::class.java!!.isInstance(prevIop)) {
+                    if (prevIop is InsertAfterOp) {
                         iop.text = catOpText(prevIop.text, iop.text)
                         rewrites.set(prevIop.instructionIndex, null)
-                    } else if (InsertBeforeOp::class.java!!.isInstance(prevIop)) { // combine objects
+                    } else if (prevIop is InsertBeforeOp) { // combine objects
                         // convert to strings...we're in process of toString'ing
                         // whole token buffer so no lazy eval issue with any templates
                         iop.text = catOpText(iop.text, prevIop.text)
@@ -507,7 +507,7 @@ class TokenStreamRewriter(
                 }
             }
             // look for replaces where iop.index is in range; error
-            val prevReplaces = getKindOfOps<ReplaceOp>(rewrites, ReplaceOp::class.java, i)
+            val prevReplaces = getKindOfOps<ReplaceOp>(rewrites, "ReplaceOp", i)
             for (rop in prevReplaces) {
                 if (iop.index == rop.index) {
                     rop.text = catOpText(iop.text, rop.text)
@@ -542,7 +542,7 @@ class TokenStreamRewriter(
     }
 
     /** Get all operations before an index of a particular kind  */
-    protected fun <T : TokenStreamRewriter.RewriteOperation> getKindOfOps(rewrites: List<RewriteOperation>, kind: Class<T>, before: Int): List<T> {
+    protected fun <T : TokenStreamRewriter.RewriteOperation> getKindOfOps(rewrites: List<RewriteOperation?>, kind: Type, before: Int): List<T> {
         val ops = ArrayList<T>()
         var i = 0
         while (i < before && i < rewrites.size) {
@@ -552,7 +552,7 @@ class TokenStreamRewriter(
                 continue
             } // ignore deleted
             if (kind.isInstance(op)) {
-                ops.add(kind.cast(op))
+                ops.add(op as T)
             }
             i++
         }

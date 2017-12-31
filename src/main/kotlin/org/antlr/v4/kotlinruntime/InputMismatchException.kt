@@ -10,11 +10,13 @@ package org.antlr.v4.kotlinruntime
  */
 class InputMismatchException : RecognitionException {
     constructor(recognizer: Parser) : super(recognizer, recognizer.inputStream!!, recognizer.context!!) {
-        this.offendingToken = recognizer.currentToken
+        TODO()
+        //this.offendingToken = recognizer.currentToken
     }
 
     constructor(recognizer: Parser, state: Int, ctx: ParserRuleContext) : super(recognizer, recognizer.inputStream!!, ctx) {
         this.offendingState = state
-        this.offendingToken = recognizer.currentToken
+        //this.offendingToken = recognizer.currentToken
+        TODO()
     }
 }

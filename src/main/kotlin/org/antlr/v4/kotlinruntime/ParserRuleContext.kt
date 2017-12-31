@@ -82,7 +82,7 @@ open class ParserRuleContext : RuleContext {
 //     * The exception that forced this rule to return. If the rule successfully
 //     * completed, this is `null`.
 //     */
-//    var exception: RecognitionException? = null
+    var exception: RecognitionException? = null
 //
 //    override
 //            /** Override to make type more specific  */

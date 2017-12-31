@@ -66,7 +66,7 @@ open class BufferedTokenStream(
     protected var fetchedEOF: Boolean = false
 
     override val sourceName: String
-        get() = tokenSource.sourceName
+        get() = tokenSource.sourceName!!
 
     /** Get the text of all tokens in this buffer.  */
 

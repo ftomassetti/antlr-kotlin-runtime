@@ -35,7 +35,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     *
 //     * @see .setInputStream
 //     */
-//    protected var _input: TokenStream? = null
+    protected var _input: TokenStream? = null
 //
 //    protected val _precedenceStack: IntegerStack
 //
@@ -43,7 +43,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     * The [ParserRuleContext] object for the currently executing rule.
 //     * This is always non-null during the parsing process.
 //     */
-//    var context: ParserRuleContext? = null
+    var context: ParserRuleContext? = null
 //
 //    /**
 //     * Specifies whether or not the parser should construct a parse tree during
@@ -178,22 +178,22 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //    override var inputStream: TokenStream?
 //        get() = tokenStream
 //        set
-//
-//    /** Set the token stream and reset the parser.  */
-//    var tokenStream: TokenStream?
-//        get() = _input
-//        set(input) {
-//            this._input = null
-//            reset()
-//            this._input = input
-//        }
+
+    /** Set the token stream and reset the parser.  */
+    var tokenStream: TokenStream?
+        get() = _input
+        set(input) {
+            this._input = null
+            reset()
+            this._input = input
+        }
 //
 //    /** Match needs to return the current input symbol, which gets put
 //     * into the label for the associated token ref; e.g., x=ID.
 //     */
 //
-//    val currentToken: Token
-//        get() = _input!!.LT(1)
+    val currentToken: Token?
+        get() = _input!!.LT(1)
 //
 //    /**
 //     * Get the precedence level for the top-most precedence rule.
@@ -213,8 +213,8 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     *
 //     * @see ATN.getExpectedTokens
 //     */
-//    val expectedTokens: IntervalSet
-//        get() = atn.getExpectedTokens(state, context)
+    val expectedTokens: IntervalSet
+        get() = atn.getExpectedTokens(state, context!!)
 //
 //
 //    val expectedTokensWithinCurrentRule: IntervalSet
@@ -325,8 +325,9 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //        setInputStream(input)
 //    }
 //
-//    /** reset the parser's state  */
-//    open fun reset() {
+    /** reset the parser's state  */
+    open fun reset() {
+        TODO()
 //        if (inputStream != null) inputStream!!.seek(0)
 //        errorHandler.reset(this)
 //        context = null
@@ -339,7 +340,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //        if (interpreter != null) {
 //            interpreter!!.reset()
 //        }
-//    }
+    }
 //
 //    /**
 //     * Match current input symbol against `ttype`. If the symbol type
@@ -554,12 +555,14 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //        tokenStream = input as TokenStream
 //    }
 //
-//    fun notifyErrorListeners(msg: String) {
-//        notifyErrorListeners(currentToken, msg, null)
-//    }
-//
-//    fun notifyErrorListeners(offendingToken: Token, msg: String,
-//                             e: RecognitionException?) {
+    fun notifyErrorListeners(msg: String) {
+        TODO()
+        //notifyErrorListeners(currentToken, msg, null)
+    }
+
+    fun notifyErrorListeners(offendingToken: Token, msg: String,
+                             e: RecognitionException?) {
+        TODO()
 //        numberOfSyntaxErrors++
 //        var line = -1
 //        var charPositionInLine = -1
@@ -568,7 +571,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //
 //        val listener = errorListenerDispatch
 //        listener.syntaxError(this, offendingToken, line, charPositionInLine, msg, e)
-//    }
+    }
 //
 //    /**
 //     * Consume and return the [current symbol][.getCurrentToken].
@@ -592,7 +595,9 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     * [ParseTreeListener.visitErrorNode] is called on any parse
 //     * listeners.
 //     */
-//    fun consume(): Token {
+    fun consume(): Token {
+
+        TODO()
 //        val o = currentToken
 //        if (o.type != Recognizer.EOF) {
 //            inputStream!!.consume()
@@ -616,7 +621,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //            }
 //        }
 //        return o
-//    }
+    }
 //
 //    /** How to create a token leaf node associated with a parent.
 //     * Typically, the terminal node to create is not a function of the parent.

@@ -90,10 +90,10 @@ open class RecognitionException : RuntimeException {
 
     constructor(recognizer: Recognizer<*, *>?,
                 input: IntStream,
-                ctx: ParserRuleContext) {
+                ctx: ParserRuleContext?) {
         this.recognizer = recognizer
         this.inputStream = input
-        this.ctx = ctx
+        this.ctx = ctx!!
         if (recognizer != null) this.offendingState = recognizer!!.state
     }
 

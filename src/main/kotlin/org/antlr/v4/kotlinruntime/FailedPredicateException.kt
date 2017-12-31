@@ -22,13 +22,13 @@ private fun formatMessage(predicate: String?, message: String?): String {
 class FailedPredicateException constructor(recognizer: Parser,
                                                          val predicate: String? = null,
                                                          message: String? = null) : RecognitionException(formatMessage(predicate, message), recognizer, recognizer.inputStream!!, recognizer.context!!) {
-    val ruleIndex: Int
-    val predIndex: Int
+    var ruleIndex: Int = -1
+    var predIndex: Int = -1
 
     init {
-        val s = recognizer.interpreter.atn.states.get(recognizer.state)
+        val s = recognizer.interpreter!!.atn.states.get(recognizer.state)
 
-        val trans = s.transition(0) as AbstractPredicateTransition
+        val trans = s!!.transition(0) as AbstractPredicateTransition
         if (trans is PredicateTransition) {
             this.ruleIndex = (trans as PredicateTransition).ruleIndex
             this.predIndex = (trans as PredicateTransition).predIndex
@@ -36,7 +36,8 @@ class FailedPredicateException constructor(recognizer: Parser,
             this.ruleIndex = 0
             this.predIndex = 0
         }
-        this.offendingToken = recognizer.currentToken
+        TODO()
+        //this.offendingToken = recognizer.currentToken
     }
 
 

@@ -26,7 +26,7 @@ class ProxyErrorListener(private val delegates: Collection<ANTLRErrorListener>?)
     }
 
     override fun syntaxError(recognizer: Recognizer<*, *>,
-                             offendingSymbol: Any,
+                             offendingSymbol: Any?,
                              line: Int,
                              charPositionInLine: Int,
                              msg: String,

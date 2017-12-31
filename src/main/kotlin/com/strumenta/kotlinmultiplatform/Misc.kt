@@ -105,3 +105,8 @@ expect fun Char.Companion.charCount(i: Int): Byte
 expect fun <T> Array<T>.clone(): Array<T>
 
 expect fun <T> arraycopy(tokens: Array<T>, p: Int, tokens1: Array<T>, i: Int, i1: Int)
+
+typealias Type = String
+
+expect fun Type.isInstance(any: Any?) : Boolean
+

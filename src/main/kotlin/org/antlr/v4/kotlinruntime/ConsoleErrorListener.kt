@@ -27,7 +27,7 @@ class ConsoleErrorListener : BaseErrorListener() {
     </pre> *
      */
     override fun syntaxError(recognizer: Recognizer<*, *>,
-                             offendingSymbol: Any,
+                             offendingSymbol: Any?,
                              line: Int,
                              charPositionInLine: Int,
                              msg: String,
