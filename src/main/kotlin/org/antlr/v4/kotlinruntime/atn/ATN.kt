@@ -84,7 +84,7 @@ class ATN
     fun nextTokens(s: ATNState): IntervalSet? {
         if (s.nextTokenWithinRule != null) return s.nextTokenWithinRule
         s.nextTokenWithinRule = nextTokens(s, null)
-        s.nextTokenWithinRule!!.setReadonly(true)
+        s.nextTokenWithinRule!!.isReadonly = true
         return s.nextTokenWithinRule
     }
 

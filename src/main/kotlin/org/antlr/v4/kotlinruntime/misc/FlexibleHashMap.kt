@@ -11,18 +11,18 @@ import org.antlr.v4.kotlinruntime.misc.FlexibleHashMap.Entry
 /** A limited map (many unsupported operations) that lets me use
  * varying hashCode/equals.
  */
-open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityComparator<in K>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : Map<K, V> {
+open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityComparator<in K>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : MutableMap<K, V> {
 
-    override val keys: Set<K>
+    override val keys: MutableSet<K>
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
     override val size: Int
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
-    override val values: Collection<V>
+    override val values: MutableCollection<V>
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
-    override val entries: Set<Map.Entry<K, V>>
+    override val entries: MutableSet<MutableMap.MutableEntry<K, V>>
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
     protected val comparator: AbstractEqualityComparator<in K>
@@ -75,7 +75,7 @@ open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityCompara
 //        return null
     }
 
-    fun put(key: K?, value: V): V? {
+    override fun put(key: K, value: V): V? {
         TODO()
 //        if (key == null) return null
 //        if (n > threshold) expand()
@@ -99,32 +99,32 @@ open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityCompara
 //        return null
     }
 
-    fun remove(key: Any): V {
+    override fun remove(key: K): V {
         throw UnsupportedOperationException()
     }
 
-    fun putAll(m: Map<out K, out V>) {
+    override fun putAll(m: Map<out K, out V>) {
         throw UnsupportedOperationException()
     }
+//
+//    fun keySet(): Set<K> {
+//        throw UnsupportedOperationException()
+//    }
 
-    fun keySet(): Set<K> {
-        throw UnsupportedOperationException()
-    }
+//    fun values(): Collection<V> {
+//        val a = ArrayList<V>(size)
+//        for (bucket in buckets) {
+//            if (bucket == null) continue
+//            for (e in bucket) {
+//                a.add(e.value)
+//            }
+//        }
+//        return a
+//    }
 
-    fun values(): Collection<V> {
-        val a = ArrayList<V>(size)
-        for (bucket in buckets) {
-            if (bucket == null) continue
-            for (e in bucket) {
-                a.add(e.value)
-            }
-        }
-        return a
-    }
-
-    fun entrySet(): Set<Entry<K, V>> {
-        throw UnsupportedOperationException()
-    }
+//    fun entrySet(): Set<Entry<K, V>> {
+//        throw UnsupportedOperationException()
+//    }
 
     override fun containsKey(key: K): Boolean {
         return get(key) != null
@@ -173,15 +173,15 @@ open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityCompara
 //        n = oldSize
     }
 
-    fun size(): Int {
-        return n
-    }
+//    fun size(): Int {
+//        return n
+//    }
 
     override fun isEmpty(): Boolean {
         return n == 0
     }
 
-    fun clear() {
+    override fun clear() {
         TODO()
         //buckets = createEntryListArray(INITAL_CAPACITY)
         n = 0
@@ -242,4 +242,5 @@ open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityCompara
         }
 
     }
+
 }

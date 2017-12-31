@@ -48,12 +48,12 @@ constructor(
                         channel: Int, start: Int, stop: Int,
                         line: Int, charPositionInLine: Int): CommonToken {
         val t = CommonToken(source, type, channel, start, stop)
-        t.setLine(line)
-        t.setCharPositionInLine(charPositionInLine)
+        t.line = line
+        t.charPositionInLine = charPositionInLine
         if (text != null) {
-            t.setText(text)
+            t.text = text
         } else if (copyText && source.b != null) {
-            t.setText(source.b.getText(Interval.of(start, stop)))
+            t.text = source.b.getText(Interval.of(start, stop))
         }
 
         return t

@@ -64,9 +64,9 @@ import org.antlr.v4.kotlinruntime.tree.Trees
  * @see ParserRuleContext
  */
 open class RuleContext : RuleNode {
-    override fun setParent(parent: RuleContext) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+//    override fun setParent(parent: RuleContext) {
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//    }
 
     /** What context invoked this rule?  */
     /** @since 4.7. {@see ParseTree#setParent} comment

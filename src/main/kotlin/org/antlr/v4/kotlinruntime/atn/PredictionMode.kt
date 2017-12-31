@@ -91,10 +91,10 @@ enum class PredictionMode {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override val entries: Set<Map.Entry<ATNConfig, BitSet>>
+        override val entries: MutableSet<MutableMap.MutableEntry<ATNConfig, BitSet>>
             get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
-        override val keys: Set<ATNConfig>
+        override val keys: MutableSet<ATNConfig>
             get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
         override fun containsValue(value: BitSet): Boolean {
@@ -104,7 +104,7 @@ enum class PredictionMode {
         override val size: Int
             get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
-        override val values: Collection<BitSet>
+        override val values: MutableCollection<BitSet>
             get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
         override fun containsKey(key: ATNConfig): Boolean {
@@ -615,7 +615,7 @@ enum class PredictionMode {
                 }
                 alts!!.set(c.alt)
             }
-            return configToAlts.values()
+            return configToAlts.values
         }
 
         /**

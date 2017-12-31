@@ -53,8 +53,8 @@ class LexerInterpreter(override val grammarFileName: String, override val vocabu
         this.interpreter = LexerATNSimulator(this, atn, _decisionToDFA, _sharedContextCache)
     }
 
-    fun getVocabulary(): Vocabulary {
-        return vocabulary ?: super.vocabulary
-
-    }
+//    fun getVocabulary(): Vocabulary {
+//        return vocabulary ?: super.vocabulary
+//
+//    }
 }

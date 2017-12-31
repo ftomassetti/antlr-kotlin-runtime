@@ -46,7 +46,7 @@ interface ParseTree : SyntaxTree {
      *
      * @since 4.7
      */
-    fun setParent(parent: RuleContext)
+    //fun setParent(parent: RuleContext)
 
     /** The [ParseTreeVisitor] needs a double dispatch method.  */
     fun <T> accept(visitor: ParseTreeVisitor<out T>): T?

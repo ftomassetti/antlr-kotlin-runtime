@@ -14,27 +14,24 @@ open class CommonToken : WritableToken {
      * This is the backing field for [.getType] and [.setType].
      */
     override var type: Int = 0
-        protected set
+
 
     /**
      * This is the backing field for [.getLine] and [.setLine].
      */
     override var line: Int = 0
-        protected set
 
     /**
      * This is the backing field for [.getCharPositionInLine] and
      * [.setCharPositionInLine].
      */
     override var charPositionInLine = -1
-        protected set // set to invalid position
 
     /**
      * This is the backing field for [.getChannel] and
      * [.setChannel].
      */
     override var channel = Token.DEFAULT_CHANNEL
-        protected set
 
     /**
      * This is the backing field for [.getTokenSource] and
@@ -63,7 +60,6 @@ open class CommonToken : WritableToken {
      * [.setTokenIndex].
      */
     override var tokenIndex = -1
-        protected set
 
     /**
      * This is the backing field for [.getStartIndex] and
@@ -151,9 +147,9 @@ open class CommonToken : WritableToken {
         }
     }
 
-    override fun setLine(line: Int) {
-        this.line = line
-    }
+//    override fun setLine(line: Int) {
+//        this.line = line
+//    }
 
     override var text: String?
         get() {
@@ -181,25 +177,25 @@ open class CommonToken : WritableToken {
      * should be obtained from the input along with the start and stop indexes
      * of the token.
      */
-    override fun setText(text: String) {
-        this.text = text
-    }
-
-    override fun setCharPositionInLine(charPositionInLine: Int) {
-        this.charPositionInLine = charPositionInLine
-    }
-
-    override fun setChannel(channel: Int) {
-        this.channel = channel
-    }
-
-    override fun setType(type: Int) {
-        this.type = type
-    }
-
-    override fun setTokenIndex(index: Int) {
-        this.tokenIndex = index
-    }
+//    override fun setText(text: String) {
+//        this.text = text
+//    }
+//
+//    override fun setCharPositionInLine(charPositionInLine: Int) {
+//        this.charPositionInLine = charPositionInLine
+//    }
+//
+//    override fun setChannel(channel: Int) {
+//        this.channel = channel
+//    }
+//
+//    override fun setType(type: Int) {
+//        this.type = type
+//    }
+//
+//    override fun setTokenIndex(index: Int) {
+//        this.tokenIndex = index
+//    }
 
     override fun toString(): String {
         return toString(null)

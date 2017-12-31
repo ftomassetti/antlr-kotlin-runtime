@@ -160,9 +160,9 @@ abstract class ATNState {
         return epsilonOnlyTransitions
     }
 
-    fun setRuleIndex(ruleIndex: Int) {
-        this.ruleIndex = ruleIndex
-    }
+//    fun setRuleIndex(ruleIndex: Int) {
+//        this.ruleIndex = ruleIndex
+//    }
 
     companion object {
         val INITIAL_NUM_TRANSITIONS = 4

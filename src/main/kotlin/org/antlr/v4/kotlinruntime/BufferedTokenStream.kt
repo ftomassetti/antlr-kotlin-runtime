@@ -170,7 +170,7 @@ open class BufferedTokenStream(
         for (i in 0 until n) {
             val t = tokenSource.nextToken()
             if (t is WritableToken) {
-                (t as WritableToken).setTokenIndex(tokens.size)
+                (t as WritableToken).tokenIndex = tokens.size
             }
             tokens.add(t)
             if (t.type == Token.EOF) {
@@ -256,17 +256,17 @@ open class BufferedTokenStream(
         p = adjustSeekIndex(0)
     }
 
-    /** Reset this token stream by setting its token source.  */
-    fun setTokenSource(tokenSource: TokenSource) {
-        this.tokenSource = tokenSource
-        tokens.clear()
-        p = -1
-        fetchedEOF = false
-    }
+//    /** Reset this token stream by setting its token source.  */
+//    fun setTokenSource(tokenSource: TokenSource) {
+//        this.tokenSource = tokenSource
+//        tokens.clear()
+//        p = -1
+//        fetchedEOF = false
+//    }
 
-    fun getTokens(): List<Token> {
-        return tokens
-    }
+//    fun getTokens(): List<Token> {
+//        return tokens
+//    }
 
     /** Given a start and stop index, return a List of all tokens in
      * the token type BitSet.  Return null if no tokens were found.  This

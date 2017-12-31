@@ -47,9 +47,9 @@ class OrderedHashSet<T> : LinkedHashSet<T>() {
         return result
     }
 
-    fun remove(o: Any?): Boolean {
-        throw UnsupportedOperationException()
-    }
+//    fun remove(o: Any?): Boolean {
+//        throw UnsupportedOperationException()
+//    }
 
     override fun clear() {
         elements!!.clear()

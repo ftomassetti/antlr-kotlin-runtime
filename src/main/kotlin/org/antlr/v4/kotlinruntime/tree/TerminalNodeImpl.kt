@@ -32,9 +32,9 @@ open class TerminalNodeImpl(override var symbol: Token?) : TerminalNode {
         return null
     }
 
-    override fun setParent(parent: RuleContext) {
-        this.parent = parent
-    }
+//    override fun setParent(parent: RuleContext) {
+//        this.parent = parent
+//    }
 
     override val payload: Token?
         get() = symbol

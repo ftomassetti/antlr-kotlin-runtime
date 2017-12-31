@@ -184,7 +184,7 @@ class UnbufferedTokenStream<T : Token> constructor(tokenSource: TokenSource, buf
         }
 
         if (t is WritableToken) {
-            (t as WritableToken).setTokenIndex(bufferStartIndex + n)
+            (t as WritableToken).tokenIndex = bufferStartIndex + n
         }
 
         tokens[n++] = t

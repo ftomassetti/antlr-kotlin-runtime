@@ -30,7 +30,7 @@ open class ATNConfigSet constructor(
      * fields; in particular, conflictingAlts is set after
      * we've made this readonly.
      */
-    protected var readonly = false
+    //protected var readonly = false
 
     /**
      * All configs but hashed by (s, i, _, pi) not including context. Wiped out
@@ -97,10 +97,10 @@ open class ATNConfigSet constructor(
 //        }
 //
     // can't mod, no need for lookup cache
-    var isReadonly: Boolean
-        get() = readonly
-        set(readonly) {
-            this.readonly = readonly
+    var isReadonly: Boolean = false
+        get
+        set(value: Boolean) {
+            field = value
             configLookup = null
         }
 
@@ -177,7 +177,7 @@ open class ATNConfigSet constructor(
     fun add(
             config: ATNConfig,
             mergeCache: DoubleKeyMap<PredictionContext, PredictionContext, PredictionContext>?): Boolean {
-        if (readonly) throw IllegalStateException("This set is readonly")
+        if (isReadonly) throw IllegalStateException("This set is readonly")
         if (config.semanticContext !== SemanticContext.NONE) {
             hasSemanticContext = true
         }
@@ -282,14 +282,6 @@ open class ATNConfigSet constructor(
         return configLookup!!.contains(o)
     }
 
-    fun contains(o: Any): Boolean {
-        if (configLookup == null) {
-            throw UnsupportedOperationException("This method is not implemented for readonly sets.")
-        }
-
-        return configLookup!!.contains(o)
-    }
-
     fun containsFast(obj: ATNConfig): Boolean {
         if (configLookup == null) {
             throw UnsupportedOperationException("This method is not implemented for readonly sets.")
@@ -329,23 +321,8 @@ open class ATNConfigSet constructor(
 //        return configLookup!!.toArray(a)
 //    }
 //
-    /*override*/ fun remove(o: Any): Boolean {
-        throw UnsupportedOperationException()
-    }
-
-    /*override*/ fun containsAll(c: Collection<*>): Boolean {
-        throw UnsupportedOperationException()
-    }
 
     override fun containsAll(elements: Collection<ATNConfig>): Boolean {
-        throw UnsupportedOperationException()
-    }
-
-    /*override*/ fun retainAll(c: Collection<*>): Boolean {
-        throw UnsupportedOperationException()
-    }
-
-    /*override*/ fun removeAll(c: Collection<*>): Boolean {
         throw UnsupportedOperationException()
     }
 

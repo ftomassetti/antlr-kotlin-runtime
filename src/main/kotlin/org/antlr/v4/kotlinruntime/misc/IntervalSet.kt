@@ -28,11 +28,11 @@ class IntervalSet : IntSet {
     /** The list of sorted, disjoint intervals.  */
     protected var intervals: MutableList<Interval>? = null
 
-    protected var readonly: Boolean = false
+    //protected var readonly: Boolean = false
 
-    fun setReadonly(value: Boolean) {
-        this.readonly = value
-    }
+//    fun setReadonly(value: Boolean) {
+//        this.readonly = value
+//    }
 
     /** {@inheritDoc}  */
     override val isNil: Boolean
@@ -68,11 +68,11 @@ class IntervalSet : IntSet {
             return intervals!![0].a
         }
 
-    var isReadonly: Boolean
-        get() = readonly
+    var isReadonly: Boolean = false
+        get
         set(readonly) {
-            if (this.readonly && !readonly) throw IllegalStateException("can't alter readonly IntervalSet")
-            this.readonly = readonly
+            if (field && !readonly) throw IllegalStateException("can't alter readonly IntervalSet")
+            field = readonly
         }
 
     constructor(intervals: MutableList<Interval>) {
@@ -93,7 +93,7 @@ class IntervalSet : IntSet {
     }
 
     fun clear() {
-        if (readonly) throw IllegalStateException("can't alter readonly IntervalSet")
+        if (isReadonly) throw IllegalStateException("can't alter readonly IntervalSet")
         intervals!!.clear()
     }
 
@@ -101,7 +101,7 @@ class IntervalSet : IntSet {
      * as a range el..el.
      */
     override fun add(el: Int) {
-        if (readonly) throw IllegalStateException("can't alter readonly IntervalSet")
+        if (isReadonly) throw IllegalStateException("can't alter readonly IntervalSet")
         add(el, el)
     }
 
@@ -118,7 +118,7 @@ class IntervalSet : IntSet {
 
     // copy on write so we can cache a..a intervals and sets of that
     protected fun add(addition: Interval) {
-        if (readonly) throw IllegalStateException("can't alter readonly IntervalSet")
+        if (isReadonly) throw IllegalStateException("can't alter readonly IntervalSet")
         //System.out.println("add "+addition+" to "+intervals.toString());
         if (addition.b < addition.a) {
             return
@@ -314,10 +314,10 @@ class IntervalSet : IntSet {
         return false
     }
 
-    /** Return a list of Interval objects.  */
-    fun getIntervals(): List<Interval>? {
-        return intervals
-    }
+//    /** Return a list of Interval objects.  */
+//    fun getIntervals(): List<Interval>? {
+//        return intervals
+//    }
 
     override fun hashCode(): Int {
         var hash = MurmurHash.initialize()
@@ -519,7 +519,7 @@ class IntervalSet : IntSet {
     }
 
     override fun remove(el: Int) {
-        if (readonly) throw IllegalStateException("can't alter readonly IntervalSet")
+        if (isReadonly) throw IllegalStateException("can't alter readonly IntervalSet")
         val n = intervals!!.size
         for (i in 0 until n) {
             val I = intervals!![i]
