@@ -1,4 +1,4 @@
-import org.antlr.v4.kotlinruntime.facade.Token
+import org.antlr.v4.kotlinruntime.Token
 
 fun main(args: Array<String>) {
 

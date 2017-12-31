@@ -1,4 +1,4 @@
-package org.antlr.v4.kotlinruntime.facade
+package org.antlr.v4.kotlinruntime
 
 actual class PredictionContextCache {
     val wrapped: dynamic

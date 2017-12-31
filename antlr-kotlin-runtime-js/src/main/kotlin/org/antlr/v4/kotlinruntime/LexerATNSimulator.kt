@@ -1,4 +1,4 @@
-package org.antlr.v4.kotlinruntime.facade
+package org.antlr.v4.kotlinruntime
 
 actual fun createLexerATNSimulator(recog: Lexer?, atn: ATN, decisionToDFA: Array<DFA>, sharedContextCache: PredictionContextCache) : LexerATNSimulator {
     val decisionToDFAunwrapped = decisionToDFA.map { it.wrapped }.toTypedArray()

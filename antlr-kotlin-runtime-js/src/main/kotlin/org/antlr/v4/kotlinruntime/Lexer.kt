@@ -1,4 +1,4 @@
-package org.antlr.v4.kotlinruntime.facade
+package org.antlr.v4.kotlinruntime
 
 actual abstract class Lexer {
     private val grammarFileName : String

@@ -1,5 +1,6 @@
 // Generated from java-escape by ANTLR 4.7.1
 import com.strumenta.kotlinmultiplatform.Arrays
+import org.antlr.v4.kotlinruntime.*
 import org.antlr.v4.kotlinruntime.facade.*
 
 class MiniCalcLexer(val input: String) : Lexer("MiniCalcLexer.g4", input) {
@@ -208,7 +209,7 @@ class MiniCalcLexer(val input: String) : Lexer("MiniCalcLexer.g4", input) {
 		val ATN = ATNDeserializer().deserializeIntegers(serializedIntegersATN)
 		init {
 			decisionToDFA = Array<DFA>(ATN.getNumberOfDecisions(), {
-				createDFA(ATN.getDecisionState(it), it)
+                createDFA(ATN.getDecisionState(it), it)
 			})
 		}
 	}

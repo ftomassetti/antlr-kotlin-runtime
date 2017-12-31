@@ -1,4 +1,4 @@
-package org.antlr.v4.kotlinruntime.facade
+package org.antlr.v4.kotlinruntime
 
 actual interface Token {
     actual fun getText(): String
