@@ -80,17 +80,17 @@ class OrderedHashSet<T> : LinkedHashSet<T>() {
         return elements
     }
 
-    fun clone(): Any {
-        TODO()
-//        val dup = super.clone() as OrderedHashSet<T>// safe (result of clone)
-//        dup.elements = ArrayList(this.elements!!)
-//        return dup
-    }
-
-    fun toArray(): Array<Any> {
-        TODO()
-        //return elements!!.toTypedArray()
-    }
+//    fun clone(): Any {
+//        TODO()
+////        val dup = super.clone() as OrderedHashSet<T>// safe (result of clone)
+////        dup.elements = ArrayList(this.elements!!)
+////        return dup
+//    }
+//
+//    fun toArray(): Array<Any> {
+//        TODO()
+//        //return elements!!.toTypedArray()
+//    }
 
     override fun toString(): String {
         return elements!!.toString()

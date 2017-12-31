@@ -24,7 +24,7 @@ class ParseInfo(protected val atnSimulator: ProfilingATNSimulator) {
      * number.
      */
     val decisionInfo: Array<DecisionInfo>
-        get() = atnSimulator.decisionInfo
+        get() = atnSimulator.decisionInfo!!
 
     /**
      * Gets the decision numbers for decisions that required one or more
@@ -38,8 +38,8 @@ class ParseInfo(protected val atnSimulator: ProfilingATNSimulator) {
         get() {
             val decisions = atnSimulator.decisionInfo
             val LL = ArrayList<Int>()
-            for (i in decisions.indices) {
-                val fallBack = decisions[i].LL_Fallback
+            for (i in decisions!!.indices) {
+                val fallBack = decisions[i]!!.LL_Fallback
                 if (fallBack > 0) LL.add(i)
             }
             return LL
@@ -54,8 +54,8 @@ class ParseInfo(protected val atnSimulator: ProfilingATNSimulator) {
         get() {
             val decisions = atnSimulator.decisionInfo
             var t: Long = 0
-            for (i in decisions.indices) {
-                t += decisions[i].timeInPrediction
+            for (i in decisions!!.indices) {
+                t += decisions[i]!!.timeInPrediction
             }
             return t
         }
@@ -69,8 +69,8 @@ class ParseInfo(protected val atnSimulator: ProfilingATNSimulator) {
         get() {
             val decisions = atnSimulator.decisionInfo
             var k: Long = 0
-            for (i in decisions.indices) {
-                k += decisions[i].SLL_TotalLook
+            for (i in decisions!!.indices) {
+                k += decisions[i]!!.SLL_TotalLook
             }
             return k
         }
@@ -84,8 +84,8 @@ class ParseInfo(protected val atnSimulator: ProfilingATNSimulator) {
         get() {
             val decisions = atnSimulator.decisionInfo
             var k: Long = 0
-            for (i in decisions.indices) {
-                k += decisions[i].LL_TotalLook
+            for (i in decisions!!.indices) {
+                k += decisions[i]!!.LL_TotalLook
             }
             return k
         }
@@ -98,8 +98,8 @@ class ParseInfo(protected val atnSimulator: ProfilingATNSimulator) {
         get() {
             val decisions = atnSimulator.decisionInfo
             var k: Long = 0
-            for (i in decisions.indices) {
-                k += decisions[i].SLL_ATNTransitions
+            for (i in decisions!!.indices) {
+                k += decisions[i]!!.SLL_ATNTransitions
             }
             return k
         }
@@ -112,8 +112,8 @@ class ParseInfo(protected val atnSimulator: ProfilingATNSimulator) {
         get() {
             val decisions = atnSimulator.decisionInfo
             var k: Long = 0
-            for (i in decisions.indices) {
-                k += decisions[i].LL_ATNTransitions
+            for (i in decisions!!.indices) {
+                k += decisions[i]!!.LL_ATNTransitions
             }
             return k
         }
@@ -131,9 +131,9 @@ class ParseInfo(protected val atnSimulator: ProfilingATNSimulator) {
         get() {
             val decisions = atnSimulator.decisionInfo
             var k: Long = 0
-            for (i in decisions.indices) {
-                k += decisions[i].SLL_ATNTransitions
-                k += decisions[i].LL_ATNTransitions
+            for (i in decisions!!.indices) {
+                k += decisions[i]!!.SLL_ATNTransitions
+                k += decisions[i]!!.LL_ATNTransitions
             }
             return k
         }

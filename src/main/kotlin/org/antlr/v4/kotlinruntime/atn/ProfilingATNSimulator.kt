@@ -6,21 +6,21 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
-//import org.antlr.v4.runtime.Parser
-//import org.antlr.v4.runtime.ParserRuleContext
-//import org.antlr.v4.runtime.TokenStream
-//import org.antlr.v4.runtime.dfa.DFA
-//import org.antlr.v4.runtime.dfa.DFAState
+import org.antlr.v4.kotlinruntime.Parser
+import org.antlr.v4.kotlinruntime.ParserRuleContext
+import org.antlr.v4.kotlinruntime.TokenStream
+import org.antlr.v4.kotlinruntime.dfa.DFA
+import org.antlr.v4.kotlinruntime.dfa.DFAState
 //
 //import java.util.BitSet
 //
 ///**
 // * @since 4.3
 // */
-//class ProfilingATNSimulator(parser: Parser) : ParserATNSimulator(parser, parser.getInterpreter().atn, parser.getInterpreter().decisionToDFA, parser.getInterpreter().sharedContextCache) {
+class ProfilingATNSimulator(parser: Parser) : ParserATNSimulator(parser, parser.interpreter!!.atn, parser.interpreter!!.decisionToDFA, parser.interpreter!!.sharedContextCache!!) {
 //    // ---------------------------------------------------------------------
 //
-//    val decisionInfo: Array<DecisionInfo>
+    var decisionInfo: Array<DecisionInfo>? = null
 //    protected var numDecisions: Int = 0
 //
 //    protected var _sllStopIndex: Int = 0
@@ -196,4 +196,4 @@ package org.antlr.v4.kotlinruntime.atn
 //        )
 //        super.reportAmbiguity(dfa, D, startIndex, stopIndex, exact, ambigAlts, configs)
 //    }
-//}
+}

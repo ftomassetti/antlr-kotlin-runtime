@@ -209,7 +209,7 @@ object Trees {
         if (t == null) return
         for (i in 0 until t!!.childCount) {
             val child = t!!.getChild(i)
-            val range = child.sourceInterval
+            val range = child!!.sourceInterval
             if (child is ParserRuleContext && (range.b < startIndex || range.a > stopIndex)) {
                 if (isAncestorOf(child, root)) { // replace only if subtree doesn't have displayed root
                     val abbrev = CommonToken(Token.INVALID_TYPE, "...")

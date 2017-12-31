@@ -359,24 +359,26 @@ class ParseTreePatternMatcher
                     val t = TokenTagToken(tagChunk.tag, ttype!!, tagChunk.label)
                     tokens.add(t)
                 } else if (Char.isLowerCase(tagChunk.tag.get(0))) {
-                    val ruleIndex = parser.getRuleIndex(tagChunk.tag)
-                    if (ruleIndex == -1) {
-                        throw IllegalArgumentException("Unknown rule " + tagChunk.tag + " in pattern: " + pattern)
-                    }
-                    val ruleImaginaryTokenType = parser.atnWithBypassAlts().ruleToTokenType[ruleIndex]
-                    tokens.add(RuleTagToken(tagChunk.tag, ruleImaginaryTokenType, tagChunk.label))
+                    TODO()
+//                    val ruleIndex = parser.getRuleIndex(tagChunk.tag)
+//                    if (ruleIndex == -1) {
+//                        throw IllegalArgumentException("Unknown rule " + tagChunk.tag + " in pattern: " + pattern)
+//                    }
+//                    val ruleImaginaryTokenType = parser.atnWithBypassAlts().ruleToTokenType[ruleIndex]
+//                    tokens.add(RuleTagToken(tagChunk.tag, ruleImaginaryTokenType, tagChunk.label))
                 } else {
                     throw IllegalArgumentException("invalid tag: " + tagChunk.tag + " in pattern: " + pattern)
                 }
             } else {
-                val textChunk = chunk as TextChunk
-                val `in` = ANTLRInputStream(textChunk.text)
-                lexer.setInputStream(`in`)
-                var t = lexer.nextToken()
-                while (t!!.type !== Token.EOF) {
-                    tokens.add(t!!)
-                    t = lexer.nextToken()
-                }
+                TODO()
+//                val textChunk = chunk as TextChunk
+//                val `in` = ANTLRInputStream(textChunk.text)
+//                lexer.setInputStream(`in`)
+//                var t = lexer.nextToken()
+//                while (t!!.type !== Token.EOF) {
+//                    tokens.add(t!!)
+//                    t = lexer.nextToken()
+//                }
             }
         }
 

@@ -202,7 +202,8 @@ open class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<
     }
 
     override fun iterator(): MutableIterator<T> {
-        return SetIterator(toTypedArray())
+        TODO()
+        //return SetIterator(toTypedArray())
     }
 
     fun toArray(): Array<T> {

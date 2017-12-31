@@ -7,7 +7,6 @@
 package org.antlr.v4.kotlinruntime.tree.pattern
 
 import org.antlr.v4.kotlinruntime.tree.ParseTree
-import org.antlr.v4.kotlinruntime.tree.xpath.XPath
 
 /**
  * A pattern like `<ID> = <expr>;` converted to a [ParseTree] by
@@ -110,14 +109,15 @@ class ParseTreePattern
      */
 
     fun findAll(tree: ParseTree, xpath: String): List<ParseTreeMatch> {
-        val subtrees = XPath.findAll(tree, xpath, matcher.parser)
-        val matches = ArrayList<ParseTreeMatch>()
-        for (t in subtrees) {
-            val match = match(t)
-            if (match.succeeded()) {
-                matches.add(match)
-            }
-        }
-        return matches
+        TODO()
+//        val subtrees = XPath.findAll(tree, xpath, matcher.parser)
+//        val matches = ArrayList<ParseTreeMatch>()
+//        for (t in subtrees) {
+//            val match = match(t)
+//            if (match.succeeded()) {
+//                matches.add(match)
+//            }
+//        }
+//        return matches
     }
 }

@@ -37,13 +37,13 @@ open class ParserRuleContext : RuleContext {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    //    /** If we are debugging or building a parse tree for a visitor,
-//     * we need to track all of the tokens and rule invocations associated
-//     * with this rule's context. This is empty for parsing w/o tree constr.
-//     * operation because we don't the need to track the details about
-//     * how we parse this rule.
-//     */
-//    var children: MutableList<ParseTree>? = null
+        /** If we are debugging or building a parse tree for a visitor,
+     * we need to track all of the tokens and rule invocations associated
+     * with this rule's context. This is empty for parsing w/o tree constr.
+     * operation because we don't the need to track the details about
+     * how we parse this rule.
+     */
+    var children: MutableList<ParseTree>? = null
 //
 //    /** For debugging/tracing purposes, we want to track all of the nodes in
 //     * the ATN traversed by the parser for a particular rule.
@@ -65,18 +65,18 @@ open class ParserRuleContext : RuleContext {
 //     */
 //    //	public List<Integer> states;
 //
-//    /**
-//     * Get the initial token in this context.
-//     * Note that the range from start to stop is inclusive, so for rules that do not consume anything
-//     * (for example, zero length or error productions) this token may exceed stop.
-//     */
-//    var start: Token? = null
-//    /**
-//     * Get the final token in this context.
-//     * Note that the range from start to stop is inclusive, so for rules that do not consume anything
-//     * (for example, zero length or error productions) this token may precede start.
-//     */
-//    var stop: Token? = null
+    /**
+     * Get the initial token in this context.
+     * Note that the range from start to stop is inclusive, so for rules that do not consume anything
+     * (for example, zero length or error productions) this token may exceed stop.
+     */
+    var start: Token? = null
+    /**
+     * Get the final token in this context.
+     * Note that the range from start to stop is inclusive, so for rules that do not consume anything
+     * (for example, zero length or error productions) this token may precede start.
+     */
+    var stop: Token? = null
 //
 //    /**
 //     * The exception that forced this rule to return. If the rule successfully

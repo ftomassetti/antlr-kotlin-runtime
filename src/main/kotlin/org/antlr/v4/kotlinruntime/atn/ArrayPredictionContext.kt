@@ -18,7 +18,7 @@ class ArrayPredictionContext(
         /** Sorted for merge, no duplicates; if present,
          * [.EMPTY_RETURN_STATE] is always last.
          */
-        val returnStates: IntArray?) : PredictionContext(PredictionContext.calculateHashCode(parents!!, returnStates)) {
+        val returnStates: IntArray?) : PredictionContext(PredictionContext.calculateHashCode(parents!!, returnStates!!)) {
 //
 //    override// since EMPTY_RETURN_STATE can only appear in the last position, we
 //            // don't need to verify that size==1

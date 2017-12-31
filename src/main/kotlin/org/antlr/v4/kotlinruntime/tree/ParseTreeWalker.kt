@@ -37,13 +37,15 @@ open class ParseTreeWalker {
     protected fun enterRule(listener: ParseTreeListener, r: RuleNode) {
         val ctx = r.ruleContext as ParserRuleContext
         listener.enterEveryRule(ctx)
-        ctx.enterRule(listener)
+        TODO()
+        //ctx.enterRule(listener)
     }
 
     protected fun exitRule(listener: ParseTreeListener, r: RuleNode) {
         val ctx = r.ruleContext as ParserRuleContext
-        ctx.exitRule(listener)
-        listener.exitEveryRule(ctx)
+        TODO()
+        //ctx.exitRule(listener)
+        //listener.exitEveryRule(ctx)
     }
 
     companion object {

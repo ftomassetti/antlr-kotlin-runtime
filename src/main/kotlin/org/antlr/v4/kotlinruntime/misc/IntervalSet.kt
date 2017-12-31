@@ -388,7 +388,7 @@ class IntervalSet : IntSet {
 
     @Deprecated("Use {@link #toString(Vocabulary)} instead.")
     fun toString(tokenNames: Array<String>): String {
-        return toString(VocabularyImpl.fromTokenNames(tokenNames))
+        return toString(VocabularyImpl.fromTokenNames(tokenNames as Array<String?>))
     }
 
     fun toString(vocabulary: Vocabulary): String {
@@ -425,7 +425,7 @@ class IntervalSet : IntSet {
 
     @Deprecated("Use {@link #elementName(Vocabulary, int)} instead.")
     protected fun elementName(tokenNames: Array<String>, a: Int): String {
-        return elementName(VocabularyImpl.fromTokenNames(tokenNames), a)
+        return elementName(VocabularyImpl.fromTokenNames(tokenNames as Array<String?>), a)
     }
 
 

@@ -19,7 +19,7 @@ open class DFASerializer {
 
 
     @Deprecated("Use {@link #DFASerializer(DFA, Vocabulary)} instead.")
-    constructor(dfa: DFA, tokenNames: Array<String>) : this(dfa, VocabularyImpl.fromTokenNames(tokenNames)) {
+    constructor(dfa: DFA, tokenNames: Array<String>) : this(dfa, VocabularyImpl.fromTokenNames(tokenNames as Array<String?>)) {
     }
 
     constructor(dfa: DFA, vocabulary: Vocabulary) {

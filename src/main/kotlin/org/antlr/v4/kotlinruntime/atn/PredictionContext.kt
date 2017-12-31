@@ -174,13 +174,13 @@ abstract class PredictionContext protected constructor(
             return SingletonPredictionContext.create(parent, transition.followState.stateNumber)
         }
 
-        protected fun calculateEmptyHashCode(): Int {
+        public fun calculateEmptyHashCode(): Int {
             var hash = MurmurHash.initialize(INITIAL_HASH)
             hash = MurmurHash.finish(hash, 0)
             return hash
         }
 
-        protected fun calculateHashCode(parent: PredictionContext, returnState: Int): Int {
+        public fun calculateHashCode(parent: PredictionContext, returnState: Int): Int {
             var hash = MurmurHash.initialize(INITIAL_HASH)
             hash = MurmurHash.update(hash, parent)
             hash = MurmurHash.update(hash, returnState)
@@ -188,7 +188,7 @@ abstract class PredictionContext protected constructor(
             return hash
         }
 
-        protected fun calculateHashCode(parents: Array<PredictionContext>, returnStates: IntArray): Int {
+        public fun calculateHashCode(parents: Array<PredictionContext?>, returnStates: IntArray): Int {
             var hash = MurmurHash.initialize(INITIAL_HASH)
 
             for (parent in parents) {

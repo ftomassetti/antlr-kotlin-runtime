@@ -14,7 +14,7 @@ abstract class AbstractParseTreeVisitor<T> : ParseTreeVisitor<T> {
      * The default implementation calls [ParseTree.accept] on the
      * specified tree.
      */
-    override fun visit(tree: ParseTree): T {
+    override fun visit(tree: ParseTree): T? {
         return tree.accept(this)
     }
 
@@ -44,8 +44,8 @@ abstract class AbstractParseTreeVisitor<T> : ParseTreeVisitor<T> {
             }
 
             val c = node.getChild(i)
-            val childResult = c.accept(this)
-            result = aggregateResult(result, childResult)
+            val childResult = c!!.accept(this)
+            result = aggregateResult(result, childResult!!)
         }
 
         return result
