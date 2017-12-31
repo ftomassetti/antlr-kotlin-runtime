@@ -18,13 +18,17 @@ expect object Arrays {
     fun <T> asList(vararg elements: T): List<T>
 
     fun <T> copyOf(original: Array<T>, size: Int): Array<T>
+
+    fun equals(a: Array<*>, b: Array<*>) : Boolean
 }
 
 expect class BitSet {
+    constructor()
 
+    fun set(value: Int)
 }
 
-expect class ArrayList<T> : List<T>
+//expect class ArrayList<T> : List<T>
 
 expect object Collections {
     fun unmodifiableList(asList: Any): Any
@@ -51,12 +55,29 @@ fun Char.Companion.isUpperCase(firstChar: Char): Boolean {
     TODO()
 }
 
-expect open class CopyOnWriteArrayList<T> : MutableList<T> {
-
-}
+//expect open class CopyOnWriteArrayList<T> : MutableList<T> {
+//
+//}
 
 expect class NullPointerException : Throwable
 
 expect class WeakHashMap<K, V> {
     constructor()
 }
+
+expect class IdentityHashMap<K, V> : Map<K, V> {
+    constructor()
+}
+
+expect class UUID {
+    companion object {
+        fun fromString(encoded: String) : UUID
+    }
+}
+
+expect fun errMessage(message: String)
+expect fun outMessage(message: String)
+
+expect fun Char.Companion.isSupplementaryCodePoint(codePoint: Int): Boolean
+
+expect fun <T> Array<T>.clone(): Array<T>

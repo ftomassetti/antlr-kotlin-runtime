@@ -30,6 +30,6 @@ interface EqualityComparator<T> {
      * @param b The second object to compare.
      * @return `true` if `a` equals `b`, otherwise `false`.
      */
-    fun equals(a: T, b: T): Boolean
+    fun equals(a: T?, b: T?): Boolean
 
 }

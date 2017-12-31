@@ -8,8 +8,6 @@ package org.antlr.v4.kotlinruntime
 
 import org.antlr.v4.kotlinruntime.misc.Interval
 
-import java.nio.charset.StandardCharsets
-
 /**
  * Alternative to [ANTLRInputStream] which treats the input
  * as a series of Unicode code points, instead of a series of UTF-16

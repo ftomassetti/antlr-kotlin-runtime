@@ -7,6 +7,7 @@
 package org.antlr.v4.kotlinruntime.atn
 
 import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.clone
 import org.antlr.v4.kotlinruntime.CharStream
 import org.antlr.v4.kotlinruntime.IntStream
 import org.antlr.v4.kotlinruntime.Lexer
@@ -92,7 +93,7 @@ class LexerActionExecutor
                     updatedLexerActions = lexerActions.clone()
                 }
 
-                updatedLexerActions[i] = LexerIndexedCustomAction(offset, lexerActions[i])
+                updatedLexerActions!![i] = LexerIndexedCustomAction(offset, lexerActions[i])
             }
         }
 
@@ -127,17 +128,18 @@ class LexerActionExecutor
         val stopIndex = input.index()
         try {
             for (lexerAction in lexerActions) {
-                if (lexerAction is LexerIndexedCustomAction) {
-                    val offset = (lexerAction as LexerIndexedCustomAction).offset
+                var mutableLexerAction = lexerAction
+                if (mutableLexerAction is LexerIndexedCustomAction) {
+                    val offset = (mutableLexerAction as LexerIndexedCustomAction).offset
                     input.seek(startIndex + offset)
-                    lexerAction = (lexerAction as LexerIndexedCustomAction).action
+                    mutableLexerAction = (mutableLexerAction as LexerIndexedCustomAction).action
                     requiresSeek = startIndex + offset != stopIndex
-                } else if (lexerAction.isPositionDependent) {
+                } else if (mutableLexerAction.isPositionDependent) {
                     input.seek(stopIndex)
                     requiresSeek = false
                 }
 
-                lexerAction.execute(lexer)
+                mutableLexerAction.execute(lexer)
             }
         } finally {
             if (requiresSeek) {
@@ -189,3 +191,4 @@ class LexerActionExecutor
         }
     }
 }
+

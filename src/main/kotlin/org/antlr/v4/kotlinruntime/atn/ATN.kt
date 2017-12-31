@@ -155,7 +155,7 @@ class ATN
 
         var ctx: RuleContext? = context
         val s = states[stateNumber]
-        var following = nextTokens(s)
+        var following = nextTokens(s!!)
         if (!following!!.contains(Token.EPSILON)) {
             return following
         }
@@ -165,7 +165,7 @@ class ATN
         expected.remove(Token.EPSILON)
         while (ctx != null && ctx!!.invokingState >= 0 && following!!.contains(Token.EPSILON)) {
             val invokingState = states[ctx!!.invokingState]
-            val rt = invokingState.transition(0) as RuleTransition
+            val rt = invokingState!!.transition(0) as RuleTransition
             following = nextTokens(rt.followState)
             expected.addAll(following)
             expected.remove(Token.EPSILON)

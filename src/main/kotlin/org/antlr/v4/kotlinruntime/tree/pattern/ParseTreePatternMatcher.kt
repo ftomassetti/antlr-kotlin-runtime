@@ -6,6 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.tree.pattern
 
+import com.strumenta.kotlinmultiplatform.Arrays
 import org.antlr.v4.kotlinruntime.*
 import org.antlr.v4.kotlinruntime.atn.ATN
 import org.antlr.v4.kotlinruntime.misc.MultiMap
@@ -112,7 +113,7 @@ class ParseTreePatternMatcher
     protected var stop = ">"
     protected var escape = "\\" // e.g., \< and \> must escape BOTH!
 
-    class CannotInvokeStartRule(e: Throwable) : RuntimeException(e)
+    class CannotInvokeStartRule(e: Throwable) : RuntimeException(e.message!!)
 
     // Fixes https://github.com/antlr/antlr4/issues/413
     // "Tree pattern compilation doesn't check for a complete parse"
@@ -190,10 +191,10 @@ class ParseTreePatternMatcher
         val tokenSrc = ListTokenSource(tokenList)
         val tokens = CommonTokenStream(tokenSrc)
 
-        val parserInterp = ParserInterpreter(parser.getGrammarFileName(),
-                parser.getVocabulary(),
-                Arrays.asList(parser.getRuleNames()),
-                parser.getATNWithBypassAlts(),
+        val parserInterp = ParserInterpreter(parser.grammarFileName,
+                parser.vocabulary,
+                Arrays.asList(parser.ruleNames),
+                parser.atnWithBypassAlts,
                 tokens)
 
         var tree: ParseTree? = null

@@ -111,7 +111,7 @@ class ParseTreeMatch
      */
 
     operator fun get(label: String): ParseTree? {
-        val parseTrees = labels.get(label)
+        val parseTrees = labels!!.get(label)
         return if (parseTrees == null || parseTrees!!.size == 0) {
             null
         } else parseTrees!!.get(parseTrees!!.size - 1)
@@ -145,8 +145,7 @@ class ParseTreeMatch
      */
 
     fun getAll(label: String): List<ParseTree> {
-
-        return labels.get(label) ?: return emptyList<T>()
+        return labels!!.get(label) ?: return emptyList()
     }
 
     /**
@@ -163,9 +162,6 @@ class ParseTreeMatch
      * {@inheritDoc}
      */
     override fun toString(): String {
-        return String.format(
-                "Match %s; found %d labels",
-                if (succeeded()) "succeeded" else "failed",
-                labels.size())
+        return "Match ${if (succeeded()) "succeeded" else "failed"}; found ${labels!!.size} labels"
     }
 }

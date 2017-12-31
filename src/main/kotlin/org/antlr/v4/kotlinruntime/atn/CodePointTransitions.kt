@@ -6,6 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.atn
 
+import com.strumenta.kotlinmultiplatform.isSupplementaryCodePoint
 import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 /**
@@ -24,7 +25,7 @@ object CodePointTransitions {
      * Otherwise, returns a new [SetTransition].
      */
     fun createWithCodePoint(target: ATNState, codePoint: Int): Transition {
-        return if (Character.isSupplementaryCodePoint(codePoint)) {
+        return if (Char.isSupplementaryCodePoint(codePoint)) {
             SetTransition(target, IntervalSet.of(codePoint))
         } else {
             AtomTransition(target, codePoint)
@@ -40,7 +41,7 @@ object CodePointTransitions {
             target: ATNState,
             codePointFrom: Int,
             codePointTo: Int): Transition {
-        return if (Character.isSupplementaryCodePoint(codePointFrom) || Character.isSupplementaryCodePoint(codePointTo)) {
+        return if (Char.isSupplementaryCodePoint(codePointFrom) || Char.isSupplementaryCodePoint(codePointTo)) {
             SetTransition(target, IntervalSet.of(codePointFrom, codePointTo))
         } else {
             RangeTransition(target, codePointFrom, codePointTo)

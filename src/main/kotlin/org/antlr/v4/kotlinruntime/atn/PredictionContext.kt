@@ -38,7 +38,7 @@ abstract class PredictionContext protected constructor(
     val id = globalNodeCount++
 
     /** This means only the [.EMPTY] (wildcard? not sure) context is in set.  */
-    val isEmpty: Boolean
+    open val isEmpty: Boolean
         get() = this === EMPTY
 
     abstract fun size(): Int

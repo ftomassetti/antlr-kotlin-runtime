@@ -28,7 +28,7 @@ class RuleTagToken
  * @exception IllegalArgumentException if `ruleName` is `null`
  * or empty.
  */
-@JvmOverloads constructor(
+constructor(
         /**
          * This is the backing field for [.getRuleName].
          */

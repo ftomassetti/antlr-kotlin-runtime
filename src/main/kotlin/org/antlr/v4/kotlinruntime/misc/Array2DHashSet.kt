@@ -6,10 +6,12 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
+import com.strumenta.kotlinmultiplatform.Arrays
 import com.strumenta.kotlinmultiplatform.Math
+import com.strumenta.kotlinmultiplatform.assert
 
 /** [Set] implementation with closed hashing (open addressing).  */
-class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : Set<T> {
+open class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : MutableSet<T> {
 
 
     protected val comparator: AbstractEqualityComparator<in T>
@@ -31,7 +33,7 @@ class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>
         }
 
         this.comparator = comparator
-        this.buckets = createBuckets(initialCapacity)
+        this.buckets = createBuckets(initialCapacity) as Array<Array<T>>
         this.initialBucketCapacity = initialBucketCapacity
     }
 
@@ -51,7 +53,7 @@ class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>
 
         // NEW BUCKET
         if (bucket == null) {
-            bucket = createBucket(initialBucketCapacity)
+            bucket = createBucket(initialBucketCapacity) as Array<T>
             bucket[0] = o
             buckets[b] = bucket
             n++
@@ -161,21 +163,24 @@ class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>
         assert(n == oldSize)
     }
 
+    override val size: Int
+        get() = n
+
     override fun add(t: T): Boolean {
         val existing = getOrAdd(t)
         return existing === t
-    }
-
-    override fun size(): Int {
-        return n
     }
 
     override fun isEmpty(): Boolean {
         return n == 0
     }
 
-    override operator fun contains(o: Any): Boolean {
+    operator fun contains(o: Any): Boolean {
         return containsFast(asElementType(o))
+    }
+
+    override fun contains(element: T): Boolean {
+        return containsFast(element)
     }
 
     fun containsFast(obj: T?): Boolean {
@@ -185,11 +190,11 @@ class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>
 
     }
 
-    override fun iterator(): Iterator<T> {
+    override fun iterator(): MutableIterator<T> {
         return SetIterator(toTypedArray())
     }
 
-    override fun toArray(): Array<T> {
+    fun toArray(): Array<T> {
         val a = createBucket(size)
         var i = 0
         for (bucket in buckets) {
@@ -334,17 +339,18 @@ class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>
         return changed
     }
 
-    override fun removeAll(c: Collection<*>): Boolean {
+
+    override fun removeAll(elements: Collection<T>): Boolean {
         var changed = false
-        for (o in c) {
+        for (o in elements) {
             changed = changed or removeFast(asElementType(o))
         }
-
         return changed
     }
 
+
     override fun clear() {
-        buckets = createBuckets(INITAL_CAPACITY)
+        buckets = createBuckets(INITAL_CAPACITY) as Array<Array<T>>
         n = 0
         threshold = Math.floor(INITAL_CAPACITY * LOAD_FACTOR).toInt()
     }
@@ -407,8 +413,8 @@ class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>
      * @return `o` if it could be an instance of `T`, otherwise
      * `null`.
      */
-    protected fun asElementType(o: Any): T {
-        return o as T
+    protected open fun asElementType(o: Any): T? {
+        return o as T?
     }
 
     /**
@@ -417,8 +423,8 @@ class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>
      * @param capacity the length of the array to return
      * @return the newly constructed array
      */
-    protected fun createBuckets(capacity: Int): Array<Array<T>> {
-        return arrayOfNulls<Array<Any>>(capacity) as Array<Array<T>>
+    protected open fun createBuckets(capacity: Int): Array<Array<T>?> {
+        return arrayOfNulls<Array<Any>>(capacity) as Array<Array<T>?>
     }
 
     /**
@@ -427,11 +433,11 @@ class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>
      * @param capacity the length of the array to return
      * @return the newly constructed array
      */
-    protected fun createBucket(capacity: Int): Array<T> {
-        return arrayOfNulls<Any>(capacity) as Array<T>
+    protected open fun createBucket(capacity: Int): Array<T?> {
+        return arrayOfNulls<Any>(capacity) as Array<T?>
     }
 
-    protected inner class SetIterator(internal val data: Array<T>) : Iterator<T> {
+    protected inner class SetIterator(internal val data: Array<T>) : MutableIterator<T> {
         internal var nextIndex = 0
         internal var removed = true
 

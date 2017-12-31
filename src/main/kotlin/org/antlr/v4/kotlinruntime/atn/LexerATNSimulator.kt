@@ -7,6 +7,7 @@
 package org.antlr.v4.kotlinruntime.atn
 
 import com.strumenta.kotlinmultiplatform.assert
+import com.strumenta.kotlinmultiplatform.outMessage
 import org.antlr.v4.kotlinruntime.*
 import org.antlr.v4.kotlinruntime.dfa.DFA
 import org.antlr.v4.kotlinruntime.dfa.DFAState
@@ -87,7 +88,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
             return if (dfa.s0 == null) {
                 matchATN(input)
             } else {
-                execATN(input, dfa.s0)
+                execATN(input, dfa.s0 as DFAState)
             }
         } finally {
             input.release(mark)
@@ -112,7 +113,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
         val startState = atn.modeToStartState.get(mode)
 
         if (debug) {
-            System.out.format(Locale.getDefault(), "matchATN mode %d start: %s\n", mode, startState)
+            outMessage("matchATN mode $mode start: $startState\n")
         }
 
         val old_mode = mode
@@ -129,7 +130,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
         val predict = execATN(input, next)
 
         if (debug) {
-            System.out.format(Locale.getDefault(), "DFA after matchATN: %s\n", decisionToDFA[old_mode].toLexerString())
+            outMessage("DFA after matchATN: ${decisionToDFA[old_mode].toLexerString()}\n")
         }
 
         return predict
@@ -138,7 +139,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
     protected fun execATN(input: CharStream, ds0: DFAState): Int {
         //System.out.println("enter exec index "+input.index()+" from "+ds0.configs);
         if (debug) {
-            System.out.format(Locale.getDefault(), "start state closure=%s\n", ds0.configs)
+            outMessage("start state closure=${ds0.configs}\n")
         }
 
         if (ds0.isAcceptState) {
@@ -152,7 +153,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
 
         while (true) { // while more work
             if (debug) {
-                System.out.format(Locale.getDefault(), "execATN loop starting closure: %s\n", s!!.configs)
+                outMessage("execATN loop starting closure: ${s!!.configs}\n")
             }
 
             // As we move src->trg, src->trg, we keep track of the previous trg to
@@ -222,7 +223,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
 
         val target = s!!.edges[t - MIN_DFA_EDGE]
         if (debug && target != null) {
-            System.out.println("reuse state " + s!!.stateNumber +
+            outMessage("reuse state " + s!!.stateNumber +
                     " edge to " + target!!.stateNumber)
         }
 
@@ -296,7 +297,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
             }
 
             if (debug) {
-                System.out.format(Locale.getDefault(), "testing %s at %s\n", getTokenName(t), c.toString(recog, true))
+                outMessage("testing ${getTokenName(t)} at ${c.toString(recog, true)}\n")
             }
 
             val n = c.state.numberOfTransitions
@@ -324,7 +325,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
     protected fun accept(input: CharStream, lexerActionExecutor: LexerActionExecutor?,
                          startIndex: Int, index: Int, line: Int, charPos: Int) {
         if (debug) {
-            System.out.format(Locale.getDefault(), "ACTION %s\n", lexerActionExecutor)
+            outMessage("ACTION ${lexerActionExecutor}\n")
         }
 
         // seek to after last char in token

@@ -8,6 +8,7 @@ package org.antlr.v4.kotlinruntime.atn
 
 import com.strumenta.kotlinmultiplatform.Arrays
 import com.strumenta.kotlinmultiplatform.Collections
+import com.strumenta.kotlinmultiplatform.errMessage
 import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 /**
@@ -120,13 +121,13 @@ abstract class ATNState {
         if (transitions.isEmpty()) {
             epsilonOnlyTransitions = e.isEpsilon
         } else if (epsilonOnlyTransitions != e.isEpsilon) {
-            System.err.format(Locale.getDefault(), "ATN state %d has both epsilon and non-epsilon transitions.\n", stateNumber)
+            errMessage("ATN state ${stateNumber} has both epsilon and non-epsilon transitions.\n")
             epsilonOnlyTransitions = false
         }
 
         var alreadyPresent = false
         for (t in transitions) {
-            if (t.target.stateNumber == e.target.stateNumber) {
+            if (t.target!!.stateNumber == e.target!!.stateNumber) {
                 if (t.label() != null && e.label() != null && t.label()!!.equals(e.label())) {
                     //					System.err.println("Repeated transition upon "+e.label()+" from "+stateNumber+"->"+t.target.stateNumber);
                     alreadyPresent = true

@@ -36,6 +36,10 @@ class IntervalSet : IntSet {
 
     protected var readonly: Boolean = false
 
+    fun setReadonly(value: Boolean) {
+        this.readonly = value
+    }
+
     /** {@inheritDoc}  */
     override val isNil: Boolean
         get() = intervals == null || intervals!!.isEmpty()
