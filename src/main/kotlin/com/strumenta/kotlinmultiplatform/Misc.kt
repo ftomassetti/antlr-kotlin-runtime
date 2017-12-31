@@ -50,11 +50,11 @@ expect object Collections {
 object Math {
 
     fun min(a: Int, b: Int) : Int {
-        TODO()
+        return if (a < b) a else b
     }
 
     fun max(a: Int, b: Int) : Int {
-        TODO()
+        return if (a > b) a else b
     }
 
     fun floor(d: Double): Double {
@@ -79,7 +79,7 @@ expect class NullPointerException : Throwable {
     constructor(message: String)
 }
 
-expect class WeakHashMap<K, V> : HashMap<K,V>{
+expect class WeakHashMap<K, V> : MutableMap<K,V>{
     constructor()
 }
 
@@ -88,6 +88,7 @@ expect class IdentityHashMap<K, V> : MutableMap<K, V> {
 }
 
 expect class UUID {
+    constructor(most: Long, least: Long)
     companion object {
         fun fromString(encoded: String) : UUID
     }
@@ -110,3 +111,4 @@ typealias Type = String
 
 expect fun Type.isInstance(any: Any?) : Boolean
 
+expect fun toInt32(c: Char) : Int

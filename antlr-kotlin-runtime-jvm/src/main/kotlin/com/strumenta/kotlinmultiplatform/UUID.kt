@@ -1,9 +1,10 @@
 package com.strumenta.kotlinmultiplatform
 
-actual class UUID {
+actual class UUID(val value : String) {
+
     actual companion object {
         actual fun fromString(encoded: String) : UUID {
-            TODO()
+            return UUID(encoded)
         }
     }
 }

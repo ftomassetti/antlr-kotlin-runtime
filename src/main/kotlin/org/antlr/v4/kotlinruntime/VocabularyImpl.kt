@@ -47,7 +47,7 @@ constructor(literalNames: Array<String?>?, symbolicNames: Array<String?>?, displ
     init {
         this.literalNames = literalNames ?: EMPTY_NAMES
         this.symbolicNames = symbolicNames ?: EMPTY_NAMES
-        this.displayNames = displayNames as Array<String?> ?: EMPTY_NAMES
+        this.displayNames = displayNames ?: EMPTY_NAMES
         // See note here on -1 part: https://github.com/antlr/antlr4/pull/1146
         this.maxTokenType = Math.max(this.displayNames.size,
                 Math.max(this.literalNames.size, this.symbolicNames.size)) - 1

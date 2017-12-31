@@ -1,7 +1,7 @@
 package com.strumenta.kotlinmultiplatform
 
-actual class WeakHashMap<K, V> : HashMap<K, V> {
-    actual constructor() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
+actual class WeakHashMap<K, V> constructor(val _wrapped : java.util.WeakHashMap<K, V> = java.util.WeakHashMap<K, V>()) : MutableMap<K, V> by _wrapped {
+
+    actual constructor() : this(java.util.WeakHashMap<K, V>())
 }

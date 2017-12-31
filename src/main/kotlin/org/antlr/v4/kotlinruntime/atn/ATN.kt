@@ -59,9 +59,9 @@ class ATN
      * For lexer ATNs, this is an array of [LexerAction] objects which may
      * be referenced by action transitions in the ATN.
      */
-    var lexerActions: Array<LexerAction>? = null
+    var lexerActions: Array<LexerAction?>? = null
 
-    val modeToStartState: List<TokensStartState> = ArrayList<TokensStartState>()
+    val modeToStartState: MutableList<TokensStartState> = ArrayList<TokensStartState>()
 
     val numberOfDecisions: Int
         get() = decisionToState.size
