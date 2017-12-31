@@ -9,8 +9,6 @@ package org.antlr.v4.kotlinruntime.misc
 import org.antlr.v4.kotlinruntime.BailErrorStrategy
 import org.antlr.v4.kotlinruntime.RecognitionException
 
-import java.util.concurrent.CancellationException
-
 /**
  * This exception is thrown to cancel a parsing operation. This exception does
  * not extend [RecognitionException], allowing it to bypass the standard
@@ -19,18 +17,20 @@ import java.util.concurrent.CancellationException
  *
  * @author Sam Harwell
  */
-class ParseCancellationException : CancellationException {
+class ParseCancellationException : RuntimeException {
 
     constructor() {}
 
-    constructor(message: String) : super(message) {}
+    constructor(message: String)  {}
 
     constructor(cause: Throwable) {
-        initCause(cause)
+        TODO()
+        //initCause(cause)
     }
 
-    constructor(message: String, cause: Throwable) : super(message) {
-        initCause(cause)
+    constructor(message: String, cause: Throwable) {
+        TODO()
+        //initCause(cause)
     }
 
 }

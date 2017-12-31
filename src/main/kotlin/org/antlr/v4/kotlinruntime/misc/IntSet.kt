@@ -40,7 +40,7 @@ interface IntSet {
      * @exception IllegalStateException if the current set is read-only
      */
 
-    fun addAll(set: IntSet): IntSet
+    fun addAll(set: IntSet?): IntSet
 
     /**
      * Return a new [IntSet] object containing all elements that are
@@ -53,7 +53,7 @@ interface IntSet {
      * place of an empty result set.
      */
 
-    fun and(a: IntSet): IntSet
+    fun and(a: IntSet?): IntSet?
 
     /**
      * Return a new [IntSet] object containing all elements that are
@@ -73,7 +73,7 @@ interface IntSet {
      * `null` may be returned in place of an empty result set.
      */
 
-    fun complement(elements: IntSet): IntSet
+    fun complement(elements: IntSet?): IntSet?
 
     /**
      * Return a new [IntSet] object containing all elements that are
@@ -91,7 +91,7 @@ interface IntSet {
      * empty result set.
      */
 
-    fun or(a: IntSet): IntSet
+    fun or(a: IntSet?): IntSet
 
     /**
      * Return a new [IntSet] object containing all elements that are
@@ -111,7 +111,7 @@ interface IntSet {
      * `null` may be returned in place of an empty result set.
      */
 
-    fun subtract(a: IntSet): IntSet
+    fun subtract(a: IntSet?): IntSet
 
     /**
      * Return the total number of elements represented by the current set.

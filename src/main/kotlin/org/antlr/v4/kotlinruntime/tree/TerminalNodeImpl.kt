@@ -12,13 +12,13 @@ import org.antlr.v4.kotlinruntime.Token
 import org.antlr.v4.kotlinruntime.misc.Interval
 
 open class TerminalNodeImpl(override var symbol: Token?) : TerminalNode {
-    override var parent: ParseTree
+    override var parent: ParseTree? = null
 
     override val sourceInterval: Interval
         get() {
             if (symbol == null) return Interval.INVALID
 
-            val tokenIndex = symbol!!.getTokenIndex()
+            val tokenIndex = symbol!!.tokenIndex
             return Interval(tokenIndex, tokenIndex)
         }
 
@@ -26,7 +26,7 @@ open class TerminalNodeImpl(override var symbol: Token?) : TerminalNode {
         get() = 0
 
     override val text: String
-        get() = symbol!!.getText()
+        get() = symbol!!.text!!
 
     override fun getChild(i: Int): ParseTree? {
         return null
@@ -36,11 +36,10 @@ open class TerminalNodeImpl(override var symbol: Token?) : TerminalNode {
         this.parent = parent
     }
 
-    override fun getPayload(): Token? {
-        return symbol
-    }
+    override val payload: Token?
+        get() = symbol
 
-    override fun <T> accept(visitor: ParseTreeVisitor<out T>): T {
+    override fun <T> accept(visitor: ParseTreeVisitor<out T>): T? {
         return visitor.visitTerminal(this)
     }
 
@@ -49,7 +48,7 @@ open class TerminalNodeImpl(override var symbol: Token?) : TerminalNode {
     }
 
     override fun toString(): String {
-        return if (symbol!!.getType() === Token.EOF) "<EOF>" else symbol!!.getText()
+        return if (symbol!!.type === Token.EOF) "<EOF>" else symbol!!.text!!
     }
 
     override fun toStringTree(): String {

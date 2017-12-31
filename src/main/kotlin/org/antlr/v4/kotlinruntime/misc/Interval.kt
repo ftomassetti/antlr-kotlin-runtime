@@ -5,6 +5,8 @@
  */
 package org.antlr.v4.kotlinruntime.misc
 
+import com.strumenta.kotlinmultiplatform.Math
+
 /** An immutable inclusive interval a..b  */
 class Interval(var a: Int, var b: Int) {
 
@@ -126,7 +128,7 @@ class Interval(var a: Int, var b: Int) {
             if (cache[a] == null) {
                 cache[a] = Interval(a, a)
             }
-            return cache[a]
+            return cache[a]!!
         }
     }
 }

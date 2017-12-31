@@ -6,7 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.misc
 
-class Pair<A, B>(val a: A, val b: B) : Serializable {
+class Pair<A, B>(val a: A, val b: B) {
 
     override fun equals(obj: Any?): Boolean {
         if (obj === this) {
@@ -16,7 +16,7 @@ class Pair<A, B>(val a: A, val b: B) : Serializable {
         }
 
         val other = obj as Pair<*, *>?
-        return ObjectEqualityComparator.INSTANCE.equals(a, other!!.a) && ObjectEqualityComparator.INSTANCE.equals(b, other.b)
+        return ObjectEqualityComparator<Any?>().equals(a, other!!.a) && ObjectEqualityComparator<Any?>().equals(b, other.b)
     }
 
     override fun hashCode(): Int {
@@ -27,6 +27,6 @@ class Pair<A, B>(val a: A, val b: B) : Serializable {
     }
 
     override fun toString(): String {
-        return String.format("(%s, %s)", a, b)
+        return "($a, $b)"
     }
 }

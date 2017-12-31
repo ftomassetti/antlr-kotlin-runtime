@@ -12,7 +12,7 @@ class MultiMap<K, V> : LinkedHashMap<K, List<V>>() {
         get() {
             val pairs = ArrayList<Pair<K, V>>()
             for (key in keys) {
-                for (value in get(key)) {
+                for (value in get(key)!!) {
                     pairs.add(Pair(key, value))
                 }
             }
@@ -20,11 +20,12 @@ class MultiMap<K, V> : LinkedHashMap<K, List<V>>() {
         }
 
     fun map(key: K, value: V) {
-        var elementsForKey: MutableList<V>? = get(key)
-        if (elementsForKey == null) {
-            elementsForKey = ArrayList()
-            super.put(key, elementsForKey)
-        }
-        elementsForKey.add(value)
+        TODO()
+//        var elementsForKey: MutableList<V>? = get(key)
+//        if (elementsForKey == null) {
+//            elementsForKey = ArrayList()
+//            super.put(key, elementsForKey)
+//        }
+//        elementsForKey.add(value)
     }
 }

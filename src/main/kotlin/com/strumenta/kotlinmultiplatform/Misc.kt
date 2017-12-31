@@ -20,6 +20,8 @@ expect object Arrays {
     fun <T> copyOf(original: Array<T>, size: Int): Array<T>
 
     fun equals(a: Array<*>, b: Array<*>) : Boolean
+
+    fun toString(a: Array<*>): String
 }
 
 expect class BitSet {
@@ -62,6 +64,10 @@ fun Char.Companion.isUpperCase(firstChar: Char): Boolean {
     TODO()
 }
 
+fun Char.Companion.isLowerCase(firstChar: Char): Boolean {
+    TODO()
+}
+
 //expect open class CopyOnWriteArrayList<T> : MutableList<T> {
 //
 //}
@@ -89,5 +95,9 @@ expect fun errMessage(message: String)
 expect fun outMessage(message: String)
 
 expect fun Char.Companion.isSupplementaryCodePoint(codePoint: Int): Boolean
+
+expect fun Char.Companion.toChars(codePoint: Int, resultArray: CharArray, resultIdx: Int): Int
+
+expect fun Char.Companion.charCount(i: Int): Byte
 
 expect fun <T> Array<T>.clone(): Array<T>

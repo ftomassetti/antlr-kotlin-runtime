@@ -11,4 +11,4 @@ package org.antlr.v4.kotlinruntime.misc
  *
  * @author Sam Harwell
  */
-abstract class AbstractEqualityComparator<T> : EqualityComparator<T>
+abstract class AbstractEqualityComparator<in T> : EqualityComparator<T>

@@ -5,6 +5,11 @@
  */
 package org.antlr.v4.kotlinruntime.misc
 
+import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.charCount
+import com.strumenta.kotlinmultiplatform.isSupplementaryCodePoint
+import com.strumenta.kotlinmultiplatform.toChars
+
 /**
  *
  * @author Sam Harwell
@@ -36,8 +41,9 @@ open class IntegerList {
     }
 
     constructor(list: IntegerList) {
-        _data = list._data!!.clone()
-        _size = list._size
+        TODO()
+        //_data = list._data!!.clone()
+        //_size = list._size
     }
 
     constructor(list: Collection<Int>) : this(list.size) {
@@ -47,34 +53,38 @@ open class IntegerList {
     }
 
     fun add(value: Int) {
-        if (_data!!.size == _size) {
-            ensureCapacity(_size + 1)
-        }
-
-        _data[_size] = value
-        _size++
+        TODO()
+//        if (_data!!.size == _size) {
+//            ensureCapacity(_size + 1)
+//        }
+//
+//        _data[_size] = value
+//        _size++
     }
 
     fun addAll(array: IntArray) {
-        ensureCapacity(_size + array.size)
-        System.arraycopy(array, 0, _data!!, _size, array.size)
-        _size += array.size
+        TODO()
+//        ensureCapacity(_size + array.size)
+//        System.arraycopy(array, 0, _data!!, _size, array.size)
+//        _size += array.size
     }
 
     fun addAll(list: IntegerList) {
-        ensureCapacity(_size + list._size)
-        System.arraycopy(list._data!!, 0, _data!!, _size, list._size)
-        _size += list._size
+        TODO()
+//        ensureCapacity(_size + list._size)
+//        System.arraycopy(list._data!!, 0, _data!!, _size, list._size)
+//        _size += list._size
     }
 
     fun addAll(list: Collection<Int>) {
-        ensureCapacity(_size + list.size)
-        var current = 0
-        for (x in list) {
-            _data[_size + current] = x
-            current++
-        }
-        _size += list.size
+        TODO()
+//        ensureCapacity(_size + list.size)
+//        var current = 0
+//        for (x in list) {
+//            _data[_size + current] = x
+//            current++
+//        }
+//        _size += list.size
     }
 
     operator fun get(index: Int): Int {
@@ -101,29 +111,31 @@ open class IntegerList {
         }
 
         val previous = _data!![index]
-        _data[index] = value
+        _data!![index] = value
         return previous
     }
 
     fun removeAt(index: Int): Int {
-        val value = get(index)
-        System.arraycopy(_data!!, index + 1, _data!!, index, _size - index - 1)
-        _data[_size - 1] = 0
-        _size--
-        return value
+        TODO()
+//        val value = get(index)
+//        System.arraycopy(_data!!, index + 1, _data!!, index, _size - index - 1)
+//        _data[_size - 1] = 0
+//        _size--
+//        return value
     }
 
     fun removeRange(fromIndex: Int, toIndex: Int) {
-        if (fromIndex < 0 || toIndex < 0 || fromIndex > _size || toIndex > _size) {
-            throw IndexOutOfBoundsException()
-        }
-        if (fromIndex > toIndex) {
-            throw IllegalArgumentException()
-        }
-
-        System.arraycopy(_data!!, toIndex, _data!!, fromIndex, _size - toIndex)
-        Arrays.fill(_data!!, _size - (toIndex - fromIndex), _size, 0)
-        _size -= toIndex - fromIndex
+        TODO()
+//        if (fromIndex < 0 || toIndex < 0 || fromIndex > _size || toIndex > _size) {
+//            throw IndexOutOfBoundsException()
+//        }
+//        if (fromIndex > toIndex) {
+//            throw IllegalArgumentException()
+//        }
+//
+//        System.arraycopy(_data!!, toIndex, _data!!, fromIndex, _size - toIndex)
+//        Arrays.fill(_data!!, _size - (toIndex - fromIndex), _size, 0)
+//        _size -= toIndex - fromIndex
     }
 
     fun size(): Int {
@@ -131,27 +143,31 @@ open class IntegerList {
     }
 
     fun trimToSize() {
-        if (_data!!.size == _size) {
-            return
-        }
-
-        _data = Arrays.copyOf(_data!!, _size)
+        TODO()
+//        if (_data!!.size == _size) {
+//            return
+//        }
+//
+//        _data = Arrays.copyOf(_data!!, _size)
     }
 
     fun clear() {
-        Arrays.fill(_data!!, 0, _size, 0)
-        _size = 0
+        TODO()
+//        Arrays.fill(_data!!, 0, _size, 0)
+//        _size = 0
     }
 
     fun toArray(): IntArray {
-        return if (_size == 0) {
-            EMPTY_DATA
-        } else Arrays.copyOf(_data!!, _size)
+        TODO()
+//        return if (_size == 0) {
+//            EMPTY_DATA
+//        } else Arrays.copyOf(_data!!, _size)
 
     }
 
     fun sort() {
-        Arrays.sort(_data!!, 0, _size)
+        TODO()
+        //Arrays.sort(_data!!, 0, _size)
     }
 
     /**
@@ -219,11 +235,13 @@ open class IntegerList {
      * Returns a string representation of this list.
      */
     override fun toString(): String {
-        return Arrays.toString(toArray())
+        TODO()
+        //return Arrays.toString(toArray())
     }
 
     fun binarySearch(key: Int): Int {
-        return Arrays.binarySearch(_data!!, 0, _size, key)
+        TODO()
+        //return Arrays.binarySearch(_data!!, 0, _size, key)
     }
 
     fun binarySearch(fromIndex: Int, toIndex: Int, key: Int): Int {
@@ -234,12 +252,13 @@ open class IntegerList {
             throw IllegalArgumentException()
         }
 
-        return Arrays.binarySearch(_data!!, fromIndex, toIndex, key)
+        TODO()
+        //return Arrays.binarySearch(_data!!, fromIndex, toIndex, key)
     }
 
     private fun ensureCapacity(capacity: Int) {
         if (capacity < 0 || capacity > MAX_ARRAY_SIZE) {
-            throw OutOfMemoryError()
+            throw RuntimeException()
         }
 
         var newLength: Int
@@ -256,7 +275,7 @@ open class IntegerList {
             }
         }
 
-        _data = Arrays.copyOf(_data!!, newLength)
+        _data = Arrays.copyOf(_data!!.toTypedArray(), newLength).toIntArray()
     }
 
     /** Convert the list to a UTF-16 encoded char array. If all values are less
@@ -274,13 +293,13 @@ open class IntegerList {
             val codePoint = _data!![i]
             // Calculate the precise result size if we encounter
             // a code point > 0xFFFF
-            if (!calculatedPreciseResultSize && Character.isSupplementaryCodePoint(codePoint)) {
-                resultArray = Arrays.copyOf(resultArray, charArraySize())
+            if (!calculatedPreciseResultSize && Char.isSupplementaryCodePoint(codePoint)) {
+                resultArray = Arrays.copyOf(resultArray.toTypedArray(), charArraySize()).toCharArray()
                 calculatedPreciseResultSize = true
             }
             // This will throw IllegalArgumentException if
             // the code point is not a valid Unicode code point
-            val charsWritten = Character.toChars(codePoint, resultArray, resultIdx)
+            val charsWritten = Char.toChars(codePoint, resultArray, resultIdx)
             resultIdx += charsWritten
         }
         return resultArray
@@ -289,7 +308,7 @@ open class IntegerList {
     private fun charArraySize(): Int {
         var result = 0
         for (i in 0 until _size) {
-            result += Character.charCount(_data!![i])
+            result += Char.charCount(_data!![i])
         }
         return result
     }
@@ -302,3 +321,5 @@ open class IntegerList {
         private val MAX_ARRAY_SIZE = Int.MAX_VALUE - 8
     }
 }
+
+

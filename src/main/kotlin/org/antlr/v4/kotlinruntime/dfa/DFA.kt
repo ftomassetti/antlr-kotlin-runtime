@@ -69,12 +69,13 @@ class DFA constructor(
         var precedenceDfa = false
         if (atnStartState is StarLoopEntryState) {
             if ((atnStartState as StarLoopEntryState).isPrecedenceDecision) {
-                precedenceDfa = true
-                val precedenceState = DFAState(ATNConfigSet())
-                precedenceState.edges = arrayOfNulls<DFAState>(0)
-                precedenceState.isAcceptState = false
-                precedenceState.requiresFullContext = false
-                this.s0 = precedenceState
+                TODO()
+//                precedenceDfa = true
+//                val precedenceState = DFAState(ATNConfigSet())
+//                precedenceState.edges = arrayOfNulls<DFAState?>(0)!!
+//                precedenceState.isAcceptState = false
+//                precedenceState.requiresFullContext = false
+//                this.s0 = precedenceState
             }
         }
 
@@ -124,14 +125,15 @@ class DFA constructor(
 
         // synchronization on s0 here is ok. when the DFA is turned into a
         // precedence DFA, s0 will be initialized once and not updated again
-        synchronized(s0) {
-            // s0.edges is never null for a precedence DFA
-            if (precedence >= s0!!.edges!!.size) {
-                s0!!.edges = Arrays.copyOf<DFAState>(s0!!.edges!!, precedence + 1)
-            }
-
-            s0!!.edges[precedence] = startState
-        }
+        TODO()
+//        synchronized(s0) {
+//            // s0.edges is never null for a precedence DFA
+//            if (precedence >= s0!!.edges!!.size) {
+//                s0!!.edges = Arrays.copyOf<DFAState>(s0!!.edges!!, precedence + 1)
+//            }
+//
+//            s0!!.edges[precedence] = startState
+//        }
     }
 
     /**
@@ -140,21 +142,24 @@ class DFA constructor(
 
     fun getStates(): List<DFAState> {
         val result = ArrayList<DFAState>(states.keys)
-        Collections.sort<DFAState>(result, java.util.Comparator<Any> { o1, o2 -> o1.stateNumber - o2.stateNumber })
+        TODO()
+        //Collections.sort<DFAState>(result, java.util.Comparator<Any> { o1, o2 -> o1.stateNumber - o2.stateNumber })
 
-        return result
+        //return result
     }
 
     override fun toString(): String {
-        return toString(VocabularyImpl.EMPTY_VOCABULARY)
+        TODO()
+        //return toString(VocabularyImpl.EMPTY_VOCABULARY)
     }
 
 
     @Deprecated("Use {@link #toString(Vocabulary)} instead.")
     fun toString(tokenNames: Array<String>): String? {
         if (s0 == null) return ""
-        val serializer = DFASerializer(this, tokenNames)
-        return serializer.toString()
+        TODO()
+        //val serializer = DFASerializer(this, tokenNames)
+        //return serializer.toString()
     }
 
     fun toString(vocabulary: Vocabulary): String? {

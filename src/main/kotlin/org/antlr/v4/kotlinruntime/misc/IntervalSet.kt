@@ -9,12 +9,6 @@ import org.antlr.v4.kotlinruntime.Lexer
 import org.antlr.v4.kotlinruntime.Token
 import org.antlr.v4.kotlinruntime.Vocabulary
 import org.antlr.v4.kotlinruntime.VocabularyImpl
-import org.antlr.v4.runtime.Lexer
-import org.antlr.v4.runtime.Token
-import org.antlr.v4.runtime.Vocabulary
-import org.antlr.v4.runtime.VocabularyImpl
-
-import java.util.*
 
 /**
  * This class implements the [IntSet] backed by a sorted array of
@@ -227,7 +221,7 @@ class IntervalSet : IntSet {
         return subtract(this, other)
     }
 
-    override fun or(a: IntSet): IntervalSet {
+    override fun or(a: IntSet?): IntervalSet {
         val o = IntervalSet()
         o.addAll(this)
         o.addAll(a)
@@ -370,12 +364,14 @@ class IntervalSet : IntSet {
                 if (a == Token.EOF)
                     buf.append("<EOF>")
                 else if (elemAreChar)
-                    buf.append("'").appendCodePoint(a).append("'")
+                    TODO()
+                    //buf.append("'").appendCodePoint(a).append("'")
                 else
                     buf.append(a)
             } else {
                 if (elemAreChar)
-                    buf.append("'").appendCodePoint(a).append("'..'").appendCodePoint(b).append("'")
+                    TODO()
+                    //buf.append("'").appendCodePoint(a).append("'..'").appendCodePoint(b).append("'")
                 else
                     buf.append(a).append("..").append(b)
             }
@@ -577,7 +573,7 @@ class IntervalSet : IntSet {
             return s
         }
 
-        /** Create a set with all ints within range [a..b] (inclusive)  */
+        /** Create a set with all ints within range a..b (inclusive)  */
         fun of(a: Int, b: Int): IntervalSet {
             val s = IntervalSet()
             s.add(a, b)

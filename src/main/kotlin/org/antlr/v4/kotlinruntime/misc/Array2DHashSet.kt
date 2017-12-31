@@ -13,6 +13,17 @@ import com.strumenta.kotlinmultiplatform.assert
 /** [Set] implementation with closed hashing (open addressing).  */
 open class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<in T>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : MutableSet<T> {
 
+    override fun remove(element: T): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun containsAll(elements: Collection<T>): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun retainAll(elements: Collection<T>): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     protected val comparator: AbstractEqualityComparator<in T>
 
@@ -124,7 +135,7 @@ open class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<
         val newCapacity = buckets.size * 2
         val newTable = createBuckets(newCapacity)
         val newBucketLengths = IntArray(newTable.size)
-        buckets = newTable
+        buckets = newTable as Array<Array<T>>
         threshold = (newCapacity * LOAD_FACTOR).toInt()
         //		System.out.println("new size="+newCapacity+", thres="+threshold);
         // rehash all existing entries
@@ -144,7 +155,7 @@ open class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<
                 var newBucket: Array<T>
                 if (bucketLength == 0) {
                     // new bucket
-                    newBucket = createBucket(initialBucketCapacity)
+                    newBucket = createBucket(initialBucketCapacity) as Array<T>
                     newTable[b] = newBucket
                 } else {
                     newBucket = newTable[b]
@@ -211,10 +222,10 @@ open class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<
             }
         }
 
-        return a
+        return a as Array<T>
     }
 
-    override fun <U> toArray(a: Array<U>): Array<U> {
+    fun <U> toArray(a: Array<U>): Array<U> {
         var a = a
         if (a.size < size) {
             a = Arrays.copyOf(a, size)
@@ -238,7 +249,7 @@ open class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<
         return a
     }
 
-    override fun remove(o: Any): Boolean {
+    fun remove(o: Any): Boolean {
         return removeFast(asElementType(o))
     }
 
@@ -256,33 +267,35 @@ open class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<
                     return false
 
             if (comparator.equals(e, obj)) {          // found it
+                TODO()
                 // shift all elements to the right down one
-                System.arraycopy(bucket, i + 1, bucket, i, bucket.size - i - 1)
-                bucket[bucket.size - 1] = null
-                n--
-                return true
+//                System.arraycopy(bucket, i + 1, bucket, i, bucket.size - i - 1)
+//                bucket[bucket.size - 1] = null
+//                n--
+//                return true
             }
         }
 
         return false
     }
 
-    override fun containsAll(collection: Collection<*>): Boolean {
-        if (collection is Array2DHashSet<*>) {
-            val s = collection as Array2DHashSet<*>
-            for (bucket in s.buckets) {
-                if (bucket == null) continue
-                for (o in bucket) {
-                    if (o == null) break
-                    if (!this.containsFast(asElementType(o))) return false
-                }
-            }
-        } else {
-            for (o in collection) {
-                if (!this.containsFast(asElementType(o))) return false
-            }
-        }
-        return true
+    fun containsAll(collection: Collection<*>): Boolean {
+        TODO()
+//        if (collection is Array2DHashSet<*>) {
+//            val s = collection as Array2DHashSet<*>
+//            for (bucket in s.buckets) {
+//                if (bucket == null) continue
+//                for (o in bucket) {
+//                    if (o == null) break
+//                    if (!this.containsFast(asElementType(o))) return false
+//                }
+//            }
+//        } else {
+//            for (o in collection) {
+//                if (!this.containsFast(asElementType(o))) return false
+//            }
+//        }
+//        return true
     }
 
     override fun addAll(c: Collection<out T>): Boolean {
@@ -294,58 +307,60 @@ open class Array2DHashSet<T> constructor(comparator: AbstractEqualityComparator<
         return changed
     }
 
-    override fun retainAll(c: Collection<*>): Boolean {
-        var newsize = 0
-        for (bucket in buckets) {
-            if (bucket == null) {
-                continue
-            }
-
-            var i: Int
-            var j: Int
-            i = 0
-            j = 0
-            while (i < bucket.size) {
-                if (bucket[i] == null) {
-                    break
-                }
-
-                if (!c.contains(bucket[i])) {
-                    // removed
-                    i++
-                    continue
-                }
-
-                // keep
-                if (i != j) {
-                    bucket[j] = bucket[i]
-                }
-
-                j++
-                newsize++
-                i++
-            }
-
-            newsize += j
-
-            while (j < i) {
-                bucket[j] = null
-                j++
-            }
-        }
-
-        val changed = newsize != n
-        n = newsize
-        return changed
+    fun retainAll(c: Collection<*>): Boolean {
+        TODO()
+//        var newsize = 0
+//        for (bucket in buckets) {
+//            if (bucket == null) {
+//                continue
+//            }
+//
+//            var i: Int
+//            var j: Int
+//            i = 0
+//            j = 0
+//            while (i < bucket.size) {
+//                if (bucket[i] == null) {
+//                    break
+//                }
+//
+//                if (!c.contains(bucket[i])) {
+//                    // removed
+//                    i++
+//                    continue
+//                }
+//
+//                // keep
+//                if (i != j) {
+//                    bucket[j] = bucket[i]
+//                }
+//
+//                j++
+//                newsize++
+//                i++
+//            }
+//
+//            newsize += j
+//
+//            while (j < i) {
+//                bucket[j] = null
+//                j++
+//            }
+//        }
+//
+//        val changed = newsize != n
+//        n = newsize
+//        return changed
     }
 
 
     override fun removeAll(elements: Collection<T>): Boolean {
-        var changed = false
-        for (o in elements) {
-            changed = changed or removeFast(asElementType(o))
-        }
-        return changed
+        TODO()
+//        var changed = false
+//        for (o in elements) {
+//            changed = changed or removeFast(asElementType(o))
+//        }
+//        return changed
     }
 
 

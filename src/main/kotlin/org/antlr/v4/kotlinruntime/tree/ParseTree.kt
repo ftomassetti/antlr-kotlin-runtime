@@ -20,7 +20,7 @@ import org.antlr.v4.kotlinruntime.Token
  */
 interface ParseTree : SyntaxTree {
     // the following methods narrow the return type; they are not additional methods
-    override val parent: ParseTree
+    override var parent: ParseTree?
 
     /** Return the combined text of all leaf nodes. Does not get any
      * off-channel tokens (if any) so won't return whitespace and
@@ -28,7 +28,7 @@ interface ParseTree : SyntaxTree {
      */
     val text: String
 
-    override fun getChild(i: Int): ParseTree
+    override fun getChild(i: Int): ParseTree?
 
 
     /** Set the parent for this node.
@@ -49,7 +49,7 @@ interface ParseTree : SyntaxTree {
     fun setParent(parent: RuleContext)
 
     /** The [ParseTreeVisitor] needs a double dispatch method.  */
-    fun <T> accept(visitor: ParseTreeVisitor<out T>): T
+    fun <T> accept(visitor: ParseTreeVisitor<out T>): T?
 
     /** Specialize toStringTree so that it can print out more information
      * based upon the parser.

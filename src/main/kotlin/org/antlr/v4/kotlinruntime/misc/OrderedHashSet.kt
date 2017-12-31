@@ -39,15 +39,15 @@ class OrderedHashSet<T> : LinkedHashSet<T>() {
      * Key is object itself.  Good for say asking if a certain string is in
      * a list of strings.
      */
-    override fun add(value: T?): Boolean {
-        val result = super.add(value)
+    override fun add(value: T): Boolean {
+        val result = super.add(value!!)
         if (result) {  // only track if new element not in set
             elements!!.add(value)
         }
         return result
     }
 
-    override fun remove(o: Any?): Boolean {
+    fun remove(o: Any?): Boolean {
         throw UnsupportedOperationException()
     }
 
@@ -69,7 +69,7 @@ class OrderedHashSet<T> : LinkedHashSet<T>() {
         //		System.out.println(same);
     }
 
-    override fun iterator(): Iterator<T> {
+    override fun iterator(): MutableIterator<T> {
         return elements!!.iterator()
     }
 
@@ -80,14 +80,16 @@ class OrderedHashSet<T> : LinkedHashSet<T>() {
         return elements
     }
 
-    override fun clone(): Any {
-        val dup = super.clone() as OrderedHashSet<T>// safe (result of clone)
-        dup.elements = ArrayList(this.elements!!)
-        return dup
+    fun clone(): Any {
+        TODO()
+//        val dup = super.clone() as OrderedHashSet<T>// safe (result of clone)
+//        dup.elements = ArrayList(this.elements!!)
+//        return dup
     }
 
-    override fun toArray(): Array<Any> {
-        return elements!!.toTypedArray()
+    fun toArray(): Array<Any> {
+        TODO()
+        //return elements!!.toTypedArray()
     }
 
     override fun toString(): String {

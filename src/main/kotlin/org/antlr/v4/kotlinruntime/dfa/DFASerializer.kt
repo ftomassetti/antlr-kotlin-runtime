@@ -6,10 +6,9 @@
 
 package org.antlr.v4.kotlinruntime.dfa
 
-import org.antlr.v4.runtime.Vocabulary
-import org.antlr.v4.runtime.VocabularyImpl
-
-import java.util.Arrays
+import com.strumenta.kotlinmultiplatform.Arrays
+import org.antlr.v4.kotlinruntime.Vocabulary
+import org.antlr.v4.kotlinruntime.VocabularyImpl
 
 /** A DFA walker that knows how to dump them to serialized strings.  */
 open class DFASerializer {
@@ -28,8 +27,8 @@ open class DFASerializer {
         this.vocabulary = vocabulary
     }
 
-    override fun toString(): String? {
-        if (dfa.s0 == null) return null
+    override fun toString(): String {
+        if (dfa.s0 == null) return "null"
         val buf = StringBuilder()
         val states = dfa.getStates()
         for (s in states) {
@@ -37,7 +36,7 @@ open class DFASerializer {
             if (s.edges != null) n = s.edges!!.size
             for (i in 0 until n) {
                 val t = s.edges!![i]
-                if (t != null && t!!.stateNumber != Integer.MAX_VALUE) {
+                if (t != null && t!!.stateNumber != Int.MAX_VALUE) {
                     buf.append(getStateString(s))
                     val label = getEdgeLabel(i)
                     buf.append("-").append(label).append("->").append(getStateString(t)).append('\n')
@@ -46,7 +45,7 @@ open class DFASerializer {
         }
 
         val output = buf.toString()
-        return if (output.length == 0) null else output
+        return if (output.length == 0) "null" else output
         //return Utils.sortLinesInString(output);
     }
 
@@ -60,7 +59,7 @@ open class DFASerializer {
         val baseStateStr = (if (s.isAcceptState) ":" else "") + "s" + n + if (s.requiresFullContext) "^" else ""
         return if (s.isAcceptState) {
             if (s.predicates != null) {
-                baseStateStr + "=>" + Arrays.toString(s.predicates)
+                baseStateStr + "=>" + Arrays.toString(s.predicates!!)
             } else {
                 baseStateStr + "=>" + s.prediction
             }

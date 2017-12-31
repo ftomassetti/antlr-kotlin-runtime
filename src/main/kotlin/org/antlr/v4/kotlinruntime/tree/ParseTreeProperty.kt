@@ -6,6 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.tree
 
+import com.strumenta.kotlinmultiplatform.IdentityHashMap
+
 /**
  * Associate a property with a parse tree node. Useful with parse tree listeners
  * that need to associate values with particular tree nodes, kind of like
@@ -26,7 +28,7 @@ class ParseTreeProperty<V> {
     protected var annotations: MutableMap<ParseTree, V> = IdentityHashMap<ParseTree, V>()
 
     operator fun get(node: ParseTree): V {
-        return annotations[node]
+        return annotations[node]!!
     }
 
     fun put(node: ParseTree, value: V) {
@@ -34,6 +36,6 @@ class ParseTreeProperty<V> {
     }
 
     fun removeFrom(node: ParseTree): V {
-        return annotations.remove(node)
+        return annotations.remove(node)!!
     }
 }

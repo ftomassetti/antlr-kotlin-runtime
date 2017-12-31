@@ -5,14 +5,12 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.atn.ATN
-import org.antlr.v4.runtime.misc.Interval
-import org.antlr.v4.runtime.tree.ParseTree
-import org.antlr.v4.runtime.tree.ParseTreeVisitor
-import org.antlr.v4.runtime.tree.RuleNode
-import org.antlr.v4.runtime.tree.Trees
-
-import java.util.Arrays
+import org.antlr.v4.kotlinruntime.atn.ATN
+import org.antlr.v4.kotlinruntime.misc.Interval
+import org.antlr.v4.kotlinruntime.tree.ParseTree
+import org.antlr.v4.kotlinruntime.tree.ParseTreeVisitor
+import org.antlr.v4.kotlinruntime.tree.RuleNode
+import org.antlr.v4.kotlinruntime.tree.Trees
 
 /** A rule context is a record of a single rule invocation.
  *

@@ -5,12 +5,10 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import org.antlr.v4.runtime.misc.Interval
-import org.antlr.v4.runtime.misc.Pair
+import org.antlr.v4.kotlinruntime.misc.Interval
+import org.antlr.v4.kotlinruntime.misc.Pair
 
-import java.io.Serializable
-
-class CommonToken : WritableToken, Serializable {
+open class CommonToken : WritableToken {
 
     /**
      * This is the backing field for [.getType] and [.setType].
@@ -58,7 +56,7 @@ class CommonToken : WritableToken, Serializable {
      *
      * @see .getText
      */
-    protected var text: String? = null
+    protected open override var text: String? = null
 
     /**
      * This is the backing field for [.getTokenIndex] and

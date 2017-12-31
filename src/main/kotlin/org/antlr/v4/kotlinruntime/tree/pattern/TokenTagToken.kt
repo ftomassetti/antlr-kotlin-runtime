@@ -6,8 +6,8 @@
 
 package org.antlr.v4.kotlinruntime.tree.pattern
 
-import org.antlr.v4.runtime.CommonToken
-import org.antlr.v4.runtime.Token
+import org.antlr.v4.kotlinruntime.CommonToken
+import org.antlr.v4.kotlinruntime.Token
 
 /**
  * A [Token] object representing a token of a particular type; e.g.,
@@ -24,7 +24,7 @@ class TokenTagToken
  * @param label The label associated with the token tag, or `null` if
  * the token tag is unlabeled.
  */
-@JvmOverloads constructor(
+constructor(
         /**
          * This is the backing field for [.getTokenName].
          */
@@ -55,7 +55,7 @@ class TokenTagToken
      * The implementation for [TokenTagToken] returns the token tag
      * formatted with `<` and `>` delimiters.
      */
-    val text: String
+    override var text: String? = null
         get() = if (label != null) {
             "<$label:$tokenName>"
         } else "<$tokenName>"
@@ -67,7 +67,7 @@ class TokenTagToken
      * The implementation for [TokenTagToken] returns a string of the form
      * `tokenName:type`.
      */
-    fun toString(): String {
+    override fun toString(): String {
         return tokenName + ":" + type
     }
 }

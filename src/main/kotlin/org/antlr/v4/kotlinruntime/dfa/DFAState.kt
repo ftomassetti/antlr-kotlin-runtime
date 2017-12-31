@@ -6,12 +6,11 @@
 
 package org.antlr.v4.kotlinruntime.dfa
 
-import org.antlr.v4.runtime.Token
-import org.antlr.v4.runtime.atn.*
-import org.antlr.v4.runtime.misc.MurmurHash
+import com.strumenta.kotlinmultiplatform.Arrays
+import org.antlr.v4.kotlinruntime.Token
+import org.antlr.v4.kotlinruntime.atn.*
+import org.antlr.v4.kotlinruntime.misc.MurmurHash
 
-import java.util.Arrays
-import java.util.HashSet
 
 /** A DFA state represents a set of possible ATN configurations.
  * As Aho, Sethi, Ullman p. 117 says "The DFA uses its state
@@ -160,7 +159,7 @@ class DFAState {
         if (isAcceptState) {
             buf.append("=>")
             if (predicates != null) {
-                buf.append(Arrays.toString(predicates))
+                buf.append(Arrays.toString(predicates!!))
             } else {
                 buf.append(prediction)
             }

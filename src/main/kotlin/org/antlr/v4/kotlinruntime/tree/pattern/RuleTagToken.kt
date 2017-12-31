@@ -6,9 +6,11 @@
 
 package org.antlr.v4.kotlinruntime.tree.pattern
 
-import org.antlr.v4.runtime.CharStream
-import org.antlr.v4.runtime.Token
-import org.antlr.v4.runtime.TokenSource
+import org.antlr.v4.kotlinruntime.CharStream
+import org.antlr.v4.kotlinruntime.Token
+import org.antlr.v4.kotlinruntime.TokenSource
+
+val DEFAULT_CHANNEL = 0
 
 /**
  * A [Token] object representing an entire subtree matched by a parser
@@ -50,7 +52,7 @@ constructor(
          * Rule tag tokens have types assigned according to the rule bypass
          * transitions created during ATN deserialization.
          */
-        val type: Int,
+        override val type: Int,
         /**
          * This is the backing field for [.getLabel].
          */
@@ -69,7 +71,7 @@ constructor(
      *
      * Rule tag tokens are always placed on the [.DEFAULT_CHANNEL].
      */
-    val channel: Int
+    override val channel: Int
         get() = DEFAULT_CHANNEL
 
     /**
@@ -79,7 +81,7 @@ constructor(
      * This method returns the rule tag formatted with `<` and `>`
      * delimiters.
      */
-    val text: String
+    override val text: String
         get() = if (label != null) {
             "<$label:$ruleName>"
         } else "<$ruleName>"
@@ -90,7 +92,7 @@ constructor(
      *
      * The implementation for [RuleTagToken] always returns 0.
      */
-    val line: Int
+    override val line: Int
         get() = 0
 
     /**
@@ -99,7 +101,7 @@ constructor(
      *
      * The implementation for [RuleTagToken] always returns -1.
      */
-    val charPositionInLine: Int
+    override val charPositionInLine: Int
         get() = -1
 
     /**
@@ -108,7 +110,7 @@ constructor(
      *
      * The implementation for [RuleTagToken] always returns -1.
      */
-    val tokenIndex: Int
+    override val tokenIndex: Int
         get() = -1
 
     /**
@@ -117,7 +119,7 @@ constructor(
      *
      * The implementation for [RuleTagToken] always returns -1.
      */
-    val startIndex: Int
+    override val startIndex: Int
         get() = -1
 
     /**
@@ -126,7 +128,7 @@ constructor(
      *
      * The implementation for [RuleTagToken] always returns -1.
      */
-    val stopIndex: Int
+    override val stopIndex: Int
         get() = -1
 
     /**
@@ -135,7 +137,7 @@ constructor(
      *
      * The implementation for [RuleTagToken] always returns `null`.
      */
-    val tokenSource: TokenSource?
+    override val tokenSource: TokenSource?
         get() = null
 
     /**
@@ -144,7 +146,7 @@ constructor(
      *
      * The implementation for [RuleTagToken] always returns `null`.
      */
-    val inputStream: CharStream?
+    override val inputStream: CharStream?
         get() = null
 
     init {

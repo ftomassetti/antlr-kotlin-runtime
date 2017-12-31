@@ -16,9 +16,9 @@ class Triple<A, B, C>(val a: A, val b: B, val c: C) {
         }
 
         val other = obj as Triple<*, *, *>?
-        return (ObjectEqualityComparator.INSTANCE.equals(a, other!!.a)
-                && ObjectEqualityComparator.INSTANCE.equals(b, other.b)
-                && ObjectEqualityComparator.INSTANCE.equals(c, other.c))
+        return (ObjectEqualityComparator<Any?>().equals(a, other!!.a)
+                && ObjectEqualityComparator<Any?>().equals(b, other.b)
+                && ObjectEqualityComparator<Any?>().equals(c, other.c))
     }
 
     override fun hashCode(): Int {
@@ -30,6 +30,6 @@ class Triple<A, B, C>(val a: A, val b: B, val c: C) {
     }
 
     override fun toString(): String {
-        return String.format("(%s, %s, %s)", a, b, c)
+        return "($a, $b, $c)"
     }
 }

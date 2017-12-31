@@ -82,7 +82,7 @@ internal class TagChunk
     override fun toString(): String {
         return if (label != null) {
             label + ":" + tag
-        } else tag
+        } else tag!!
 
     }
 }

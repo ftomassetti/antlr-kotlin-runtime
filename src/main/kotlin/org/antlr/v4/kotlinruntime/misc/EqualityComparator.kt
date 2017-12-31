@@ -13,7 +13,7 @@ package org.antlr.v4.kotlinruntime.misc
  *
  * @author Sam Harwell
  */
-interface EqualityComparator<T> {
+interface EqualityComparator<in T> {
 
     /**
      * This method returns a hash code for the specified object.

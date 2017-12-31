@@ -13,10 +13,21 @@ import org.antlr.v4.kotlinruntime.misc.FlexibleHashMap.Entry
  */
 open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityComparator<in K>? = null, initialCapacity: Int = INITAL_CAPACITY, initialBucketCapacity: Int = INITAL_BUCKET_CAPACITY) : Map<K, V> {
 
+    override val keys: Set<K>
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+    override val size: Int
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+    override val values: Collection<V>
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+    override val entries: Set<Map.Entry<K, V>>
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
     protected val comparator: AbstractEqualityComparator<in K>
 
-    protected var buckets: Array<LinkedList<Entry<K, V>>>
+    protected var buckets: Array<List<Entry<K, V>>>
 
     /** How many elements in set  */
     protected var n = 0
@@ -49,56 +60,58 @@ open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityCompara
         return hash and buckets.size - 1
     }
 
-    override fun get(key: Any?): V? {
-        val typedKey = key as K?
-        if (key == null) return null
-        val b = getBucket(typedKey)
-        val bucket = buckets[b] ?: return null
-// no bucket
-        for (e in bucket) {
-            if (comparator.equals(e.key, typedKey)) {
-                return e.value
-            }
-        }
-        return null
+    override fun get(key: K): V? {
+        TODO()
+//        val typedKey = key as K?
+//        if (key == null) return null
+//        val b = getBucket(typedKey)
+//        val bucket = buckets[b] ?: return null
+//// no bucket
+//        for (e in bucket) {
+//            if (comparator.equals(e.key, typedKey)) {
+//                return e.value
+//            }
+//        }
+//        return null
     }
 
-    override fun put(key: K?, value: V): V? {
-        if (key == null) return null
-        if (n > threshold) expand()
-        val b = getBucket(key)
-        var bucket: LinkedList<Entry<K, V>>? = buckets[b]
-        if (bucket == null) {
-            buckets[b] = LinkedList()
-            bucket = buckets[b]
-        }
-        for (e in bucket) {
-            if (comparator.equals(e.key, key)) {
-                val prev = e.value
-                e.value = value
-                n++
-                return prev
-            }
-        }
-        // not there
-        bucket.add(Entry(key, value))
-        n++
-        return null
+    fun put(key: K?, value: V): V? {
+        TODO()
+//        if (key == null) return null
+//        if (n > threshold) expand()
+//        val b = getBucket(key)
+//        var bucket: LinkedList<Entry<K, V>>? = buckets[b]
+//        if (bucket == null) {
+//            buckets[b] = LinkedList()
+//            bucket = buckets[b]
+//        }
+//        for (e in bucket) {
+//            if (comparator.equals(e.key, key)) {
+//                val prev = e.value
+//                e.value = value
+//                n++
+//                return prev
+//            }
+//        }
+//        // not there
+//        bucket.add(Entry(key, value))
+//        n++
+//        return null
     }
 
-    override fun remove(key: Any): V {
+    fun remove(key: Any): V {
         throw UnsupportedOperationException()
     }
 
-    override fun putAll(m: Map<out K, out V>) {
+    fun putAll(m: Map<out K, out V>) {
         throw UnsupportedOperationException()
     }
 
-    override fun keySet(): Set<K> {
+    fun keySet(): Set<K> {
         throw UnsupportedOperationException()
     }
 
-    override fun values(): Collection<V> {
+    fun values(): Collection<V> {
         val a = ArrayList<V>(size)
         for (bucket in buckets) {
             if (bucket == null) continue
@@ -109,15 +122,15 @@ open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityCompara
         return a
     }
 
-    override fun entrySet(): Set<Entry<K, V>> {
+    fun entrySet(): Set<Entry<K, V>> {
         throw UnsupportedOperationException()
     }
 
-    override fun containsKey(key: Any): Boolean {
+    override fun containsKey(key: K): Boolean {
         return get(key) != null
     }
 
-    override fun containsValue(value: Any): Boolean {
+    override fun containsValue(value: V): Boolean {
         throw UnsupportedOperationException()
     }
 
@@ -140,26 +153,27 @@ open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityCompara
     }
 
     protected fun expand() {
-        val old = buckets
-        currentPrime += 4
-        val newCapacity = buckets.size * 2
-        val newTable = createEntryListArray<K, V>(newCapacity)
-        buckets = newTable
-        threshold = (newCapacity * LOAD_FACTOR).toInt()
-        //		System.out.println("new size="+newCapacity+", thres="+threshold);
-        // rehash all existing entries
-        val oldSize = size
-        for (bucket in old) {
-            if (bucket == null) continue
-            for (e in bucket) {
-                if (e == null) break
-                put(e.key, e.value)
-            }
-        }
-        n = oldSize
+        TODO()
+//        val old = buckets
+//        currentPrime += 4
+//        val newCapacity = buckets.size * 2
+//        val newTable = createEntryListArray<K, V>(newCapacity)
+//        buckets = newTable
+//        threshold = (newCapacity * LOAD_FACTOR).toInt()
+//        //		System.out.println("new size="+newCapacity+", thres="+threshold);
+//        // rehash all existing entries
+//        val oldSize = size
+//        for (bucket in old) {
+//            if (bucket == null) continue
+//            for (e in bucket) {
+//                if (e == null) break
+//                put(e.key, e.value)
+//            }
+//        }
+//        n = oldSize
     }
 
-    override fun size(): Int {
+    fun size(): Int {
         return n
     }
 
@@ -167,8 +181,9 @@ open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityCompara
         return n == 0
     }
 
-    override fun clear() {
-        buckets = createEntryListArray(INITAL_CAPACITY)
+    fun clear() {
+        TODO()
+        //buckets = createEntryListArray(INITAL_CAPACITY)
         n = 0
     }
 
@@ -222,8 +237,8 @@ open class FlexibleHashMap<K, V> constructor(comparator: AbstractEqualityCompara
         val INITAL_BUCKET_CAPACITY = 8
         val LOAD_FACTOR = 0.75
 
-        private fun <K, V> createEntryListArray(length: Int): Array<LinkedList<Entry<K, V>>> {
-            return arrayOfNulls<LinkedList<*>>(length) as Array<LinkedList<Entry<K, V>>>
+        private fun <K, V> createEntryListArray(length: Int): Array<List<Entry<K, V>>> {
+            return arrayOfNulls<List<*>>(length) as Array<List<Entry<K, V>>>
         }
 
     }

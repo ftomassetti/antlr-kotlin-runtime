@@ -23,7 +23,7 @@ open class ParseTreeWalker {
         enterRule(listener, r)
         val n = r.childCount
         for (i in 0 until n) {
-            walk(listener, r.getChild(i))
+            walk(listener, r.getChild(i)!!)
         }
         exitRule(listener, r)
     }

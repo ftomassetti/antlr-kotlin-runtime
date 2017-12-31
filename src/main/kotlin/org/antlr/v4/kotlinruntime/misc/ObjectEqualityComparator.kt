@@ -11,7 +11,14 @@ package org.antlr.v4.kotlinruntime.misc
  *
  * @author Sam Harwell
  */
-class ObjectEqualityComparator : AbstractEqualityComparator<Any>() {
+class ObjectEqualityComparator<in T> : AbstractEqualityComparator<T>() {
+    override fun hashCode(obj: T): Int {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun equals(a: T?, b: T?): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     /**
      * {@inheritDoc}
@@ -20,7 +27,7 @@ class ObjectEqualityComparator : AbstractEqualityComparator<Any>() {
      * This implementation returns
      * `obj.`[hashCode()][Object.hashCode].
      */
-    override fun hashCode(obj: Any?): Int {
+    fun hashCode(obj: Any?): Int {
         return obj?.hashCode() ?: 0
 
     }
@@ -37,15 +44,16 @@ class ObjectEqualityComparator : AbstractEqualityComparator<Any>() {
      * this method returns the result of
      * `a.`[equals][Object.equals]`(b)`.
      */
-    override fun equals(a: Any?, b: Any?): Boolean {
+    fun equals(a: Any?, b: Any?): Boolean {
         return if (a == null) {
             b == null
         } else a == b
 
     }
 
+
     companion object {
-        val INSTANCE = ObjectEqualityComparator()
+        val INSTANCE = ObjectEqualityComparator<Any?>()
     }
 
 }

@@ -16,7 +16,7 @@ interface Tree {
     /** The parent of this node. If the return value is null, then this
      * node is the root of the tree.
      */
-    val parent: Tree
+    val parent: Tree?
 
     /**
      * This method returns whatever object represents the data at this note. For
@@ -25,7 +25,7 @@ interface Tree {
      * invocation. For abstract syntax trees (ASTs), this is a [Token]
      * object.
      */
-    val payload: Any
+    val payload: Any?
 
     /** How many children are there? If there is none, then this
      * node represents a leaf node.
@@ -33,7 +33,7 @@ interface Tree {
     val childCount: Int
 
     /** If there are children, get the `i`th value indexed from 0.  */
-    fun getChild(i: Int): Tree
+    fun getChild(i: Int): Tree?
 
     /** Print out a whole tree, not just a node, in LISP format
      * `(root child1 .. childN)`. Print just a node if this is a leaf.

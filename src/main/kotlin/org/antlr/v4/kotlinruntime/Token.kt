@@ -15,7 +15,7 @@ interface Token {
     /**
      * Get the text of the token.
      */
-    val text: String
+    val text: String?
 
     /** Get the token type of the token  */
     val type: Int
@@ -57,12 +57,12 @@ interface Token {
 
     /** Gets the [TokenSource] which created this token.
      */
-    val tokenSource: TokenSource
+    val tokenSource: TokenSource?
 
     /**
      * Gets the [CharStream] from which this token was derived.
      */
-    val inputStream: CharStream
+    val inputStream: CharStream?
 
     companion object {
         val INVALID_TYPE = 0

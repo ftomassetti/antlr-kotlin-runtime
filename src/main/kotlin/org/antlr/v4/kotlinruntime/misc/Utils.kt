@@ -7,8 +7,7 @@
 package org.antlr.v4.kotlinruntime.misc
 
 import com.strumenta.kotlinmultiplatform.BitSet
-import java.io.*
-import java.util.*
+import com.strumenta.kotlinmultiplatform.toCharArray
 
 object Utils {
     // Seriously: why isn't this built in to java? ugh!
@@ -66,45 +65,45 @@ object Utils {
         return buf.toString()
     }
 
-    fun writeFile(fileName: String, content: String, encoding: String? = null) {
-        val f = File(fileName)
-        val fos = FileOutputStream(f)
-        val osw: OutputStreamWriter
-        if (encoding != null) {
-            osw = OutputStreamWriter(fos, encoding)
-        } else {
-            osw = OutputStreamWriter(fos)
-        }
-
-        try {
-            osw.write(content)
-        } finally {
-            osw.close()
-        }
-    }
-
-    fun readFile(fileName: String, encoding: String? = null): CharArray {
-        val f = File(fileName)
-        val size = f.length().toInt()
-        val isr: InputStreamReader
-        val fis = FileInputStream(fileName)
-        if (encoding != null) {
-            isr = InputStreamReader(fis, encoding)
-        } else {
-            isr = InputStreamReader(fis)
-        }
-        var data: CharArray? = null
-        try {
-            data = CharArray(size)
-            val n = isr.read(data)
-            if (n < data.size) {
-                data = Arrays.copyOf(data, n)
-            }
-        } finally {
-            isr.close()
-        }
-        return data
-    }
+//    fun writeFile(fileName: String, content: String, encoding: String? = null) {
+//        val f = File(fileName)
+//        val fos = FileOutputStream(f)
+//        val osw: OutputStreamWriter
+//        if (encoding != null) {
+//            osw = OutputStreamWriter(fos, encoding)
+//        } else {
+//            osw = OutputStreamWriter(fos)
+//        }
+//
+//        try {
+//            osw.write(content)
+//        } finally {
+//            osw.close()
+//        }
+//    }
+//
+//    fun readFile(fileName: String, encoding: String? = null): CharArray {
+//        val f = File(fileName)
+//        val size = f.length().toInt()
+//        val isr: InputStreamReader
+//        val fis = FileInputStream(fileName)
+//        if (encoding != null) {
+//            isr = InputStreamReader(fis, encoding)
+//        } else {
+//            isr = InputStreamReader(fis)
+//        }
+//        var data: CharArray? = null
+//        try {
+//            data = CharArray(size)
+//            val n = isr.read(data)
+//            if (n < data.size) {
+//                data = Arrays.copyOf(data, n)
+//            }
+//        } finally {
+//            isr.close()
+//        }
+//        return data
+//    }
 
     /** Convert array of strings to stringindex map. Useful for
      * converting rulenames to nameruleindex map.
