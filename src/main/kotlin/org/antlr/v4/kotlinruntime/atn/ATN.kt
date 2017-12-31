@@ -36,12 +36,12 @@ class ATN
     /**
      * Maps from rule index to starting state number.
      */
-    var ruleToStartState: Array<RuleStartState>? = null
+    var ruleToStartState: Array<RuleStartState?>? = null
 
     /**
      * Maps from rule index to stop state number.
      */
-    var ruleToStopState: Array<RuleStopState>? = null
+    var ruleToStopState: Array<RuleStopState?>? = null
 
 
     val modeNameToStartState: Map<String, TokensStartState> = LinkedHashMap<String, TokensStartState>()

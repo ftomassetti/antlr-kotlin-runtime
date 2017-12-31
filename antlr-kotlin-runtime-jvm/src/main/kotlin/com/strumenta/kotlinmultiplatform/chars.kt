@@ -8,6 +8,8 @@ actual fun Char.Companion.charCount(i: Int): Byte {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 }
 
+actual fun Char.Companion.maxValue() : Char = '\uFFFF'
+
 actual fun String.toCharArray(): CharArray {
     var ca = CharArray(this.length)
     this.toCharArray(ca)
@@ -16,4 +18,8 @@ actual fun String.toCharArray(): CharArray {
 
 actual fun Char.Companion.toChars(codePoint: Int, resultArray: CharArray, resultIdx: Int): Int {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+}
+
+actual fun toInt32(c: Char): Int {
+    return c.toInt()
 }

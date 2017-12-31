@@ -7,6 +7,7 @@
 package org.antlr.v4.kotlinruntime.atn
 
 import com.strumenta.kotlinmultiplatform.UUID
+import com.strumenta.kotlinmultiplatform.maxValue
 import com.strumenta.kotlinmultiplatform.toInt32
 import org.antlr.v4.kotlinruntime.Token
 import org.antlr.v4.kotlinruntime.misc.IntervalSet
@@ -50,7 +51,7 @@ class ATNDeserializer constructor(deserializationOptions: ATNDeserializationOpti
 
     fun deserialize(data: CharArray): ATN {
         var data = data
-        data = data.clone()
+        data = data.copyOf()
 
         // Each char value in data is shifted by +2 at the entry to this method.
         // This is an encoding optimization targeting the serialized values 0
@@ -107,7 +108,7 @@ class ATNDeserializer constructor(deserializationOptions: ATNDeserializationOpti
             }
 
             var ruleIndex = toInt(data[p++])
-            if (ruleIndex == Character.MAX_VALUE.toInt()) {
+            if (ruleIndex == Char.maxValue().toInt()) {
                 ruleIndex = -1
             }
 
@@ -182,7 +183,7 @@ class ATNDeserializer constructor(deserializationOptions: ATNDeserializationOpti
 
             val stopState = state as RuleStopState
             atn.ruleToStopState!![state.ruleIndex] = stopState
-            atn.ruleToStartState!![state.ruleIndex].stopState = stopState
+            atn.ruleToStartState!![state.ruleIndex]!!.stopState = stopState
         }
 
         //
@@ -236,14 +237,14 @@ class ATNDeserializer constructor(deserializationOptions: ATNDeserializationOpti
 
                 val ruleTransition = t as RuleTransition
                 var outermostPrecedenceReturn = -1
-                if (atn.ruleToStartState!![ruleTransition.target.ruleIndex].isLeftRecursiveRule) {
+                if (atn.ruleToStartState!![ruleTransition.target!!.ruleIndex]!!.isLeftRecursiveRule) {
                     if (ruleTransition.precedence == 0) {
-                        outermostPrecedenceReturn = ruleTransition.target.ruleIndex
+                        outermostPrecedenceReturn = ruleTransition.target!!.ruleIndex
                     }
                 }
 
                 val returnTransition = EpsilonTransition(ruleTransition.followState, outermostPrecedenceReturn)
-                atn.ruleToStopState!![ruleTransition.target.ruleIndex].addTransition(returnTransition)
+                atn.ruleToStopState!![ruleTransition!!.target!!.ruleIndex]!!.addTransition(returnTransition)
             }
         }
 
@@ -331,7 +332,7 @@ class ATNDeserializer constructor(deserializationOptions: ATNDeserializationOpti
                     }
                 }
 
-                atn.lexerActions = legacyLexerActions.toTypedArray<LexerAction>()
+                atn.lexerActions = legacyLexerActions.toTypedArray<LexerAction?>()
             }
         }
 
@@ -363,7 +364,7 @@ class ATNDeserializer constructor(deserializationOptions: ATNDeserializationOpti
 
                 var endState: ATNState?
                 var excludeTransition: Transition? = null
-                if (atn.ruleToStartState!![i].isLeftRecursiveRule) {
+                if (atn.ruleToStartState!![i]!!.isLeftRecursiveRule) {
                     // wrap from the beginning of the rule to the StarLoopEntryState
                     endState = null
                     for (state in atn.states) {
@@ -406,14 +407,14 @@ class ATNDeserializer constructor(deserializationOptions: ATNDeserializationOpti
                 }
 
                 // all transitions leaving the rule start state need to leave blockStart instead
-                while (atn.ruleToStartState!![i].numberOfTransitions > 0) {
-                    val transition = atn.ruleToStartState!![i].removeTransition(atn.ruleToStartState!![i].numberOfTransitions - 1)
+                while (atn.ruleToStartState!![i]!!.numberOfTransitions > 0) {
+                    val transition = atn.ruleToStartState!![i]!!.removeTransition(atn.ruleToStartState!![i]!!.numberOfTransitions - 1)
                     bypassStart.addTransition(transition)
                 }
 
                 // link the new states
-                atn.ruleToStartState!![i].addTransition(EpsilonTransition(bypassStart))
-                bypassStop.addTransition(EpsilonTransition(endState))
+                atn.ruleToStartState!![i]!!.addTransition(EpsilonTransition(bypassStart))
+                bypassStop.addTransition(EpsilonTransition(endState!!))
 
                 val matchState = BasicState()
                 atn.addState(matchState)
@@ -472,7 +473,7 @@ class ATNDeserializer constructor(deserializationOptions: ATNDeserializationOpti
 			 * decision for the closure block that determines whether a
 			 * precedence rule should continue or complete.
 			 */
-            if (atn.ruleToStartState!![state.ruleIndex].isLeftRecursiveRule) {
+            if (atn.ruleToStartState!![state.ruleIndex]!!.isLeftRecursiveRule) {
                 val maybeLoopEndState = state.transition(state.numberOfTransitions - 1).target
                 if (maybeLoopEndState is LoopEndState) {
                     if (maybeLoopEndState.epsilonOnlyTransitions && maybeLoopEndState.transition(0).target is RuleStopState) {

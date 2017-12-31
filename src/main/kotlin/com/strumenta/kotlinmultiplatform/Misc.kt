@@ -103,6 +103,8 @@ expect fun Char.Companion.toChars(codePoint: Int, resultArray: CharArray, result
 
 expect fun Char.Companion.charCount(i: Int): Byte
 
+expect fun Char.Companion.maxValue() : Char
+
 expect fun <T> Array<T>.clone(): Array<T>
 
 expect fun <T> arraycopy(tokens: Array<T>, p: Int, tokens1: Array<T>, i: Int, i1: Int)

@@ -487,7 +487,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
                 // getEpsilonTarget to return two configurations, so
                 // additional modifications are needed before we can support
                 // the split operation.
-                val lexerActionExecutor = LexerActionExecutor.append(config.lexerActionExecutor, atn.lexerActions!![(t as ActionTransition).actionIndex])
+                val lexerActionExecutor = LexerActionExecutor.append(config.lexerActionExecutor, atn.lexerActions!![(t as ActionTransition).actionIndex]!!)
                 c = LexerATNConfig(config, t.target!!, lexerActionExecutor)
 
             } else {
