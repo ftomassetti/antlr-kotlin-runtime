@@ -69,13 +69,12 @@ class DFA constructor(
         var precedenceDfa = false
         if (atnStartState is StarLoopEntryState) {
             if ((atnStartState as StarLoopEntryState).isPrecedenceDecision) {
-                TODO()
-//                precedenceDfa = true
-//                val precedenceState = DFAState(ATNConfigSet())
-//                precedenceState.edges = arrayOfNulls<DFAState?>(0)!!
-//                precedenceState.isAcceptState = false
-//                precedenceState.requiresFullContext = false
-//                this.s0 = precedenceState
+                precedenceDfa = true
+                val precedenceState = DFAState(ATNConfigSet())
+                precedenceState.edges = arrayOfNulls<DFAState?>(0)!!
+                precedenceState.isAcceptState = false
+                precedenceState.requiresFullContext = false
+                this.s0 = precedenceState
             }
         }
 

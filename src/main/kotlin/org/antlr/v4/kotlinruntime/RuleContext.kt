@@ -158,7 +158,7 @@ open class RuleContext : RuleNode {
 
     constructor() {}
 
-    constructor(parent: RuleContext, invokingState: Int) {
+    constructor(parent: RuleContext?, invokingState: Int) {
         this.parent = parent
         //if ( parent!=null ) System.out.println("invoke "+stateNumber+" from "+parent);
         this.invokingState = invokingState

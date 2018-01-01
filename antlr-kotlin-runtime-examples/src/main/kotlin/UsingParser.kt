@@ -1,5 +1,6 @@
 import org.antlr.v4.kotlinruntime.ANTLRInputStream
 import org.antlr.v4.kotlinruntime.CharStream
+import org.antlr.v4.kotlinruntime.CommonTokenStream
 import org.antlr.v4.kotlinruntime.Token
 import java.lang.RuntimeException
 
@@ -16,10 +17,6 @@ fun main(args: Array<String>) {
 
     val input = ANTLRInputStream("1 + 2")
     val lexer = MiniCalcLexer(input)
-    var token : Token? = null
-    do {
-        token = lexer.nextToken()
-        println("TOKEN $token")
-
-    } while (token?.type != -1)
+    var parser = MiniCalcParser(CommonTokenStream(lexer))
+    val root = parser.miniCalcFile()
 }

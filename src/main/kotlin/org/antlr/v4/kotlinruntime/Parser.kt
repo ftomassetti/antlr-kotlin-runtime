@@ -16,17 +16,19 @@ import org.antlr.v4.kotlinruntime.tree.pattern.ParseTreePatternMatcher
 //
 ///** This is all the parsing support code essentially; most of it is error recovery stuff.  */
 abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator>() {
-//
-//    /**
-//     * The error handling strategy for the parser. The default value is a new
-//     * instance of [DefaultErrorStrategy].
-//     *
-//     * @see .getErrorHandler
-//     *
-//     * @see .setErrorHandler
-//     */
-//
-//    var errorHandler: ANTLRErrorStrategy = DefaultErrorStrategy()
+
+
+
+    /**
+     * The error handling strategy for the parser. The default value is a new
+     * instance of [DefaultErrorStrategy].
+     *
+     * @see .getErrorHandler
+     *
+     * @see .setErrorHandler
+     */
+
+    var errorHandler: ANTLRErrorStrategy = DefaultErrorStrategy()
 //
 //    /**
 //     * The input stream.
@@ -35,7 +37,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     *
 //     * @see .setInputStream
 //     */
-    protected var _input: TokenStream? = null
+    protected var _input: TokenStream? = input
 //
 //    protected val _precedenceStack: IntegerStack
 //
@@ -77,7 +79,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     * [ParserRuleContext.children] list. Contexts are then not candidates
 //     * for garbage collection.
 //     */
-//    var buildParseTree = true
+    var buildParseTree = true
 //
 //
 //    /**
@@ -95,7 +97,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     *
 //     * @see .addParseListener
 //     */
-//    protected var _parseListeners: MutableList<ParseTreeListener>? = null
+    protected var _parseListeners: MutableList<ParseTreeListener>? = null
 //
 //    /**
 //     * The number of syntax errors reported during parsing. This value is
@@ -107,12 +109,12 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     *
 //     * @see .notifyErrorListeners
 //     */
-//    var numberOfSyntaxErrors: Int = 0
-//        protected set
+    var numberOfSyntaxErrors: Int = 0
+        protected set
 //
-//    /** Indicates parser has match()ed EOF token. See [.exitRule].  */
-//    var isMatchedEOF: Boolean = false
-//        protected set
+    /** Indicates parser has match()ed EOF token. See [.exitRule].  */
+    var isMatchedEOF: Boolean = false
+        protected set
 //
 //    /**
 //     * @return `true` if the [ParserRuleContext.children] list is trimmed
@@ -214,7 +216,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     * @see ATN.getExpectedTokens
 //     */
     val expectedTokens: IntervalSet
-        get() = atn.getExpectedTokens(state, context!!)
+        get() = atn.getExpectedTokens(state, context)
 //
 //
 //    val expectedTokensWithinCurrentRule: IntervalSet
@@ -493,31 +495,31 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //        _parseListeners = null
 //    }
 //
-//    /**
-//     * Notify any parse listeners of an enter rule event.
-//     *
-//     * @see .addParseListener
-//     */
-//    protected fun triggerEnterRuleEvent() {
-//        for (listener in _parseListeners!!) {
-//            listener.enterEveryRule(context)
-//            context!!.enterRule(listener)
-//        }
-//    }
-//
-//    /**
-//     * Notify any parse listeners of an exit rule event.
-//     *
-//     * @see .addParseListener
-//     */
-//    protected fun triggerExitRuleEvent() {
-//        // reverse order walk of listeners
-//        for (i in _parseListeners!!.indices.reversed()) {
-//            val listener = _parseListeners!![i]
-//            context!!.exitRule(listener)
-//            listener.exitEveryRule(context)
-//        }
-//    }
+    /**
+     * Notify any parse listeners of an enter rule event.
+     *
+     * @see .addParseListener
+     */
+    protected fun triggerEnterRuleEvent() {
+        for (listener in _parseListeners!!) {
+            listener.enterEveryRule(context!!)
+            context!!.enterRule(listener)
+        }
+    }
+
+    /**
+     * Notify any parse listeners of an exit rule event.
+     *
+     * @see .addParseListener
+     */
+    protected fun triggerExitRuleEvent() {
+        // reverse order walk of listeners
+        for (i in _parseListeners!!.indices.reversed()) {
+            val listener = _parseListeners!![i]
+            context!!.exitRule(listener)
+            listener.exitEveryRule(context!!)
+        }
+    }
 //
 //    /**
 //     * The preferred method of getting a tree pattern. For example, here's a
@@ -641,52 +643,52 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //        return ErrorNodeImpl(t)
 //    }
 //
-//    protected fun addContextToParseTree() {
-//        val parent = context!!.parent as ParserRuleContext
-//        // add current context to parent if we have a parent
-//        if (parent != null) {
-//            parent!!.addChild(context)
-//        }
-//    }
+    protected fun addContextToParseTree() {
+        val parent = context!!.parent as ParserRuleContext?
+        // add current context to parent if we have a parent
+        if (parent != null) {
+            parent!!.addChild(context!!)
+        }
+    }
 //
-//    /**
-//     * Always called by generated parsers upon entry to a rule. Access field
-//     * [._ctx] get the current context.
-//     */
-//    fun enterRule(localctx: ParserRuleContext, state: Int, ruleIndex: Int) {
-//        state = state
-//        context = localctx
-//        context!!.start = _input!!.LT(1)
-//        if (buildParseTree) addContextToParseTree()
-//        if (_parseListeners != null) triggerEnterRuleEvent()
-//    }
+    /**
+     * Always called by generated parsers upon entry to a rule. Access field
+     * [._ctx] get the current context.
+     */
+    fun enterRule(localctx: ParserRuleContext, state: Int, ruleIndex: Int) {
+        this.state = state
+        context = localctx
+        context!!.start = _input!!.LT(1)
+        if (buildParseTree) addContextToParseTree()
+        if (_parseListeners != null) triggerEnterRuleEvent()
+    }
+
+    fun exitRule() {
+        if (isMatchedEOF) {
+            // if we have matched EOF, it cannot consume past EOF so we use LT(1) here
+            context!!.stop = _input!!.LT(1) // LT(1) will be end of file
+        } else {
+            context!!.stop = _input!!.LT(-1) // stop node is what we just matched
+        }
+        // trigger event on _ctx, before it reverts to parent
+        if (_parseListeners != null) triggerExitRuleEvent()
+        state = context!!.invokingState
+        context = context!!.parent as ParserRuleContext?
+    }
 //
-//    fun exitRule() {
-//        if (isMatchedEOF) {
-//            // if we have matched EOF, it cannot consume past EOF so we use LT(1) here
-//            context!!.stop = _input!!.LT(1) // LT(1) will be end of file
-//        } else {
-//            context!!.stop = _input!!.LT(-1) // stop node is what we just matched
-//        }
-//        // trigger event on _ctx, before it reverts to parent
-//        if (_parseListeners != null) triggerExitRuleEvent()
-//        state = context!!.invokingState
-//        context = context!!.parent as ParserRuleContext
-//    }
-//
-//    fun enterOuterAlt(localctx: ParserRuleContext, altNum: Int) {
-//        localctx.altNumber = altNum
-//        // if we have new localctx, make sure we replace existing ctx
-//        // that is previous child of parse tree
-//        if (buildParseTree && context !== localctx) {
-//            val parent = context!!.parent as ParserRuleContext
-//            if (parent != null) {
-//                parent!!.removeLastChild()
-//                parent!!.addChild(localctx)
-//            }
-//        }
-//        context = localctx
-//    }
+    fun enterOuterAlt(localctx: ParserRuleContext, altNum: Int) {
+        localctx.altNumber = altNum
+        // if we have new localctx, make sure we replace existing ctx
+        // that is previous child of parse tree
+        if (buildParseTree && context !== localctx) {
+            val parent = context!!.parent as ParserRuleContext
+            if (parent != null) {
+                parent!!.removeLastChild()
+                parent!!.addChild(localctx)
+            }
+        }
+        context = localctx
+    }
 //
 //
 //    @Deprecated("Use\n" +

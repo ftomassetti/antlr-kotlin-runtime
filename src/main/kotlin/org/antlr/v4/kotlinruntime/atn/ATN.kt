@@ -148,7 +148,7 @@ class ATN
      * @throws IllegalArgumentException if the ATN does not contain a state with
      * number `stateNumber`
      */
-    fun getExpectedTokens(stateNumber: Int, context: RuleContext): IntervalSet {
+    fun getExpectedTokens(stateNumber: Int, context: RuleContext?): IntervalSet {
         if (stateNumber < 0 || stateNumber >= states.size) {
             throw IllegalArgumentException("Invalid state number.")
         }

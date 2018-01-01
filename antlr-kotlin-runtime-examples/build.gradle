@@ -22,4 +22,5 @@ dependencies {
 }
 
 apply plugin: 'application'
-mainClassName = "UsingLexerKt"
+//mainClassName = "UsingLexerKt"
+mainClassName = "UsingParserKt"

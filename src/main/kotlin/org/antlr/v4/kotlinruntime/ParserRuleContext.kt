@@ -144,7 +144,7 @@ open class ParserRuleContext : RuleContext {
         }
     }
 
-    constructor(parent: ParserRuleContext, invokingStateNumber: Int) : super(parent, invokingStateNumber) {}
+    constructor(parent: ParserRuleContext?, invokingStateNumber: Int) : super(parent, invokingStateNumber) {}
 
     // Double dispatch methods for listeners
 
