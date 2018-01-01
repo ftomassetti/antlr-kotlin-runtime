@@ -18,12 +18,13 @@ typealias CopyOnWriteArrayList<E> = ArrayList<E>
 
 abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
 
-
-    private val _listeners = object : CopyOnWriteArrayList<ANTLRErrorListener>() {
+    private class MyCopyOnWriteArrayList : CopyOnWriteArrayList<ANTLRErrorListener>() {
         init {
             add(ConsoleErrorListener.INSTANCE)
         }
     }
+
+    private val _listeners = MyCopyOnWriteArrayList()
 
     /**
      * Get the ATN interpreter used by the recognizer for prediction.
