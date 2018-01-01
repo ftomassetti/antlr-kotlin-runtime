@@ -763,7 +763,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
             val rt = invokingState!!.transition(0) as RuleTransition
             val follow = atn.nextTokens(rt.followState)
             recoverSet.addAll(follow)
-            ctx = ctx!!.parent
+            ctx = ctx!!.readParent()
         }
         recoverSet.remove(Token.EPSILON)
         //		System.out.println("recover set "+recoverSet.toString(recognizer.getTokenNames()));

@@ -12,7 +12,17 @@ import org.antlr.v4.kotlinruntime.Token
 import org.antlr.v4.kotlinruntime.misc.Interval
 
 open class TerminalNodeImpl(override var symbol: Token?) : TerminalNode {
-    override var parent: ParseTree? = null
+
+    private var parent : ParseTree? = null
+
+    override fun assignParent(value: ParseTree?) {
+        this.parent = value
+    }
+
+    override fun readParent(): ParseTree? {
+        return this.parent
+    }
+    //override var parent: ParseTree? = null
 
     override val sourceInterval: Interval
         get() {

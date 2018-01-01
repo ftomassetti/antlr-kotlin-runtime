@@ -169,7 +169,7 @@ class ATN
             following = nextTokens(rt.followState)
             expected.addAll(following)
             expected.remove(Token.EPSILON)
-            ctx = ctx!!.parent
+            ctx = ctx!!.readParent()
         }
 
         if (following!!.contains(Token.EPSILON)) {

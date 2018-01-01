@@ -16,8 +16,15 @@ interface Tree {
     /** The parent of this node. If the return value is null, then this
      * node is the root of the tree.
      */
-    var parent: Tree?
+    //var parent: Tree?
 
+    //private var parent : Tree?
+
+//    public fun assignParent(value: ParseTree?) {
+//        this.parent = value
+//    }
+
+    fun readParent() : Tree?
     /**
      * This method returns whatever object represents the data at this note. For
      * example, for parse trees, the payload can be a [Token] representing

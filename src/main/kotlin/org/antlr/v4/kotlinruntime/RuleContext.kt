@@ -64,14 +64,25 @@ import org.antlr.v4.kotlinruntime.tree.Trees
  * @see ParserRuleContext
  */
 open class RuleContext : RuleNode {
-//    override fun setParent(parent: RuleContext) {
+    //    override fun setParent(parent: RuleContext) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 //    }
+    override fun assignParent(value: ParseTree?) {
+        this.parent = value as RuleContext?
+    }
 
     /** What context invoked this rule?  */
     /** @since 4.7. {@see ParseTree#setParent} comment
      */
-    open override var parent: RuleContext? = null
+    private var parent : RuleContext? = null
+
+    fun assignParent(value: RuleContext?) {
+        this.parent = value
+    }
+
+    override fun readParent() : RuleContext? {
+        return this.parent
+    }
 
     /** What state invoked the rule associated with this context?
      * The "return address" is the followState of invokingState

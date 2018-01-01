@@ -22,6 +22,14 @@ interface ParseTree : SyntaxTree {
     // the following methods narrow the return type; they are not additional methods
     //override var parent: ParseTree?
 
+    //private var parent : ParseTree? = null
+
+    fun assignParent(value: ParseTree?)
+    //    this.parent = value
+    //}
+
+    override fun readParent() : ParseTree?
+
     /** Return the combined text of all leaf nodes. Does not get any
      * off-channel tokens (if any) so won't return whitespace and
      * comments if they are sent to parser on hidden channel.

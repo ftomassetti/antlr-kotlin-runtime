@@ -84,13 +84,18 @@ open class ParserRuleContext : RuleContext {
 //     */
     var exception: RecognitionException? = null
 
-    override
             /** Override to make type more specific  */
-    var parent: ParserRuleContext?
-        get() = super.parent as ParserRuleContext?
-        set(value: ParserRuleContext?) {
-            super.parent = value
-        }
+    var parent: ParserRuleContext? = null
+        get() = super.readParent() as ParserRuleContext?
+        set
+
+    fun assignParent(value: ParserRuleContext?) {
+        this.parent = value
+    }
+
+    override fun assignParent(value: ParseTree?) {
+        assignParent(value as ParserRuleContext?)
+    }
 
     override val childCount: Int
         get() = if (children != null) children!!.size else 0
@@ -169,8 +174,8 @@ open class ParserRuleContext : RuleContext {
 
     /** Add a token leaf node child and force its parent to be this node.  */
     fun addChild(t: TerminalNode): TerminalNode {
-        t.parent = this
-        return addAnyChild<ParseTree>(t)
+        t.assignParent(this)
+        return addAnyChild(t)
     }
 
     /** Add an error node child and force its parent to be this node.
@@ -178,8 +183,8 @@ open class ParserRuleContext : RuleContext {
      * @since 4.7
      */
     fun addErrorNode(errorNode: ErrorNode): ErrorNode {
-        errorNode.parent = this
-        return addAnyChild<ParseTree>(errorNode)
+        errorNode.assignParent(this)
+        return addAnyChild(errorNode)
     }
 
     /** Add a child to this node based upon matchedToken. It
@@ -191,7 +196,7 @@ open class ParserRuleContext : RuleContext {
     fun addChild(matchedToken: Token): TerminalNode {
         val t = TerminalNodeImpl(matchedToken)
         addAnyChild<ParseTree>(t)
-        t.parent = this
+        t.assignParent(this)
         return t
     }
 
@@ -204,7 +209,7 @@ open class ParserRuleContext : RuleContext {
     fun addErrorNode(badToken: Token): ErrorNode {
         val t = ErrorNodeImpl(badToken)
         addAnyChild<ParseTree>(t)
-        t.parent = this
+        t.assignParent(this)
         return t
     }
 //
@@ -227,22 +232,22 @@ open class ParserRuleContext : RuleContext {
         return if (children != null && i >= 0 && i < children!!.size) children!![i] else null
     }
 
-    fun <T : ParseTree> getChild(ctxType: Class<out T>, i: Int): T? {
-        if (children == null || i < 0 || i >= children!!.size) {
-            return null
-        }
-
-        var j = -1 // what element have we found with ctxType?
-        for (o in children!!) {
-            if (ctxType.isInstance(o)) {
-                j++
-                if (j == i) {
-                    return ctxType.cast(o)
-                }
-            }
-        }
-        return null
-    }
+//    fun <T : ParseTree> getChild(ctxType: Class<out T>, i: Int): T? {
+//        if (children == null || i < 0 || i >= children!!.size) {
+//            return null
+//        }
+//
+//        var j = -1 // what element have we found with ctxType?
+//        for (o in children!!) {
+//            if (ctxType.isInstance(o)) {
+//                j++
+//                if (j == i) {
+//                    return ctxType.cast(o)
+//                }
+//            }
+//        }
+//        return null
+//    }
 //
 //    fun getToken(ttype: Int, i: Int): TerminalNode? {
 //        if (children == null || i < 0 || i >= children!!.size) {

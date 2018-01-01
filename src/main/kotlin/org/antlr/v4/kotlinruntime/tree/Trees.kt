@@ -92,12 +92,12 @@ object Trees {
      */
     fun getAncestors(t: Tree): List<out Tree> {
         var t = t
-        if (t.parent == null) return emptyList<Tree>()
+        if (t.readParent() == null) return emptyList<Tree>()
         val ancestors = ArrayList<Tree>()
-        t = t.parent!!
+        t = t.readParent()!!
         while (t != null) {
             ancestors.add(0, t) // insert at start
-            t = t.parent!!
+            t = t.readParent()!!
         }
         return ancestors
     }
@@ -108,11 +108,11 @@ object Trees {
      * @since 4.5.1
      */
     fun isAncestorOf(t: Tree?, u: Tree?): Boolean {
-        if (t == null || u == null || t!!.parent == null) return false
-        var p: Tree? = u!!.parent
+        if (t == null || u == null || t!!.readParent() == null) return false
+        var p: Tree? = u!!.readParent()
         while (p != null) {
             if (t === p) return true
-            p = p!!.parent
+            p = p!!.readParent()
         }
         return false
     }
