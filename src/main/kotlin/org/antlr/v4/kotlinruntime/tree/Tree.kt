@@ -16,7 +16,7 @@ interface Tree {
     /** The parent of this node. If the return value is null, then this
      * node is the root of the tree.
      */
-    val parent: Tree?
+    var parent: Tree?
 
     /**
      * This method returns whatever object represents the data at this note. For

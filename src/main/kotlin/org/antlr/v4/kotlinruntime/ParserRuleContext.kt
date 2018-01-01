@@ -83,166 +83,166 @@ open class ParserRuleContext : RuleContext {
 //     * completed, this is `null`.
 //     */
     var exception: RecognitionException? = null
-//
-//    override
-//            /** Override to make type more specific  */
-//    var parent: ParserRuleContext?
-//        get() = super.parent as ParserRuleContext?
-//        set(value: ParserRuleContext?) {
-//            super.parent = value
-//        }
-//
-//    override val childCount: Int
-//        get() = if (children != null) children!!.size else 0
-//
-//    override// empty
-//    val sourceInterval: Interval
-//        get() {
-//            if (start == null) {
-//                return Interval.INVALID
-//            }
-//            return if (stop == null || stop!!.tokenIndex < start!!.tokenIndex) {
-//                Interval.of(start!!.tokenIndex, start!!.tokenIndex - 1)
-//            } else Interval.of(start!!.tokenIndex, stop!!.tokenIndex)
-//        }
-//
+
+    override
+            /** Override to make type more specific  */
+    var parent: ParserRuleContext?
+        get() = super.parent as ParserRuleContext?
+        set(value: ParserRuleContext?) {
+            super.parent = value
+        }
+
+    override val childCount: Int
+        get() = if (children != null) children!!.size else 0
+
+    override// empty
+    val sourceInterval: Interval
+        get() {
+            if (start == null) {
+                return Interval.INVALID
+            }
+            return if (stop == null || stop!!.tokenIndex < start!!.tokenIndex) {
+                Interval.of(start!!.tokenIndex, start!!.tokenIndex - 1)
+            } else Interval.of(start!!.tokenIndex, stop!!.tokenIndex)
+        }
+
     constructor() {}
-//
-//    /** COPY a ctx (I'm deliberately not using copy constructor) to avoid
-//     * confusion with creating node with parent. Does not copy children
-//     * (except error leaves).
-//     *
-//     * This is used in the generated parser code to flip a generic XContext
-//     * node for rule X to a YContext for alt label Y. In that sense, it is
-//     * not really a generic copy function.
-//     *
-//     * If we do an error sync() at start of a rule, we might add error nodes
-//     * to the generic XContext so this function must copy those nodes to
-//     * the YContext as well else they are lost!
-//     */
-//    fun copyFrom(ctx: ParserRuleContext) {
-//        this.parent = ctx.parent
-//        this.invokingState = ctx.invokingState
-//
-//        this.start = ctx.start
-//        this.stop = ctx.stop
-//
-//        // copy any error nodes to alt label node
-//        if (ctx.children != null) {
-//            this.children = ArrayList<E>()
-//            // reset parent pointer for any error nodes
-//            for (child in ctx.children!!) {
-//                if (child is ErrorNode) {
-//                    addChild(child as ErrorNode)
-//                }
-//            }
-//        }
-//    }
-//
+
+    /** COPY a ctx (I'm deliberately not using copy constructor) to avoid
+     * confusion with creating node with parent. Does not copy children
+     * (except error leaves).
+     *
+     * This is used in the generated parser code to flip a generic XContext
+     * node for rule X to a YContext for alt label Y. In that sense, it is
+     * not really a generic copy function.
+     *
+     * If we do an error sync() at start of a rule, we might add error nodes
+     * to the generic XContext so this function must copy those nodes to
+     * the YContext as well else they are lost!
+     */
+    fun copyFrom(ctx: ParserRuleContext) {
+        this.parent = ctx.parent
+        this.invokingState = ctx.invokingState
+
+        this.start = ctx.start
+        this.stop = ctx.stop
+
+        // copy any error nodes to alt label node
+        if (ctx.children != null) {
+            this.children = ArrayList()
+            // reset parent pointer for any error nodes
+            for (child in ctx.children!!) {
+                if (child is ErrorNode) {
+                    addChild(child as ErrorNode)
+                }
+            }
+        }
+    }
+
     constructor(parent: ParserRuleContext, invokingStateNumber: Int) : super(parent, invokingStateNumber) {}
-//
-//    // Double dispatch methods for listeners
-//
-//    fun enterRule(listener: ParseTreeListener) {}
-//    fun exitRule(listener: ParseTreeListener) {}
-//
-//    /** Add a parse tree node to this as a child.  Works for
-//     * internal and leaf nodes. Does not set parent link;
-//     * other add methods must do that. Other addChild methods
-//     * call this.
-//     *
-//     * We cannot set the parent pointer of the incoming node
-//     * because the existing interfaces do not have a setParent()
-//     * method and I don't want to break backward compatibility for this.
-//     *
-//     * @since 4.7
-//     */
-//    fun <T : ParseTree> addAnyChild(t: T): T {
-//        if (children == null) children = ArrayList<E>()
-//        children!!.add(t)
-//        return t
-//    }
-//
-//    fun addChild(ruleInvocation: RuleContext): RuleContext {
-//        return addAnyChild(ruleInvocation)
-//    }
-//
-//    /** Add a token leaf node child and force its parent to be this node.  */
-//    fun addChild(t: TerminalNode): TerminalNode {
-//        t.setParent(this)
-//        return addAnyChild<ParseTree>(t)
-//    }
-//
-//    /** Add an error node child and force its parent to be this node.
-//     *
-//     * @since 4.7
-//     */
-//    fun addErrorNode(errorNode: ErrorNode): ErrorNode {
-//        errorNode.setParent(this)
-//        return addAnyChild<ParseTree>(errorNode)
-//    }
-//
-//    /** Add a child to this node based upon matchedToken. It
-//     * creates a TerminalNodeImpl rather than using
-//     * [Parser.createTerminalNode]. I'm leaving this
-//     * in for compatibility but the parser doesn't use this anymore.
-//     */
-//    @Deprecated("")
-//    fun addChild(matchedToken: Token): TerminalNode {
-//        val t = TerminalNodeImpl(matchedToken)
-//        addAnyChild<ParseTree>(t)
-//        t.setParent(this)
-//        return t
-//    }
-//
-//    /** Add a child to this node based upon badToken.  It
-//     * creates a ErrorNodeImpl rather than using
-//     * [Parser.createErrorNode]. I'm leaving this
-//     * in for compatibility but the parser doesn't use this anymore.
-//     */
-//    @Deprecated("")
-//    fun addErrorNode(badToken: Token): ErrorNode {
-//        val t = ErrorNodeImpl(badToken)
-//        addAnyChild<ParseTree>(t)
-//        t.setParent(this)
-//        return t
-//    }
+
+    // Double dispatch methods for listeners
+
+    fun enterRule(listener: ParseTreeListener) {}
+    fun exitRule(listener: ParseTreeListener) {}
+
+    /** Add a parse tree node to this as a child.  Works for
+     * internal and leaf nodes. Does not set parent link;
+     * other add methods must do that. Other addChild methods
+     * call this.
+     *
+     * We cannot set the parent pointer of the incoming node
+     * because the existing interfaces do not have a setParent()
+     * method and I don't want to break backward compatibility for this.
+     *
+     * @since 4.7
+     */
+    fun <T : ParseTree> addAnyChild(t: T): T {
+        if (children == null) children = ArrayList()
+        children!!.add(t)
+        return t
+    }
+
+    fun addChild(ruleInvocation: RuleContext): RuleContext {
+        return addAnyChild(ruleInvocation)
+    }
+
+    /** Add a token leaf node child and force its parent to be this node.  */
+    fun addChild(t: TerminalNode): TerminalNode {
+        t.parent = this
+        return addAnyChild<ParseTree>(t)
+    }
+
+    /** Add an error node child and force its parent to be this node.
+     *
+     * @since 4.7
+     */
+    fun addErrorNode(errorNode: ErrorNode): ErrorNode {
+        errorNode.parent = this
+        return addAnyChild<ParseTree>(errorNode)
+    }
+
+    /** Add a child to this node based upon matchedToken. It
+     * creates a TerminalNodeImpl rather than using
+     * [Parser.createTerminalNode]. I'm leaving this
+     * in for compatibility but the parser doesn't use this anymore.
+     */
+    @Deprecated("")
+    fun addChild(matchedToken: Token): TerminalNode {
+        val t = TerminalNodeImpl(matchedToken)
+        addAnyChild<ParseTree>(t)
+        t.parent = this
+        return t
+    }
+
+    /** Add a child to this node based upon badToken.  It
+     * creates a ErrorNodeImpl rather than using
+     * [Parser.createErrorNode]. I'm leaving this
+     * in for compatibility but the parser doesn't use this anymore.
+     */
+    @Deprecated("")
+    fun addErrorNode(badToken: Token): ErrorNode {
+        val t = ErrorNodeImpl(badToken)
+        addAnyChild<ParseTree>(t)
+        t.parent = this
+        return t
+    }
 //
 //    //	public void trace(int s) {
 //    //		if ( states==null ) states = new ArrayList<Integer>();
 //    //		states.add(s);
 //    //	}
 //
-//    /** Used by enterOuterAlt to toss out a RuleContext previously added as
-//     * we entered a rule. If we have # label, we will need to remove
-//     * generic ruleContext object.
-//     */
-//    fun removeLastChild() {
-//        if (children != null) {
-//            children!!.removeAt(children!!.size - 1)
-//        }
-//    }
-//
-//    override fun getChild(i: Int): ParseTree? {
-//        return if (children != null && i >= 0 && i < children!!.size) children!![i] else null
-//    }
-//
-//    fun <T : ParseTree> getChild(ctxType: Class<out T>, i: Int): T? {
-//        if (children == null || i < 0 || i >= children!!.size) {
-//            return null
-//        }
-//
-//        var j = -1 // what element have we found with ctxType?
-//        for (o in children!!) {
-//            if (ctxType.isInstance(o)) {
-//                j++
-//                if (j == i) {
-//                    return ctxType.cast(o)
-//                }
-//            }
-//        }
-//        return null
-//    }
+    /** Used by enterOuterAlt to toss out a RuleContext previously added as
+     * we entered a rule. If we have # label, we will need to remove
+     * generic ruleContext object.
+     */
+    fun removeLastChild() {
+        if (children != null) {
+            children!!.removeAt(children!!.size - 1)
+        }
+    }
+
+    override fun getChild(i: Int): ParseTree? {
+        return if (children != null && i >= 0 && i < children!!.size) children!![i] else null
+    }
+
+    fun <T : ParseTree> getChild(ctxType: Class<out T>, i: Int): T? {
+        if (children == null || i < 0 || i >= children!!.size) {
+            return null
+        }
+
+        var j = -1 // what element have we found with ctxType?
+        for (o in children!!) {
+            if (ctxType.isInstance(o)) {
+                j++
+                if (j == i) {
+                    return ctxType.cast(o)
+                }
+            }
+        }
+        return null
+    }
 //
 //    fun getToken(ttype: Int, i: Int): TerminalNode? {
 //        if (children == null || i < 0 || i >= children!!.size) {
