@@ -5,9 +5,7 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import com.strumenta.kotlinmultiplatform.Math
-import com.strumenta.kotlinmultiplatform.Type
-import com.strumenta.kotlinmultiplatform.isInstance
+import com.strumenta.kotlinmultiplatform.*
 import org.antlr.v4.kotlinruntime.misc.Interval
 
 
@@ -97,7 +95,7 @@ import org.antlr.v4.kotlinruntime.misc.Interval
  */
 class TokenStreamRewriter(
         /** Our source stream  */
-        val tokenStream: TokenStream) {
+        val tokenStream: TokenStream) : TypeDeclarator {
 
     /** You may have multiple, named streams of rewrite operations.
      * I'm calling these things "programs."
@@ -450,7 +448,7 @@ class TokenStreamRewriter(
             val op = (rewrites[i] ?: continue) as? ReplaceOp ?: continue
             val rop = rewrites[i] as ReplaceOp
             // Wipe prior inserts within range
-            val inserts = getKindOfOps<InsertBeforeOp>(rewrites, "InsertBeforeOp", i)
+            val inserts = getKindOfOps<InsertBeforeOp>(rewrites, this.getType("InsertBeforeOp"), i)
             for (iop in inserts) {
                 if (iop.index == rop.index) {
                     // E.g., insert before 2, delete 2..2; update replace
@@ -463,7 +461,7 @@ class TokenStreamRewriter(
                 }
             }
             // Drop any prior replaces contained within
-            val prevReplaces = getKindOfOps<ReplaceOp>(rewrites, "ReplaceOp", i)
+            val prevReplaces = getKindOfOps<ReplaceOp>(rewrites, this.getType("ReplaceOp"), i)
             for (prevRop in prevReplaces) {
                 if (prevRop.index >= rop.index && prevRop.lastIndex <= rop.lastIndex) {
                     // delete replace as it's a no-op.
@@ -491,7 +489,7 @@ class TokenStreamRewriter(
             val op = (rewrites[i] ?: continue) as? InsertBeforeOp ?: continue
             val iop = rewrites[i] as InsertBeforeOp
             // combine current insert with prior if any at same index
-            val prevInserts = getKindOfOps<InsertBeforeOp>(rewrites, "InsertBeforeOp", i)
+            val prevInserts = getKindOfOps<InsertBeforeOp>(rewrites, this.getType("InsertBeforeOp"), i)
             for (prevIop in prevInserts) {
                 if (prevIop.index == iop.index) {
                     if (prevIop is InsertAfterOp) {
@@ -507,7 +505,7 @@ class TokenStreamRewriter(
                 }
             }
             // look for replaces where iop.index is in range; error
-            val prevReplaces = getKindOfOps<ReplaceOp>(rewrites, "ReplaceOp", i)
+            val prevReplaces = getKindOfOps<ReplaceOp>(rewrites, this.getType("ReplaceOp"), i)
             for (rop in prevReplaces) {
                 if (iop.index == rop.index) {
                     rop.text = catOpText(iop.text, rop.text)

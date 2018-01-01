@@ -28,3 +28,11 @@ actual object Arrays {
         return java.util.Arrays.toString(a)
     }
 }
+
+actual fun <T> arraycopy(tokens: Array<T>, p: Int, tokens1: Array<T>, i: Int, i1: Int) {
+    TODO()
+}
+
+actual fun <T> Array<T>.clone(): Array<T> {
+    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+}

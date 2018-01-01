@@ -6,6 +6,7 @@
 package org.antlr.v4.kotlinruntime
 
 import com.strumenta.kotlinmultiplatform.Type
+import com.strumenta.kotlinmultiplatform.TypeDeclarator
 import org.antlr.v4.kotlinruntime.atn.*
 import org.antlr.v4.kotlinruntime.dfa.DFA
 import org.antlr.v4.kotlinruntime.misc.IntegerStack
@@ -16,7 +17,7 @@ import org.antlr.v4.kotlinruntime.tree.pattern.ParseTreePatternMatcher
 
 //
 ///** This is all the parsing support code essentially; most of it is error recovery stuff.  */
-abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator>() {
+abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator>(), TypeDeclarator {
 
     override fun assignInputStream(newValue: IntStream?) {
         this.inputStream = newValue
@@ -815,7 +816,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //    }
 //
     /** Get a rule's index (i.e., `RULE_ruleName` field) or -1 if not found.  */
-    open fun getRuleIndex(ruleName: Type): Int {
+    open fun getRuleIndex(ruleName: String): Int {
         val ruleIndex = ruleIndexMap[ruleName]
         return if (ruleIndex != null) ruleIndex!! else -1
     }

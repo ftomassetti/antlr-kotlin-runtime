@@ -6,7 +6,7 @@ import org.junit.Assert.*
 
 class TestingParser {
 
-    @test fun simplestFile() {
+    @test fun simplestFileUsingHomogeneousAPI() {
         val input = ANTLRInputStream("input Int width\n")
         val lexer = MiniCalcLexer(input)
         var parser = MiniCalcParser(CommonTokenStream(lexer))
@@ -42,9 +42,39 @@ class TestingParser {
         assertTrue(id is TerminalNode)
         assertEquals(0, id.childCount)
 
-        val eof = line.children!![1]
-        assertTrue(eof is TerminalNode)
-        assertEquals("\n", eof.text)
+        val newline = line.children!![1]
+        assertTrue(newline is TerminalNode)
+        assertEquals("\n", newline.text)
+    }
 
+    @test fun simplestFileUsingHetereogeneousAPI() {
+        val input = ANTLRInputStream("input Int width\n")
+        val lexer = MiniCalcLexer(input)
+        var parser = MiniCalcParser(CommonTokenStream(lexer))
+
+        val root = parser.miniCalcFile()
+
+        val line = root.line()[0]
+
+        val statement = line.statement()!!
+
+        println("STATEMENT is ${statement.javaClass}")
+
+        val inputDeclStmt = statement as MiniCalcParser.InputDeclarationStatementContext
+        val inputDecl = statement.inputDeclaration()!!
+
+        val inputKw = inputDecl.INPUT()
+        assertEquals("input", inputKw.text)
+
+        val type = inputDecl.type()!!
+
+        val intKw = (type as MiniCalcParser.IntegerContext).INT()
+        assertEquals("Int", intKw.text)
+
+        val id = inputDecl.ID()!!
+        assertEquals("width", id.text)
+
+        val newline = line.NEWLINE()!!
+        assertEquals("\n", newline.text)
     }
 }

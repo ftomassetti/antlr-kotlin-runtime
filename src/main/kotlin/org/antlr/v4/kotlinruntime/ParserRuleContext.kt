@@ -6,6 +6,7 @@
 package org.antlr.v4.kotlinruntime
 
 import com.strumenta.kotlinmultiplatform.Type
+import com.strumenta.kotlinmultiplatform.TypeDeclarator
 import com.strumenta.kotlinmultiplatform.isInstance
 import org.antlr.v4.kotlinruntime.tree.ParseTree
 import org.antlr.v4.kotlinruntime.misc.Interval
@@ -34,7 +35,7 @@ import org.antlr.v4.kotlinruntime.tree.*
 // * group values such as this aggregate.  The getters/setters are there to
 // * satisfy the superclass interface.
 // */
-open class ParserRuleContext : RuleContext {
+open class ParserRuleContext : RuleContext, TypeDeclarator {
 //    override fun setParent(parent: RuleContext) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 //    }
