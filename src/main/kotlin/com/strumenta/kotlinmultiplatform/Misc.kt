@@ -113,4 +113,4 @@ typealias Type = String
 
 expect fun Type.isInstance(any: Any?) : Boolean
 
-expect fun toInt32(c: Char) : Int
+//expect fun toInt32(c: Char) : Int

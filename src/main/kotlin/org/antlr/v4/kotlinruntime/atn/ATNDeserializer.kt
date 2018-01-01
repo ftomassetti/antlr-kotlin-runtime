@@ -8,7 +8,6 @@ package org.antlr.v4.kotlinruntime.atn
 
 import com.strumenta.kotlinmultiplatform.UUID
 import com.strumenta.kotlinmultiplatform.maxValue
-import com.strumenta.kotlinmultiplatform.toInt32
 import org.antlr.v4.kotlinruntime.Token
 import org.antlr.v4.kotlinruntime.misc.IntervalSet
 import org.antlr.v4.kotlinruntime.misc.Pair
@@ -711,7 +710,7 @@ class ATNDeserializer constructor(deserializationOptions: ATNDeserializationOpti
             } else {
                 object : UnicodeDeserializer {
                     override fun readUnicode(data: CharArray, p: Int): Int {
-                        return toInt32(data[p])
+                        return toInt32(data, p)
                     }
 
                     override fun size(): Int {
@@ -752,7 +751,7 @@ class ATNDeserializer constructor(deserializationOptions: ATNDeserializationOpti
 
         fun toLong(data: CharArray, offset: Int): Long {
             val lowOrder = toInt32(data, offset).toLong() and 0x00000000FFFFFFFFL
-            return lowOrder or (toInt32(data[offset + 2]).toLong() shl 32)
+            return lowOrder or (toInt32(data, offset + 2).toLong() shl 32)
         }
 
         fun toUUID(data: CharArray, offset: Int): UUID {
