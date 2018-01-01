@@ -5,6 +5,8 @@
  */
 package org.antlr.v4.kotlinruntime
 
+import com.strumenta.kotlinmultiplatform.Type
+import com.strumenta.kotlinmultiplatform.isInstance
 import org.antlr.v4.kotlinruntime.tree.ParseTree
 import org.antlr.v4.kotlinruntime.misc.Interval
 import org.antlr.v4.kotlinruntime.tree.*
@@ -148,8 +150,8 @@ open class ParserRuleContext : RuleContext {
 
     // Double dispatch methods for listeners
 
-    fun enterRule(listener: ParseTreeListener) {}
-    fun exitRule(listener: ParseTreeListener) {}
+    open fun enterRule(listener: ParseTreeListener) {}
+    open fun exitRule(listener: ParseTreeListener) {}
 
     /** Add a parse tree node to this as a child.  Works for
      * internal and leaf nodes. Does not set parent link;
@@ -232,95 +234,95 @@ open class ParserRuleContext : RuleContext {
         return if (children != null && i >= 0 && i < children!!.size) children!![i] else null
     }
 
-//    fun <T : ParseTree> getChild(ctxType: Class<out T>, i: Int): T? {
-//        if (children == null || i < 0 || i >= children!!.size) {
-//            return null
-//        }
-//
-//        var j = -1 // what element have we found with ctxType?
-//        for (o in children!!) {
-//            if (ctxType.isInstance(o)) {
-//                j++
-//                if (j == i) {
-//                    return ctxType.cast(o)
-//                }
-//            }
-//        }
-//        return null
-//    }
-//
-//    fun getToken(ttype: Int, i: Int): TerminalNode? {
-//        if (children == null || i < 0 || i >= children!!.size) {
-//            return null
-//        }
-//
-//        var j = -1 // what token with ttype have we found?
-//        for (o in children!!) {
-//            if (o is TerminalNode) {
-//                val tnode = o as TerminalNode
-//                val symbol = tnode.getSymbol()
-//                if (symbol.type == ttype) {
-//                    j++
-//                    if (j == i) {
-//                        return tnode
-//                    }
-//                }
-//            }
-//        }
-//
-//        return null
-//    }
-//
-//    fun getTokens(ttype: Int): List<TerminalNode> {
-//        if (children == null) {
-//            return emptyList<T>()
-//        }
-//
-//        var tokens: MutableList<TerminalNode>? = null
-//        for (o in children!!) {
-//            if (o is TerminalNode) {
-//                val tnode = o as TerminalNode
-//                val symbol = tnode.getSymbol()
-//                if (symbol.type == ttype) {
-//                    if (tokens == null) {
-//                        tokens = ArrayList<TerminalNode>()
-//                    }
-//                    tokens.add(tnode)
-//                }
-//            }
-//        }
-//
-//        return if (tokens == null) {
-//            emptyList<T>()
-//        } else tokens
-//
-//    }
-//
-//    fun <T : ParserRuleContext> getRuleContext(ctxType: Class<out T>, i: Int): T? {
-//        return getChild(ctxType, i)
-//    }
-//
-//    fun <T : ParserRuleContext> getRuleContexts(ctxType: Class<out T>): List<T> {
-//        if (children == null) {
-//            return emptyList()
-//        }
-//
-//        var contexts: MutableList<T>? = null
-//        for (o in children!!) {
-//            if (ctxType.isInstance(o)) {
-//                if (contexts == null) {
-//                    contexts = ArrayList()
-//                }
-//
-//                contexts.add(ctxType.cast(o))
-//            }
-//        }
-//
-//        return if (contexts == null) {
-//            emptyList()
-//        } else contexts
-//
-//    }
+    fun <T : ParseTree> getChild(ctxType: Type, i: Int): T? {
+        if (children == null || i < 0 || i >= children!!.size) {
+            return null
+        }
+
+        var j = -1 // what element have we found with ctxType?
+        for (o in children!!) {
+            if (ctxType.isInstance(o)) {
+                j++
+                if (j == i) {
+                    return o as T
+                }
+            }
+        }
+        return null
+    }
+
+    fun getToken(ttype: Int, i: Int): TerminalNode? {
+        if (children == null || i < 0 || i >= children!!.size) {
+            return null
+        }
+
+        var j = -1 // what token with ttype have we found?
+        for (o in children!!) {
+            if (o is TerminalNode) {
+                val tnode = o as TerminalNode
+                val symbol = tnode.symbol
+                if (symbol!!.type == ttype) {
+                    j++
+                    if (j == i) {
+                        return tnode
+                    }
+                }
+            }
+        }
+
+        return null
+    }
+
+    fun getTokens(ttype: Int): List<TerminalNode> {
+        if (children == null) {
+            return emptyList()
+        }
+
+        var tokens: MutableList<TerminalNode>? = null
+        for (o in children!!) {
+            if (o is TerminalNode) {
+                val tnode = o as TerminalNode
+                val symbol = tnode.symbol
+                if (symbol!!.type == ttype) {
+                    if (tokens == null) {
+                        tokens = ArrayList<TerminalNode>()
+                    }
+                    tokens.add(tnode)
+                }
+            }
+        }
+
+        return if (tokens == null) {
+            emptyList()
+        } else tokens
+
+    }
+
+    fun <T : ParserRuleContext> getRuleContext(ctxType: Type, i: Int): T? {
+        return getChild(ctxType, i) as T?
+    }
+
+    fun <T : ParserRuleContext> getRuleContexts(ctxType: Type): List<T> {
+        if (children == null) {
+            return emptyList()
+        }
+
+        var contexts: MutableList<T>? = null
+        for (o in children!!) {
+            if (ctxType.isInstance(o)) {
+                if (contexts == null) {
+                    contexts = ArrayList()
+                }
+
+                contexts.add(o as T)
+            }
+        }
+
+        return if (contexts == null) {
+            emptyList()
+        } else contexts
+
+    }
 //
 //    /** Used for rule context info debugging during parse-time, not so much for ATN debugging  */
 //    fun toInfoString(recognizer: Parser): String {

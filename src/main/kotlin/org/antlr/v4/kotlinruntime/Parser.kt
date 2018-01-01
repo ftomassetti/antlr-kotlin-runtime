@@ -5,6 +5,7 @@
  */
 package org.antlr.v4.kotlinruntime
 
+import com.strumenta.kotlinmultiplatform.Type
 import org.antlr.v4.kotlinruntime.atn.*
 import org.antlr.v4.kotlinruntime.dfa.DFA
 import org.antlr.v4.kotlinruntime.misc.IntegerStack
@@ -39,7 +40,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     */
     protected var _input: TokenStream? = input
 //
-//    protected val _precedenceStack: IntegerStack
+    protected val _precedenceStack: IntegerStack = IntegerStack()
 //
 //    /**
 //     * The [ParserRuleContext] object for the currently executing rule.
@@ -343,83 +344,81 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //            interpreter!!.reset()
 //        }
     }
-//
-//    /**
-//     * Match current input symbol against `ttype`. If the symbol type
-//     * matches, [ANTLRErrorStrategy.reportMatch] and [.consume] are
-//     * called to complete the match process.
-//     *
-//     *
-//     * If the symbol type does not match,
-//     * [ANTLRErrorStrategy.recoverInline] is called on the current error
-//     * strategy to attempt recovery. If [.getBuildParseTree] is
-//     * `true` and the token index of the symbol returned by
-//     * [ANTLRErrorStrategy.recoverInline] is -1, the symbol is added to
-//     * the parse tree by calling [.createErrorNode] then
-//     * [ParserRuleContext.addErrorNode].
-//     *
-//     * @param ttype the token type to match
-//     * @return the matched symbol
-//     * @throws RecognitionException if the current input symbol did not match
-//     * `ttype` and the error strategy could not recover from the
-//     * mismatched symbol
-//     */
-//    @Throws(RecognitionException::class)
-//    fun match(ttype: Int): Token {
-//        var t = currentToken
-//        if (t.type == ttype) {
-//            if (ttype == Token.EOF) {
-//                isMatchedEOF = true
-//            }
-//            errorHandler.reportMatch(this)
-//            consume()
-//        } else {
-//            t = errorHandler.recoverInline(this)
-//            if (buildParseTree && t.tokenIndex == -1) {
-//                // we must have conjured up a new token during single token insertion
-//                // if it's not the current symbol
-//                context!!.addErrorNode(createErrorNode(context, t))
-//            }
-//        }
-//        return t
-//    }
-//
-//    /**
-//     * Match current input symbol as a wildcard. If the symbol type matches
-//     * (i.e. has a value greater than 0), [ANTLRErrorStrategy.reportMatch]
-//     * and [.consume] are called to complete the match process.
-//     *
-//     *
-//     * If the symbol type does not match,
-//     * [ANTLRErrorStrategy.recoverInline] is called on the current error
-//     * strategy to attempt recovery. If [.getBuildParseTree] is
-//     * `true` and the token index of the symbol returned by
-//     * [ANTLRErrorStrategy.recoverInline] is -1, the symbol is added to
-//     * the parse tree by calling [Parser.createErrorNode]. then
-//     * [ParserRuleContext.addErrorNode]
-//     *
-//     * @return the matched symbol
-//     * @throws RecognitionException if the current input symbol did not match
-//     * a wildcard and the error strategy could not recover from the mismatched
-//     * symbol
-//     */
-//    @Throws(RecognitionException::class)
-//    fun matchWildcard(): Token {
-//        var t = currentToken
-//        if (t.type > 0) {
-//            errorHandler.reportMatch(this)
-//            consume()
-//        } else {
-//            t = errorHandler.recoverInline(this)
-//            if (buildParseTree && t.tokenIndex == -1) {
-//                // we must have conjured up a new token during single token insertion
-//                // if it's not the current symbol
-//                context!!.addErrorNode(createErrorNode(context, t))
-//            }
-//        }
-//
-//        return t
-//    }
+
+    /**
+     * Match current input symbol against `ttype`. If the symbol type
+     * matches, [ANTLRErrorStrategy.reportMatch] and [.consume] are
+     * called to complete the match process.
+     *
+     *
+     * If the symbol type does not match,
+     * [ANTLRErrorStrategy.recoverInline] is called on the current error
+     * strategy to attempt recovery. If [.getBuildParseTree] is
+     * `true` and the token index of the symbol returned by
+     * [ANTLRErrorStrategy.recoverInline] is -1, the symbol is added to
+     * the parse tree by calling [.createErrorNode] then
+     * [ParserRuleContext.addErrorNode].
+     *
+     * @param ttype the token type to match
+     * @return the matched symbol
+     * @throws RecognitionException if the current input symbol did not match
+     * `ttype` and the error strategy could not recover from the
+     * mismatched symbol
+     */
+    fun match(ttype: Int): Token {
+        var t = currentToken
+        if (t!!.type == ttype) {
+            if (ttype == Token.EOF) {
+                isMatchedEOF = true
+            }
+            errorHandler.reportMatch(this)
+            consume()
+        } else {
+            t = errorHandler.recoverInline(this)
+            if (buildParseTree && t.tokenIndex == -1) {
+                // we must have conjured up a new token during single token insertion
+                // if it's not the current symbol
+                context!!.addErrorNode(createErrorNode(context, t))
+            }
+        }
+        return t
+    }
+
+    /**
+     * Match current input symbol as a wildcard. If the symbol type matches
+     * (i.e. has a value greater than 0), [ANTLRErrorStrategy.reportMatch]
+     * and [.consume] are called to complete the match process.
+     *
+     *
+     * If the symbol type does not match,
+     * [ANTLRErrorStrategy.recoverInline] is called on the current error
+     * strategy to attempt recovery. If [.getBuildParseTree] is
+     * `true` and the token index of the symbol returned by
+     * [ANTLRErrorStrategy.recoverInline] is -1, the symbol is added to
+     * the parse tree by calling [Parser.createErrorNode]. then
+     * [ParserRuleContext.addErrorNode]
+     *
+     * @return the matched symbol
+     * @throws RecognitionException if the current input symbol did not match
+     * a wildcard and the error strategy could not recover from the mismatched
+     * symbol
+     */
+    fun matchWildcard(): Token {
+        var t = currentToken
+        if (t!!.type > 0) {
+            errorHandler.reportMatch(this)
+            consume()
+        } else {
+            t = errorHandler.recoverInline(this)
+            if (buildParseTree && t.tokenIndex == -1) {
+                // we must have conjured up a new token during single token insertion
+                // if it's not the current symbol
+                context!!.addErrorNode(createErrorNode(context, t))
+            }
+        }
+
+        return t
+    }
 //
 //    /**
 //     * Registers `listener` to receive events during the parsing process.
@@ -624,25 +623,25 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //        }
 //        return o
     }
-//
-//    /** How to create a token leaf node associated with a parent.
-//     * Typically, the terminal node to create is not a function of the parent.
-//     *
-//     * @since 4.7
-//     */
-//    fun createTerminalNode(parent: ParserRuleContext?, t: Token): TerminalNode {
-//        return TerminalNodeImpl(t)
-//    }
-//
-//    /** How to create an error node, given a token, associated with a parent.
-//     * Typically, the error node to create is not a function of the parent.
-//     *
-//     * @since 4.7
-//     */
-//    fun createErrorNode(parent: ParserRuleContext?, t: Token): ErrorNode {
-//        return ErrorNodeImpl(t)
-//    }
-//
+
+    /** How to create a token leaf node associated with a parent.
+     * Typically, the terminal node to create is not a function of the parent.
+     *
+     * @since 4.7
+     */
+    fun createTerminalNode(parent: ParserRuleContext?, t: Token): TerminalNode {
+        return TerminalNodeImpl(t)
+    }
+
+    /** How to create an error node, given a token, associated with a parent.
+     * Typically, the error node to create is not a function of the parent.
+     *
+     * @since 4.7
+     */
+    fun createErrorNode(parent: ParserRuleContext?, t: Token): ErrorNode {
+        return ErrorNodeImpl(t)
+    }
+
     protected fun addContextToParseTree() {
         val parent = context!!.parent as ParserRuleContext?
         // add current context to parent if we have a parent
@@ -689,43 +688,43 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
         }
         context = localctx
     }
-//
-//
-//    @Deprecated("Use\n" +
-//            "\t  {@link #enterRecursionRule(ParserRuleContext, int, int, int)} instead.")
-//    fun enterRecursionRule(localctx: ParserRuleContext, ruleIndex: Int) {
-//        enterRecursionRule(localctx, atn.ruleToStartState[ruleIndex].stateNumber, ruleIndex, 0)
-//    }
-//
-//    open fun enterRecursionRule(localctx: ParserRuleContext, state: Int, ruleIndex: Int, precedence: Int) {
-//        state = state
-//        _precedenceStack.push(precedence)
-//        context = localctx
-//        context!!.start = _input!!.LT(1)
-//        if (_parseListeners != null) {
-//            triggerEnterRuleEvent() // simulates rule entry for left-recursive rules
-//        }
-//    }
-//
-//    /** Like [.enterRule] but for recursive rules.
-//     * Make the current context the child of the incoming localctx.
-//     */
-//    fun pushNewRecursionContext(localctx: ParserRuleContext, state: Int, ruleIndex: Int) {
-//        val previous = context
-//        previous!!.parent = localctx
-//        previous!!.invokingState = state
-//        previous!!.stop = _input!!.LT(-1)
-//
-//        context = localctx
-//        context!!.start = previous!!.start
-//        if (buildParseTree) {
-//            context!!.addChild(previous)
-//        }
-//
-//        if (_parseListeners != null) {
-//            triggerEnterRuleEvent() // simulates rule entry for left-recursive rules
-//        }
-//    }
+
+
+    @Deprecated("Use\n" +
+            "\t  {@link #enterRecursionRule(ParserRuleContext, int, int, int)} instead.")
+    fun enterRecursionRule(localctx: ParserRuleContext, ruleIndex: Int) {
+        enterRecursionRule(localctx, atn.ruleToStartState!![ruleIndex]!!.stateNumber, ruleIndex, 0)
+    }
+
+    open fun enterRecursionRule(localctx: ParserRuleContext, state: Int, ruleIndex: Int, precedence: Int) {
+        this.state = state
+        _precedenceStack.push(precedence)
+        context = localctx
+        context!!.start = _input!!.LT(1)
+        if (_parseListeners != null) {
+            triggerEnterRuleEvent() // simulates rule entry for left-recursive rules
+        }
+    }
+
+    /** Like [.enterRule] but for recursive rules.
+     * Make the current context the child of the incoming localctx.
+     */
+    fun pushNewRecursionContext(localctx: ParserRuleContext, state: Int, ruleIndex: Int) {
+        val previous = context
+        previous!!.parent = localctx
+        previous!!.invokingState = state
+        previous!!.stop = _input!!.LT(-1)
+
+        context = localctx
+        context!!.start = previous!!.start
+        if (buildParseTree) {
+            context!!.addChild(previous)
+        }
+
+        if (_parseListeners != null) {
+            triggerEnterRuleEvent() // simulates rule entry for left-recursive rules
+        }
+    }
 //
 //    fun unrollRecursionContexts(_parentctx: ParserRuleContext?) {
 //        _precedenceStack.pop()
@@ -812,15 +811,15 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //
 //    }
 //
-//    /** Get a rule's index (i.e., `RULE_ruleName` field) or -1 if not found.  */
-//    fun getRuleIndex(ruleName: String): Int {
-//        val ruleIndex = ruleIndexMap.get(ruleName)
-//        return if (ruleIndex != null) ruleIndex!! else -1
-//    }
+    /** Get a rule's index (i.e., `RULE_ruleName` field) or -1 if not found.  */
+    open fun getRuleIndex(ruleName: Type): Int {
+        val ruleIndex = ruleIndexMap[ruleName]
+        return if (ruleIndex != null) ruleIndex!! else -1
+    }
 //
-//    fun getRuleContext(): ParserRuleContext? {
-//        return context
-//    }
+    fun getRuleContext(): ParserRuleContext? {
+        return context
+    }
 //
 //    fun getRuleInvocationStack(p: RuleContext?): List<String> {
 //        var p = p
