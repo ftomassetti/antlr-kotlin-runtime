@@ -104,13 +104,13 @@ open class ANTLRInputStream : CharStream {
 //        }
 //    }
 //
-//    /** Reset the stream so that it's in the same state it was
-//     * when the object was created *except* the data array is not
-//     * touched.
-//     */
-//    fun reset() {
-//        p = 0
-//    }
+    /** Reset the stream so that it's in the same state it was
+     * when the object was created *except* the data array is not
+     * touched.
+     */
+    fun reset() {
+        p = 0
+    }
 //
     override fun consume() {
         if (p >= n) {
@@ -183,24 +183,24 @@ open class ANTLRInputStream : CharStream {
             consume()
         }
     }
-//
+
     override fun getText(interval: Interval): String {
         val start = interval.a
         var stop = interval.b
         if (stop >= n) stop = n - 1
         val count = stop - start + 1
-        return if (start >= n) "" else data!!.copyOfRange(start, start+count).toString()
+        return if (start >= n) "" else data!!.copyOfRange(start, start+count).contentToString()
         //		System.err.println("data: "+Arrays.toString(data)+", n="+n+
         //						   ", start="+start+
         //						   ", stop="+stop);
     }
-//
+
 //    override fun toString(): String {
 //        return String(data)
 //    }
-//
-//    companion object {
-//        val READ_BUFFER_SIZE = 1024
-//        val INITIAL_BUFFER_SIZE = 1024
-//    }
+
+    companion object {
+        val READ_BUFFER_SIZE = 1024
+        val INITIAL_BUFFER_SIZE = 1024
+    }
 }
