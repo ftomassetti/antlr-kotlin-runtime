@@ -15,8 +15,15 @@ fun main(args: Array<String>) {
 //        }
 //    }
 
-    val input = ANTLRInputStream("1 + 2")
+    val input = ANTLRInputStream("input Int width\n")
     val lexer = MiniCalcLexer(input)
     var parser = MiniCalcParser(CommonTokenStream(lexer))
-    val root = parser.miniCalcFile()
+    try {
+        val root = parser.miniCalcFile()
+        println("Parsed: ${root.javaClass}")
+        println("Parsed: ${root.childCount}")
+        println("Parsed: ${root.children!![0].javaClass}")
+    } catch (e : Throwable) {
+        println("Error: $e")
+    }
 }

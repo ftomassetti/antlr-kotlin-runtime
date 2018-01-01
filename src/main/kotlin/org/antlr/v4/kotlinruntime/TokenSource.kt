@@ -49,7 +49,9 @@ interface TokenSource {
      * the input, or `null` if no input stream is available for the token
      * source.
      */
-    val inputStream: CharStream?
+    //var inputStream: CharStream?
+
+    fun readInputStream() : CharStream?
 
     /**
      * Gets the name of the underlying input source. This method returns a

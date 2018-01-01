@@ -165,7 +165,6 @@ open class CommonToken : WritableToken {
                 "<EOF>"
             }
         }
-        set(value) {}
 
 
     /**

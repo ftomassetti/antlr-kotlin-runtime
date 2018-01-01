@@ -62,7 +62,7 @@ class LL1Analyzer(val atn: ATN) {
      * @return The set of tokens that can follow `s` in the ATN in the
      * specified `ctx`.
      */
-    fun LOOK(s: ATNState, ctx: RuleContext): IntervalSet {
+    fun LOOK(s: ATNState, ctx: RuleContext?): IntervalSet {
         return LOOK(s, null, ctx)
     }
 
@@ -134,7 +134,7 @@ class LL1Analyzer(val atn: ATN) {
                         calledRuleStack: BitSet,
                         seeThruPreds: Boolean, addEOF: Boolean) {
         //		System.out.println("_LOOK("+s.stateNumber+", ctx="+ctx);
-        val c = ATNConfig(s, 0, ctx!!)
+        val c = ATNConfig(s, 0, ctx)
         if (!lookBusy.add(c)) return
 
         if (s === stopState) {
@@ -178,40 +178,40 @@ class LL1Analyzer(val atn: ATN) {
         val n = s.numberOfTransitions
         for (i in 0 until n) {
             val t = s.transition(i)
-            TODO()
-//            if (t.javaClass == RuleTransition::class.java) {
-//                if (calledRuleStack.get((t as RuleTransition).target.ruleIndex)) {
-//                    continue
-//                }
-//
-//                val newContext = SingletonPredictionContext.create(ctx, (t as RuleTransition).followState.stateNumber)
-//
-//                try {
-//                    calledRuleStack.set((t as RuleTransition).target.ruleIndex)
-//                    _LOOK(t.target, stopState, newContext, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
-//                } finally {
-//                    calledRuleStack.clear((t as RuleTransition).target.ruleIndex)
-//                }
-//            } else if (t is AbstractPredicateTransition) {
-//                if (seeThruPreds) {
-//                    _LOOK(t.target, stopState, ctx, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
-//                } else {
-//                    look.add(HIT_PRED)
-//                }
-//            } else if (t.isEpsilon) {
-//                _LOOK(t.target, stopState, ctx, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
-//            } else if (t.javaClass == WildcardTransition::class.java) {
-//                look.addAll(IntervalSet.of(Token.MIN_USER_TOKEN_TYPE, atn.maxTokenType))
-//            } else {
-//                //				System.out.println("adding "+ t);
-//                var set = t.label()
-//                if (set != null) {
-//                    if (t is NotSetTransition) {
-//                        set = set!!.complement(IntervalSet.of(Token.MIN_USER_TOKEN_TYPE, atn.maxTokenType))
-//                    }
-//                    look.addAll(set)
-//                }
-//            }
+
+            if (t is RuleTransition) {
+                if (calledRuleStack.get((t as RuleTransition).target!!.ruleIndex)) {
+                    continue
+                }
+
+                val newContext = SingletonPredictionContext.create(ctx, (t as RuleTransition).followState.stateNumber)
+
+                try {
+                    calledRuleStack.set((t as RuleTransition).target!!.ruleIndex)
+                    _LOOK(t.target!!, stopState, newContext, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
+                } finally {
+                    calledRuleStack.clear((t as RuleTransition).target!!.ruleIndex)
+                }
+            } else if (t is AbstractPredicateTransition) {
+                if (seeThruPreds) {
+                    _LOOK(t.target!!, stopState, ctx, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
+                } else {
+                    look.add(HIT_PRED)
+                }
+            } else if (t.isEpsilon) {
+                _LOOK(t.target!!, stopState, ctx, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
+            } else if (t is WildcardTransition) {
+                look.addAll(IntervalSet.of(Token.MIN_USER_TOKEN_TYPE, atn.maxTokenType))
+            } else {
+                //				System.out.println("adding "+ t);
+                var set = t.label()
+                if (set != null) {
+                    if (t is NotSetTransition) {
+                        set = set!!.complement(IntervalSet.of(Token.MIN_USER_TOKEN_TYPE, atn.maxTokenType))
+                    }
+                    look.addAll(set)
+                }
+            }
         }
     }
 

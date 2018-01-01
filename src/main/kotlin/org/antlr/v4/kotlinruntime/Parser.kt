@@ -18,7 +18,13 @@ import org.antlr.v4.kotlinruntime.tree.pattern.ParseTreePatternMatcher
 ///** This is all the parsing support code essentially; most of it is error recovery stuff.  */
 abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator>() {
 
+    override fun assignInputStream(newValue: IntStream?) {
+        this.inputStream = newValue
+    }
 
+    override fun readInputStream(): IntStream? {
+        return this.inputStream
+    }
 
     /**
      * The error handling strategy for the parser. The default value is a new
@@ -324,9 +330,9 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //        _precedenceStack.push(0)
 //    }
 //
-//    init {
-//        setInputStream(input)
-//    }
+    init {
+        assignInputStream(input)
+    }
 //
     /** reset the parser's state  */
     open fun reset() {
@@ -563,15 +569,14 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 
     fun notifyErrorListeners(offendingToken: Token, msg: String,
                              e: RecognitionException?) {
-        TODO()
-//        numberOfSyntaxErrors++
-//        var line = -1
-//        var charPositionInLine = -1
-//        line = offendingToken.line
-//        charPositionInLine = offendingToken.charPositionInLine
-//
-//        val listener = errorListenerDispatch
-//        listener.syntaxError(this, offendingToken, line, charPositionInLine, msg, e)
+        numberOfSyntaxErrors++
+        var line = -1
+        var charPositionInLine = -1
+        line = offendingToken.line
+        charPositionInLine = offendingToken.charPositionInLine
+
+        val listener = errorListenerDispatch
+        listener.syntaxError(this, offendingToken, line, charPositionInLine, msg, e!!)
     }
 //
 //    /**
@@ -597,31 +602,29 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     * listeners.
 //     */
     fun consume(): Token {
-
-        TODO()
-//        val o = currentToken
-//        if (o.type != Recognizer.EOF) {
-//            inputStream!!.consume()
-//        }
-//        val hasListener = _parseListeners != null && !_parseListeners!!.isEmpty()
-//        if (buildParseTree || hasListener) {
-//            if (errorHandler.inErrorRecoveryMode(this)) {
-//                val node = context!!.addErrorNode(createErrorNode(context, o))
-//                if (_parseListeners != null) {
-//                    for (listener in _parseListeners!!) {
-//                        listener.visitErrorNode(node)
-//                    }
-//                }
-//            } else {
-//                val node = context!!.addChild(createTerminalNode(context, o))
-//                if (_parseListeners != null) {
-//                    for (listener in _parseListeners!!) {
-//                        listener.visitTerminal(node)
-//                    }
-//                }
-//            }
-//        }
-//        return o
+        val o = currentToken
+        if (o!!.type != Recognizer.EOF) {
+            inputStream!!.consume()
+        }
+        val hasListener = _parseListeners != null && !_parseListeners!!.isEmpty()
+        if (buildParseTree || hasListener) {
+            if (errorHandler.inErrorRecoveryMode(this)) {
+                val node = context!!.addErrorNode(createErrorNode(context, o!!))
+                if (_parseListeners != null) {
+                    for (listener in _parseListeners!!) {
+                        listener.visitErrorNode(node)
+                    }
+                }
+            } else {
+                val node = context!!.addChild(createTerminalNode(context, o!!))
+                if (_parseListeners != null) {
+                    for (listener in _parseListeners!!) {
+                        listener.visitTerminal(node)
+                    }
+                }
+            }
+        }
+        return o!!
     }
 
     /** How to create a token leaf node associated with a parent.

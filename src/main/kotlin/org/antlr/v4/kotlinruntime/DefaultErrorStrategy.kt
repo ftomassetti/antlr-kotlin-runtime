@@ -157,7 +157,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
         //						   ", lastErrorIndex="+
         //						   lastErrorIndex+
         //						   ", states="+lastErrorStates);
-        if (lastErrorIndex == recognizer.inputStream!!.index() &&
+        if (lastErrorIndex == recognizer.readInputStream()!!.index() &&
                 lastErrorStates != null &&
                 lastErrorStates!!.contains(recognizer.state)) {
             // uh oh, another error at same token index and previously-visited
@@ -169,7 +169,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
             //			System.err.println("FAILSAFE consumes "+recognizer.getTokenNames()[recognizer.getInputStream().LA(1)]);
             recognizer.consume()
         }
-        lastErrorIndex = recognizer.inputStream!!.index()
+        lastErrorIndex = recognizer.readInputStream()!!.index()
         if (lastErrorStates == null) lastErrorStates = IntervalSet()
         lastErrorStates!!.add(recognizer.state)
         val followSet = getErrorRecoverySet(recognizer)
@@ -236,7 +236,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
             return
         }
 
-        val tokens = recognizer.inputStream
+        val tokens = recognizer.readInputStream()
         val la = tokens!!.LA(1)
 
         // try cheaper subset first; might get lucky. seems to shave a wee bit off
@@ -293,7 +293,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
      */
     protected fun reportNoViableAlternative(recognizer: Parser,
                                             e: NoViableAltException) {
-        val tokens = recognizer.inputStream
+        val tokens = recognizer.readInputStream()
         val input: String
         if (tokens != null) {
             if (e.startToken!!.type == Token.EOF)
@@ -517,7 +517,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
      * strategy for the current mismatched input, otherwise `false`
      */
     protected fun singleTokenInsertion(recognizer: Parser): Boolean {
-        val currentSymbolType = recognizer.inputStream!!.LA(1)
+        val currentSymbolType = recognizer.readInputStream()!!.LA(1)
         // if current token is consistent with what could come after current
         // ATN state, then we know we're missing a token; error recovery
         // is free to conjure up and insert the missing token
@@ -554,7 +554,7 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
      * `null`
      */
     protected fun singleTokenDeletion(recognizer: Parser): Token? {
-        val nextTokenType = recognizer.inputStream!!.LA(2)
+        val nextTokenType = recognizer.readInputStream()!!.LA(2)
         val expecting = getExpectedTokens(recognizer)
         if (expecting.contains(nextTokenType)) {
             TODO()
@@ -773,12 +773,12 @@ open class DefaultErrorStrategy : ANTLRErrorStrategy {
     /** Consume tokens until one matches the given token set.  */
     protected fun consumeUntil(recognizer: Parser, set: IntervalSet) {
         //		System.err.println("consumeUntil("+set.toString(recognizer.getTokenNames())+")");
-        var ttype = recognizer.inputStream!!.LA(1)
+        var ttype = recognizer.readInputStream()!!.LA(1)
         while (ttype != Token.EOF && !set.contains(ttype)) {
             //System.out.println("consume during recover LA(1)="+getTokenNames()[input.LA(1)]);
             //			recognizer.getInputStream().consume();
             recognizer.consume()
-            ttype = recognizer.inputStream!!.LA(1)
+            ttype = recognizer.readInputStream()!!.LA(1)
         }
     }
 }

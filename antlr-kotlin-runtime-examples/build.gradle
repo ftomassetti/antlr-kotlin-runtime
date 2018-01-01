@@ -19,6 +19,7 @@ dependencies {
     compile project(":antlr-kotlin-runtime-jvm")
     compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-test-common:$kotlin_version"
+    testCompile 'junit:junit:4.12'
 }
 
 apply plugin: 'application'

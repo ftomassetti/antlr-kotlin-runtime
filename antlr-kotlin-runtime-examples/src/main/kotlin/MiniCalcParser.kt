@@ -17,14 +17,14 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
         get() = "MiniCalcParser.g4"
 
     override val tokenNames: Array<String?>?
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+        get() = MiniCalcParser.Companion.tokenNames
     override val ruleNames: Array<String>?
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+        get() = MiniCalcParser.Companion.ruleNames
     override val atn: ATN
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-    override var inputStream: CharStream?
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
+        get() = MiniCalcParser.Companion.ATN
+//    override var inputStream: IntStream?
+//        get() = this._input
+//        set(value) {}
     override var tokenFactory: TokenFactory<*>
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
         set(value) {}
@@ -170,7 +170,20 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
         	decisionToDFA = Array<DFA>(ATN.numberOfDecisions, {
         		DFA(ATN.getDecisionState(it)!!, it)
         	})
+
+
         }
+		var tokenNames: Array<String?> = Array<String?>(SYMBOLIC_NAMES.size) {
+			var el = VOCABULARY.getLiteralName(it)
+			if (el == null) {
+				el = VOCABULARY.getSymbolicName(it)
+			}
+
+			if (el == null) {
+				el = "<INVALID>"
+			}
+			el
+		}
 	}
 
 	//private val interpreter : ParserATNSimulator
@@ -223,6 +236,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		override fun exitRule(listener: ParseTreeListener) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitMiniCalcFile(this)
 		}
+
 	}
 
 	fun  miniCalcFile() : MiniCalcFileContext {
@@ -1056,9 +1070,5 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		}
 		return true
 	}
-
-//	override fun getATN() = ATN
-//	override fun getRuleNames(): Array = ruleNames
-//	override fun getTokenNames(): Array = tokenNames
 
 }

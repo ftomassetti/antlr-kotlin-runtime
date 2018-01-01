@@ -1,24 +1,32 @@
 package com.strumenta.kotlinmultiplatform
 
 actual class BitSet {
+    private val _wrapped = java.util.BitSet()
+
     actual constructor() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
-    actual fun set(value: Int) {}
-    actual fun clear(ruleIndex: Int) {}
+    actual fun set(value: Int) {
+        _wrapped.set(value)
+    }
+    actual fun clear(ruleIndex: Int) {
+        _wrapped.clear(ruleIndex)
+    }
     actual fun get(ruleIndex: Int): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return _wrapped.get(ruleIndex)
     }
 
     actual fun cardinality(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return _wrapped.cardinality()
     }
 
     actual fun nextSetBit(i: Int): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return _wrapped.nextSetBit(i)
     }
 
-    actual fun or(alts: BitSet) {}
+    actual fun or(alts: BitSet) {
+        return _wrapped.or(alts._wrapped)
+    }
 
 }

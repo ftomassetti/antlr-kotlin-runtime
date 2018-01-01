@@ -9,10 +9,17 @@ expect fun IntArray.indices() : List<Int>
 expect fun String.toCharArray() : CharArray
 
 expect class RuntimeException : Throwable {
+    //constructor()
     constructor(message: String)
 }
 
 expect fun assert(condition: Boolean)
+
+fun CharArray.convertToString() : String {
+    var s = ""
+    this.forEach { s += it }
+    return s
+}
 
 expect object Arrays {
 //    fun <T> equals(a: Array<T>, b: Array<T>): Boolean
@@ -56,13 +63,10 @@ expect object Math {
     fun floor(d: Double): Double
 }
 
-fun Char.Companion.isUpperCase(firstChar: Char): Boolean {
-    TODO()
-}
+expect fun isCharUppercase(firstChar: Char): Boolean
 
-fun Char.Companion.isLowerCase(firstChar: Char): Boolean {
-    TODO()
-}
+expect fun isCharLowerCase(firstChar: Char): Boolean
+
 
 //expect open class CopyOnWriteArrayList<T> : MutableList<T> {
 //

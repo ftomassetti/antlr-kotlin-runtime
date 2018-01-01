@@ -86,7 +86,7 @@ open class ATNConfig {
 
     constructor(state: ATNState,
                               alt: Int,
-                              context: PredictionContext,
+                              context: PredictionContext?,
                               semanticContext: SemanticContext = SemanticContext.NONE) {
         this.state = state
         this.alt = alt

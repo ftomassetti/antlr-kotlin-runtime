@@ -5,10 +5,7 @@
  */
 package org.antlr.v4.kotlinruntime
 
-import com.strumenta.kotlinmultiplatform.Arrays
-import com.strumenta.kotlinmultiplatform.Math
-import com.strumenta.kotlinmultiplatform.assert
-import com.strumenta.kotlinmultiplatform.toCharArray
+import com.strumenta.kotlinmultiplatform.*
 import org.antlr.v4.kotlinruntime.misc.Interval
 
 /**
@@ -189,7 +186,7 @@ open class ANTLRInputStream : CharStream {
         var stop = interval.b
         if (stop >= n) stop = n - 1
         val count = stop - start + 1
-        return if (start >= n) "" else data!!.copyOfRange(start, start+count).contentToString()
+        return if (start >= n) "" else data!!.copyOfRange(start, start+count).convertToString()
         //		System.err.println("data: "+Arrays.toString(data)+", n="+n+
         //						   ", start="+start+
         //						   ", stop="+stop);

@@ -7,7 +7,7 @@ package org.antlr.v4.kotlinruntime
 
 import com.strumenta.kotlinmultiplatform.Arrays
 import com.strumenta.kotlinmultiplatform.Math
-import com.strumenta.kotlinmultiplatform.isUpperCase
+import com.strumenta.kotlinmultiplatform.isCharUppercase
 
 /**
  * This class provides a default implementation of the [Vocabulary]
@@ -133,7 +133,7 @@ constructor(literalNames: Array<String?>?, symbolicNames: Array<String?>?, displ
                     if (firstChar == '\'') {
                         symbolicNames[i] = null
                         continue
-                    } else if (Char.isUpperCase(firstChar)) {
+                    } else if (isCharUppercase(firstChar)) {
                         literalNames[i] = null
                         continue
                     }

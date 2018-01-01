@@ -21,7 +21,7 @@ private fun formatMessage(predicate: String?, message: String?): String {
  */
 class FailedPredicateException constructor(recognizer: Parser,
                                                          val predicate: String? = null,
-                                                         message: String? = null) : RecognitionException(formatMessage(predicate, message), recognizer, recognizer.inputStream!!, recognizer.context!!) {
+                                                         message: String? = null) : RecognitionException(formatMessage(predicate, message), recognizer, recognizer.readInputStream()!!, recognizer.context!!) {
     var ruleIndex: Int = -1
     var predIndex: Int = -1
 

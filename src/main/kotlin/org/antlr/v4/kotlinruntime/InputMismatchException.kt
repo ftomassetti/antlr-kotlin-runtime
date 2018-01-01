@@ -9,14 +9,12 @@ package org.antlr.v4.kotlinruntime
  * when the current input does not match the expected token.
  */
 class InputMismatchException : RecognitionException {
-    constructor(recognizer: Parser) : super(recognizer, recognizer.inputStream!!, recognizer.context!!) {
-        TODO()
-        //this.offendingToken = recognizer.currentToken
+    constructor(recognizer: Parser) : super(recognizer, recognizer.readInputStream()!!, recognizer.context!!) {
+        this.offendingToken = recognizer.currentToken
     }
 
-    constructor(recognizer: Parser, state: Int, ctx: ParserRuleContext) : super(recognizer, recognizer.inputStream!!, ctx) {
+    constructor(recognizer: Parser, state: Int, ctx: ParserRuleContext) : super(recognizer, recognizer.readInputStream()!!, ctx) {
         this.offendingState = state
-        //this.offendingToken = recognizer.currentToken
-        TODO()
+        this.offendingToken = recognizer.currentToken
     }
 }

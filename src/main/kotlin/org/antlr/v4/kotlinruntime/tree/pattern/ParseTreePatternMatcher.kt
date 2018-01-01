@@ -6,9 +6,7 @@
 
 package org.antlr.v4.kotlinruntime.tree.pattern
 
-import com.strumenta.kotlinmultiplatform.Arrays
-import com.strumenta.kotlinmultiplatform.isLowerCase
-import com.strumenta.kotlinmultiplatform.isUpperCase
+import com.strumenta.kotlinmultiplatform.*
 import org.antlr.v4.kotlinruntime.*
 import org.antlr.v4.kotlinruntime.atn.ATN
 import org.antlr.v4.kotlinruntime.misc.MultiMap
@@ -115,11 +113,11 @@ class ParseTreePatternMatcher
     protected var stop = ">"
     protected var escape = "\\" // e.g., \< and \> must escape BOTH!
 
-    class CannotInvokeStartRule(e: Throwable) : RuntimeException(e.message!!)
+    //class CannotInvokeStartRule(e: Throwable) : RuntimeException(e.message!!)
 
     // Fixes https://github.com/antlr/antlr4/issues/413
     // "Tree pattern compilation doesn't check for a complete parse"
-    class StartRuleDoesNotConsumeFullPattern : RuntimeException()
+    //class StartRuleDoesNotConsumeFullPattern : RuntimeException()
 
     /**
      * Set the delimiters used for marking rule and token tags within concrete
@@ -351,14 +349,14 @@ class ParseTreePatternMatcher
             if (chunk is TagChunk) {
                 val tagChunk = chunk as TagChunk
                 // add special rule token or conjure up new token from name
-                if (Char.isUpperCase(tagChunk.tag!!.get(0))) {
+                if (isCharUppercase(tagChunk.tag!!.get(0))) {
                     val ttype = parser.getTokenType(tagChunk.tag)
                     if (ttype === Token.INVALID_TYPE) {
                         throw IllegalArgumentException("Unknown token " + tagChunk.tag + " in pattern: " + pattern)
                     }
                     val t = TokenTagToken(tagChunk.tag, ttype!!, tagChunk.label)
                     tokens.add(t)
-                } else if (Char.isLowerCase(tagChunk.tag.get(0))) {
+                } else if (isCharLowerCase(tagChunk.tag.get(0))) {
                     TODO()
 //                    val ruleIndex = parser.getRuleIndex(tagChunk.tag)
 //                    if (ruleIndex == -1) {

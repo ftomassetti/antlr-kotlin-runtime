@@ -23,3 +23,11 @@ actual fun Char.Companion.toChars(codePoint: Int, resultArray: CharArray, result
 //actual fun toInt32(c: Char): Int {
 //    return c.toInt()
 //}
+
+actual fun isCharUppercase(firstChar: Char): Boolean {
+    return firstChar.isUpperCase()
+}
+
+actual fun isCharLowerCase(firstChar: Char): Boolean {
+    return firstChar.isLowerCase()
+}

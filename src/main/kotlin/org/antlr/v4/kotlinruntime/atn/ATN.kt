@@ -73,7 +73,7 @@ class ATN
      */
     fun nextTokens(s: ATNState, ctx: RuleContext?): IntervalSet {
         val anal = LL1Analyzer(this)
-        return anal.LOOK(s, ctx!!)
+        return anal.LOOK(s, ctx)
     }
 
     /**
