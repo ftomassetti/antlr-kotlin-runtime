@@ -311,7 +311,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
                     }
 
                     val treatEofAsEpsilon = t == CharStream.EOF
-                    if (closure(input, LexerATNConfig(c as LexerATNConfig, target, lexerActionExecutor as LexerActionExecutor), reach, currentAltReachedAcceptState, true, treatEofAsEpsilon)) {
+                    if (closure(input, LexerATNConfig(c as LexerATNConfig, target, lexerActionExecutor), reach, currentAltReachedAcceptState, true, treatEofAsEpsilon)) {
                         // any remaining configs for this alt have a lower priority than
                         // the one that just reached an accept state.
                         skipAlt = c.alt
@@ -531,29 +531,28 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
      * `true`.
      */
     protected fun evaluatePredicate(input: CharStream, ruleIndex: Int, predIndex: Int, speculative: Boolean): Boolean {
-        TODO()
-//        // assume true if no recognizer was provided
-//        if (recog == null) {
-//            return true
-//        }
-//
-//        if (!speculative) {
-//            return recog!!.sempred(null, ruleIndex, predIndex)
-//        }
-//
-//        val savedCharPositionInLine = charPositionInLine
-//        val savedLine = line
-//        val index = input.index()
-//        val marker = input.mark()
-//        try {
-//            consume(input)
-//            return recog!!.sempred(null, ruleIndex, predIndex)
-//        } finally {
-//            charPositionInLine = savedCharPositionInLine
-//            line = savedLine
-//            input.seek(index)
-//            input.release(marker)
-//        }
+        // assume true if no recognizer was provided
+        if (recog == null) {
+            return true
+        }
+
+        if (!speculative) {
+            return recog!!.sempred(null, ruleIndex, predIndex)
+        }
+
+        val savedCharPositionInLine = charPositionInLine
+        val savedLine = line
+        val index = input.index()
+        val marker = input.mark()
+        try {
+            consume(input)
+            return recog!!.sempred(null, ruleIndex, predIndex)
+        } finally {
+            charPositionInLine = savedCharPositionInLine
+            line = savedLine
+            input.seek(index)
+            input.release(marker)
+        }
     }
 
     protected fun captureSimState(settings: SimState,
@@ -569,50 +568,48 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
     protected fun addDFAEdge(from: DFAState?,
                              t: Int,
                              q: ATNConfigSet): DFAState {
-        TODO()
-//        /* leading to this call, ATNConfigSet.hasSemanticContext is used as a
-//		 * marker indicating dynamic predicate evaluation makes this edge
-//		 * dependent on the specific input sequence, so the static edge in the
-//		 * DFA should be omitted. The target DFAState is still created since
-//		 * execATN has the ability to resynchronize with the DFA state cache
-//		 * following the predicate evaluation step.
-//		 *
-//		 * TJP notes: next time through the DFA, we see a pred again and eval.
-//		 * If that gets us to a previously created (but dangling) DFA
-//		 * state, we can continue in pure DFA mode from there.
-//		 */
-//        val suppressEdge = q.hasSemanticContext
-//        q.hasSemanticContext = false
-//
-//
-//        val to = addDFAState(q)
-//
-//        if (suppressEdge) {
-//            return to
-//        }
-//
-//        addDFAEdge(from, t, to)
-//        return to
+        /* leading to this call, ATNConfigSet.hasSemanticContext is used as a
+		 * marker indicating dynamic predicate evaluation makes this edge
+		 * dependent on the specific input sequence, so the static edge in the
+		 * DFA should be omitted. The target DFAState is still created since
+		 * execATN has the ability to resynchronize with the DFA state cache
+		 * following the predicate evaluation step.
+		 *
+		 * TJP notes: next time through the DFA, we see a pred again and eval.
+		 * If that gets us to a previously created (but dangling) DFA
+		 * state, we can continue in pure DFA mode from there.
+		 */
+        val suppressEdge = q.hasSemanticContext
+        q.hasSemanticContext = false
+
+
+        val to = addDFAState(q)
+
+        if (suppressEdge) {
+            return to
+        }
+
+        addDFAEdge(from, t, to)
+        return to
     }
 
     protected fun addDFAEdge(p: DFAState?, t: Int, q: DFAState) {
-        TODO()
-//        if (t < MIN_DFA_EDGE || t > MAX_DFA_EDGE) {
-//            // Only track edges within the DFA bounds
-//            return
-//        }
-//
-//        if (debug) {
-//            println("EDGE " + p + " -> " + q + " upon " + t.toChar())
-//        }
-//
-//        synchronized(p) {
-//            if (p!!.edges == null) {
-//                //  make room for tokens 1..n and -1 masquerading as index 0
-//                p!!.edges = arrayOfNulls<DFAState>(MAX_DFA_EDGE - MIN_DFA_EDGE + 1)
-//            }
-//            p!!.edges[t - MIN_DFA_EDGE] = q // connect
-//        }
+        if (t < MIN_DFA_EDGE || t > MAX_DFA_EDGE) {
+            // Only track edges within the DFA bounds
+            return
+        }
+
+        if (debug) {
+            println("EDGE " + p + " -> " + q + " upon " + t.toChar())
+        }
+
+        synchronized(p!!) {
+            if (p!!.edges == null) {
+                //  make room for tokens 1..n and -1 masquerading as index 0
+                p!!.edges = arrayOfNulls<DFAState>(MAX_DFA_EDGE - MIN_DFA_EDGE + 1)
+            }
+            p!!.edges!![t - MIN_DFA_EDGE] = q // connect
+        }
     }
 
     /** Add a new DFA state if there isn't one with this set of
@@ -622,38 +619,37 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
      */
 
     protected fun addDFAState(configs: ATNConfigSet): DFAState {
-        TODO()
-//        /* the lexer evaluates predicates on-the-fly; by this point configs
-//		 * should not contain any configurations with unevaluated predicates.
-//		 */
-//        assert(!configs.hasSemanticContext)
-//
-//        val proposed = DFAState(configs)
-//        var firstConfigWithRuleStopState: ATNConfig? = null
-//        for (c in configs) {
-//            if (c.state is RuleStopState) {
-//                firstConfigWithRuleStopState = c
-//                break
-//            }
-//        }
-//
-//        if (firstConfigWithRuleStopState != null) {
-//            proposed.isAcceptState = true
-//            proposed.lexerActionExecutor = (firstConfigWithRuleStopState as LexerATNConfig).lexerActionExecutor
-//            proposed.prediction = atn.ruleToTokenType!![firstConfigWithRuleStopState!!.state.ruleIndex]
-//        }
-//
-//        val dfa = decisionToDFA[mode]
-//        synchronized(dfa.states) {
-//            val existing = dfa.states.get(proposed)
-//            if (existing != null) return existing
-//
-//            proposed.stateNumber = dfa.states.size()
-//            configs.isReadonly = true
-//            proposed.configs = configs
-//            dfa.states.put(proposed, proposed)
-//            return proposed
-//        }
+        /* the lexer evaluates predicates on-the-fly; by this point configs
+		 * should not contain any configurations with unevaluated predicates.
+		 */
+        assert(!configs.hasSemanticContext)
+
+        val proposed = DFAState(configs)
+        var firstConfigWithRuleStopState: ATNConfig? = null
+        for (c in configs) {
+            if (c.state is RuleStopState) {
+                firstConfigWithRuleStopState = c
+                break
+            }
+        }
+
+        if (firstConfigWithRuleStopState != null) {
+            proposed.isAcceptState = true
+            proposed.lexerActionExecutor = (firstConfigWithRuleStopState as LexerATNConfig).lexerActionExecutor
+            proposed.prediction = atn.ruleToTokenType!![firstConfigWithRuleStopState!!.state.ruleIndex]
+        }
+
+        val dfa = decisionToDFA[mode]
+        synchronized(dfa!!.states) {
+            val existing = dfa.states.get(proposed)
+            if (existing != null) return existing
+
+            proposed.stateNumber = dfa!!.states!!.size
+            configs.isReadonly = true
+            proposed.configs = configs
+            dfa.states.put(proposed, proposed)
+            return proposed
+        }
     }
 
 

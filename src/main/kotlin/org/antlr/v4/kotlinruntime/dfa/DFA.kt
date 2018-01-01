@@ -23,7 +23,7 @@ class DFA constructor(
      * ([Set] only allows you to see if it's there).
      */
 
-    val states: Map<DFAState, DFAState> = HashMap<DFAState, DFAState>()
+    val states: MutableMap<DFAState, DFAState> = HashMap<DFAState, DFAState>()
 
     @Volatile
     var s0: DFAState? = null

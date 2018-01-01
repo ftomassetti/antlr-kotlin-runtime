@@ -42,7 +42,7 @@ class LexerATNConfig : ATNConfig {
     }
 
     constructor(c: LexerATNConfig, state: ATNState,
-                lexerActionExecutor: LexerActionExecutor) : super(c, state, c.context, c.semanticContext) {
+                lexerActionExecutor: LexerActionExecutor?) : super(c, state, c.context, c.semanticContext) {
         this.lexerActionExecutor = lexerActionExecutor
         this.passedThroughNonGreedyDecision = checkNonGreedyDecision(c, state)
     }

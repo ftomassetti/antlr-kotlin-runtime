@@ -151,10 +151,10 @@ open class CommonToken : WritableToken {
 //        this.line = line
 //    }
 
-    override var text: String?
+    override var text: String? = null
         get() {
-            if (text != null) {
-                return text
+            if (field != null) {
+                return field
             }
 
             val input = inputStream ?: return null

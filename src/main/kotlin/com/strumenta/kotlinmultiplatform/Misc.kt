@@ -40,26 +40,20 @@ expect class BitSet {
 //expect class ArrayList<T> : List<T>
 
 expect object Collections {
-    fun unmodifiableList(asList: Any): Any
+    fun unmodifiableList(asList: Collection<*>): List<*>
     fun <T, U> unmodifiableMap(t: T): U
     fun <T : Comparable<T>>min(precedencePredicates: List<T>): T
     fun <T : Comparable<T>>max(precedencePredicates: List<T>): T
 
 }
 
-object Math {
+expect object Math {
 
-    fun min(a: Int, b: Int) : Int {
-        return if (a < b) a else b
-    }
+    fun min(a: Int, b: Int) : Int
 
-    fun max(a: Int, b: Int) : Int {
-        return if (a > b) a else b
-    }
+    fun max(a: Int, b: Int) : Int
 
-    fun floor(d: Double): Double {
-        TODO()
-    }
+    fun floor(d: Double): Double
 }
 
 fun Char.Companion.isUpperCase(firstChar: Char): Boolean {

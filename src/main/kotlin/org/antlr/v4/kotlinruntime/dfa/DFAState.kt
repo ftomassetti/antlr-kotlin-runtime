@@ -48,7 +48,7 @@ class DFAState {
      * [Token.EOF] maps to `edges[0]`.
      */
 
-    var edges: Array<DFAState>? = null
+    var edges: Array<DFAState?>? = null
 
     var isAcceptState = false
 

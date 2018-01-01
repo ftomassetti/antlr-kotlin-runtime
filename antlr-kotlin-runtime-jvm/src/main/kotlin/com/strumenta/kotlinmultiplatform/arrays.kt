@@ -17,14 +17,14 @@ actual object Arrays {
         return java.util.Arrays.asList(*elements)
     }
     actual fun <T> copyOf(original: Array<T>, size: Int): Array<T> {
-        TODO()
+        return java.util.Arrays.copyOf(original, size)
     }
 
     actual fun equals(a: Array<*>, b: Array<*>) : Boolean {
-        TODO()
+        return java.util.Arrays.equals(a, b)
     }
 
     actual fun toString(a: Array<*>): String {
-        kotlin.TODO()
+        return java.util.Arrays.toString(a)
     }
 }
