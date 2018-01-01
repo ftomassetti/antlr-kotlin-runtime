@@ -8,6 +8,7 @@ import org.antlr.v4.kotlinruntime.atn.PredictionContextCache
 import org.antlr.v4.kotlinruntime.dfa.*
 import org.antlr.v4.kotlinruntime.tree.ParseTreeListener
 import org.antlr.v4.kotlinruntime.tree.TerminalNode
+import org.antlr.v4.kotlinruntime.atn.ATN.Companion.INVALID_ALT_NUMBER
 
 class MiniCalcParser(input: TokenStream) : Parser(input) {
 	// TODO verify version of runtime is compatible
@@ -798,8 +799,8 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			this.context!!.stop = _input!!.LT(-1)
 			this.state = 81
 			errorHandler.sync(this);
-			_alt = interpreter.adaptivePredict(_input!!,5,ctx)
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+			_alt = interpreter!!.adaptivePredict(_input!!,5,context)
+			while ( _alt!=2 && _alt!=INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent()
 					_prevctx = _localctx
@@ -807,14 +808,14 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 					if (true){
 					this.state = 79
 					errorHandler.sync(this)
-					when ( interpreter.adaptivePredict(_input,4,ctx) ) {
+					when ( interpreter!!.adaptivePredict(_input!!,4,context) ) {
 					1 -> /*CodeBlockForAlt*/
 					if (true){
 					_localctx = BinaryOperationContext(ExpressionContext(_parentctx, _parentState))
 					(_localctx as BinaryOperationContext).left = _prevctx
 					pushNewRecursionContext(_localctx, _startState, Rules.RULE_expression.id)
 					this.state = 70
-					if (!(precpred(_ctx, 9))) throw FailedPredicateException(this, "precpred(_ctx, 9)");
+					if (!(precpred(context!!, 9))) throw FailedPredicateException(this, "precpred(context!!, 9)");
 					this.state = 71
 					(_localctx as BinaryOperationContext).operator = _input!!.LT(1)
 					_la = _input!!.LA(1)
@@ -835,7 +836,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 					(_localctx as BinaryOperationContext).left = _prevctx
 					pushNewRecursionContext(_localctx, _startState, Rules.RULE_expression.id)
 					this.state = 73
-					if (!(precpred(_ctx, 8))) throw FailedPredicateException(this, "precpred(_ctx, 8)");
+					if (!(precpred(context!!, 8))) throw FailedPredicateException(this, "precpred(context!!, 8)");
 					this.state = 74
 					(_localctx as BinaryOperationContext).operator = _input!!.LT(1)
 					_la = _input!!.LA(1)
@@ -856,7 +857,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 					(_localctx as TypeConversionContext).value = _prevctx
 					pushNewRecursionContext(_localctx, _startState, Rules.RULE_expression.id)
 					this.state = 76
-					if (!(precpred(_ctx, 7))) throw FailedPredicateException(this, "precpred(_ctx, 7)");
+					if (!(precpred(context!!, 7))) throw FailedPredicateException(this, "precpred(context!!, 7)");
 					this.state = 77
 					match(AS) as Token
 					this.state = 78
@@ -867,7 +868,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 				}
 				this.state = 83
 				errorHandler.sync(this)
-				_alt = interpreter.adaptivePredict(_input!!,5,ctx)
+				_alt = interpreter!!.adaptivePredict(_input!!,5,context)
 			}
 			}
 		}
@@ -1041,7 +1042,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		return _localctx
 	}
 
-	fun sempred(_localctx: RuleContext, ruleIndex: Int, predIndex: Int) : Boolean {
+	override fun sempred(_localctx: RuleContext?, ruleIndex: Int, predIndex: Int) : Boolean {
 		when (ruleIndex) {
 		7 -> return expression_sempred(_localctx as ExpressionContext, predIndex)
 		}
@@ -1049,15 +1050,15 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 	}
 	private fun expression_sempred( _localctx : ExpressionContext, predIndex: Int) : Boolean {
 		when (predIndex) {
-		    0 -> return precpred(_ctx, 9)
-		    1 -> return precpred(_ctx, 8)
-		    2 -> return precpred(_ctx, 7)
+		    0 -> return precpred(context!!, 9)
+		    1 -> return precpred(context!!, 8)
+		    2 -> return precpred(context!!, 7)
 		}
 		return true
 	}
 
-	override fun getATN() = ATN
-	override fun getRuleNames(): Array = ruleNames
-	override fun getTokenNames(): Array = tokenNames
+//	override fun getATN() = ATN
+//	override fun getRuleNames(): Array = ruleNames
+//	override fun getTokenNames(): Array = tokenNames
 
 }

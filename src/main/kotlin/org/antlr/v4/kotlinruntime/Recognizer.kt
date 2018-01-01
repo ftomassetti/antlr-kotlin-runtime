@@ -151,7 +151,7 @@ abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
      *
      * @since 4.3
      */
-    val parseInfo: ParseInfo?
+    open val parseInfo: ParseInfo?
         get() = null
 
 
@@ -228,7 +228,7 @@ abstract class Recognizer<Symbol, ATNInterpreter : ATNSimulator> {
 
     // subclass needs to override these if there are sempreds or actions
     // that the ATN interp needs to execute
-    fun sempred(_localctx: RuleContext?, ruleIndex: Int, actionIndex: Int): Boolean {
+    open fun sempred(_localctx: RuleContext?, ruleIndex: Int, actionIndex: Int): Boolean {
         return true
     }
 

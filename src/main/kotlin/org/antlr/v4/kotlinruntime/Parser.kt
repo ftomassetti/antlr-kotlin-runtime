@@ -197,17 +197,17 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //
     val currentToken: Token?
         get() = _input!!.LT(1)
-//
-//    /**
-//     * Get the precedence level for the top-most precedence rule.
-//     *
-//     * @return The precedence level for the top-most precedence rule, or -1 if
-//     * the parser context is not nested within a precedence rule.
-//     */
-//    val precedence: Int
-//        get() = if (_precedenceStack.isEmpty()) {
-//            -1
-//        } else _precedenceStack.peek()
+
+    /**
+     * Get the precedence level for the top-most precedence rule.
+     *
+     * @return The precedence level for the top-most precedence rule, or -1 if
+     * the parser context is not nested within a precedence rule.
+     */
+    val precedence: Int
+        get() = if (_precedenceStack.isEmpty) {
+            -1
+        } else _precedenceStack.peek()
 //
 //    /**
 //     * Computes the set of input symbols which could follow the current parser
@@ -234,30 +234,30 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //     *
 //     * This is very useful for error messages.
 //     */
-//    val ruleInvocationStack: List<String>
-//        get() = getRuleInvocationStack(context)
-//
-//    /** For debugging and other purposes.  */
-//    val dfaStrings: List<String>
-//        get() = synchronized(interpreter.decisionToDFA) {
-//            val s = ArrayList<String>()
-//            for (d in 0 until interpreter.decisionToDFA.length) {
-//                val dfa = interpreter.decisionToDFA[d]
-//                s.add(dfa.toString(vocabulary))
-//            }
-//            return s
-//        }
-//
-//    val sourceName: String
-//        get() = _input!!.sourceName
-//
-//    override val parseInfo: ParseInfo?
-//        get() {
-//            val interp = interpreter
-//            return if (interp is ProfilingATNSimulator) {
-//                ParseInfo(interp as ProfilingATNSimulator)
-//            } else null
-//        }
+    val ruleInvocationStack: List<String>
+        get() = getRuleInvocationStack(context)
+
+    /** For debugging and other purposes.  */
+    val dfaStrings: List<String>
+        get() = synchronized(interpreter!!.decisionToDFA) {
+            val s = ArrayList<String>()
+            for (d in 0 until interpreter!!.decisionToDFA.size) {
+                val dfa = interpreter!!.decisionToDFA[d]
+                s.add(dfa.toString(vocabulary)!!)
+            }
+            return s
+        }
+
+    val sourceName: String
+        get() = _input!!.sourceName!!
+
+    override val parseInfo: ParseInfo?
+        get() {
+            val interp = interpreter
+            return if (interp is ProfilingATNSimulator) {
+                ParseInfo(interp as ProfilingATNSimulator)
+            } else null
+        }
 //
 //    /**
 //     * Gets whether a [TraceListener] is registered as a parse listener
@@ -643,7 +643,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
     }
 
     protected fun addContextToParseTree() {
-        val parent = context!!.parent as ParserRuleContext?
+        val parent = context!!.readParent() as ParserRuleContext?
         // add current context to parent if we have a parent
         if (parent != null) {
             parent!!.addChild(context!!)
@@ -672,7 +672,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
         // trigger event on _ctx, before it reverts to parent
         if (_parseListeners != null) triggerExitRuleEvent()
         state = context!!.invokingState
-        context = context!!.parent as ParserRuleContext?
+        context = context!!.readParent() as ParserRuleContext?
     }
 //
     fun enterOuterAlt(localctx: ParserRuleContext, altNum: Int) {
@@ -680,7 +680,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
         // if we have new localctx, make sure we replace existing ctx
         // that is previous child of parse tree
         if (buildParseTree && context !== localctx) {
-            val parent = context!!.parent as ParserRuleContext
+            val parent = context!!.readParent() as ParserRuleContext
             if (parent != null) {
                 parent!!.removeLastChild()
                 parent!!.addChild(localctx)
@@ -711,7 +711,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
      */
     fun pushNewRecursionContext(localctx: ParserRuleContext, state: Int, ruleIndex: Int) {
         val previous = context
-        previous!!.parent = localctx
+        previous!!.assignParent( localctx)
         previous!!.invokingState = state
         previous!!.stop = _input!!.LT(-1)
 
@@ -725,31 +725,31 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
             triggerEnterRuleEvent() // simulates rule entry for left-recursive rules
         }
     }
-//
-//    fun unrollRecursionContexts(_parentctx: ParserRuleContext?) {
-//        _precedenceStack.pop()
-//        context!!.stop = _input!!.LT(-1)
-//        val retctx = context // save current ctx (return value)
-//
-//        // unroll so _ctx is as it was before call to recursive method
-//        if (_parseListeners != null) {
-//            while (context !== _parentctx) {
-//                triggerExitRuleEvent()
-//                context = context!!.parent as ParserRuleContext
-//            }
-//        } else {
-//            context = _parentctx
-//        }
-//
-//        // hook into tree
-//        retctx!!.parent = _parentctx
-//
-//        if (buildParseTree && _parentctx != null) {
-//            // add return ctx into invoking rule's tree
-//            _parentctx!!.addChild(retctx)
-//        }
-//    }
-//
+
+    fun unrollRecursionContexts(_parentctx: ParserRuleContext?) {
+        _precedenceStack.pop()
+        context!!.stop = _input!!.LT(-1)
+        val retctx = context // save current ctx (return value)
+
+        // unroll so _ctx is as it was before call to recursive method
+        if (_parseListeners != null) {
+            while (context !== _parentctx) {
+                triggerExitRuleEvent()
+                context = context!!.readParent() as ParserRuleContext
+            }
+        } else {
+            context = _parentctx
+        }
+
+        // hook into tree
+        retctx!!.assignParent(_parentctx)
+
+        if (buildParseTree && _parentctx != null) {
+            // add return ctx into invoking rule's tree
+            _parentctx!!.addChild(retctx)
+        }
+    }
+
 //    fun getInvokingContext(ruleIndex: Int): ParserRuleContext? {
 //        var p = context
 //        while (p != null) {
@@ -820,22 +820,22 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
     fun getRuleContext(): ParserRuleContext? {
         return context
     }
-//
-//    fun getRuleInvocationStack(p: RuleContext?): List<String> {
-//        var p = p
-//        val ruleNames = ruleNames
-//        val stack = ArrayList<String>()
-//        while (p != null) {
-//            // compute what follows who invoked us
-//            val ruleIndex = p!!.ruleIndex
-//            if (ruleIndex < 0)
-//                stack.add("n/a")
-//            else
-//                stack.add(ruleNames!![ruleIndex])
-//            p = p!!.parent
-//        }
-//        return stack
-//    }
+
+    fun getRuleInvocationStack(p: RuleContext?): List<String> {
+        var p = p
+        val ruleNames = ruleNames
+        val stack = ArrayList<String>()
+        while (p != null) {
+            // compute what follows who invoked us
+            val ruleIndex = p!!.ruleIndex
+            if (ruleIndex < 0)
+                stack.add("n/a")
+            else
+                stack.add(ruleNames!![ruleIndex])
+            p = p!!.readParent()
+        }
+        return stack
+    }
 //
 //    /** For debugging and other purposes.  */
 //    fun dumpDFA() {

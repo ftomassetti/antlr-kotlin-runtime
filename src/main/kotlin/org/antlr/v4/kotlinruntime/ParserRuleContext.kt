@@ -87,9 +87,9 @@ open class ParserRuleContext : RuleContext {
     var exception: RecognitionException? = null
 
             /** Override to make type more specific  */
-    var parent: ParserRuleContext? = null
-        get() = super.readParent() as ParserRuleContext?
-        set
+//    var parent: ParserRuleContext? = null
+//        get() = super.readParent() as ParserRuleContext?
+//        set
 
     fun assignParent(value: ParserRuleContext?) {
         this.parent = value

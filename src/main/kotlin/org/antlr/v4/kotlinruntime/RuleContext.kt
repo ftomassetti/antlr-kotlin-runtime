@@ -74,7 +74,7 @@ open class RuleContext : RuleNode {
     /** What context invoked this rule?  */
     /** @since 4.7. {@see ParseTree#setParent} comment
      */
-    private var parent : RuleContext? = null
+    protected var parent : RuleContext? = null
 
     fun assignParent(value: RuleContext?) {
         this.parent = value

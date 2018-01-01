@@ -83,7 +83,7 @@ class DFAState {
      * This list is computed by [ParserATNSimulator.predicateDFAState].
      */
 
-    var predicates: Array<PredPrediction>? = null
+    var predicates: Array<PredPrediction?>? = null
 
     /** Get the set of all alts mentioned by all ATN configurations in this
      * DFA state.
