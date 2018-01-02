@@ -8,6 +8,8 @@ package org.antlr.v4.kotlinruntime
 import com.strumenta.kotlinmultiplatform.Type
 import com.strumenta.kotlinmultiplatform.TypeDeclarator
 import com.strumenta.kotlinmultiplatform.isInstance
+import org.antlr.v4.kotlinruntime.ast.Position
+import org.antlr.v4.kotlinruntime.ast.pos
 import org.antlr.v4.kotlinruntime.tree.ParseTree
 import org.antlr.v4.kotlinruntime.misc.Interval
 import org.antlr.v4.kotlinruntime.tree.*
@@ -47,6 +49,9 @@ open class ParserRuleContext : RuleContext, TypeDeclarator {
      * how we parse this rule.
      */
     var children: MutableList<ParseTree>? = null
+
+    val position: Position?
+        get() = if (start != null && stop!!.endPoint() != null) Position(start!!.startPoint(), stop!!.endPoint()!!) else null
 //
 //    /** For debugging/tracing purposes, we want to track all of the nodes in
 //     * the ATN traversed by the parser for a particular rule.

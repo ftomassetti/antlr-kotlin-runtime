@@ -6,11 +6,17 @@
 
 package org.antlr.v4.kotlinruntime
 
+import org.antlr.v4.kotlinruntime.ast.Point
+
 /** A token has properties: text, type, line, character position in the line
  * (so we can ignore tabs), token channel, index, and source from which
  * we obtained this token.
  */
 interface Token {
+
+    fun startPoint() = Point(line, charPositionInLine)
+
+    fun endPoint() = if (text == null) null else Point(line, charPositionInLine).advance(text!!)
 
     /**
      * Get the text of the token.

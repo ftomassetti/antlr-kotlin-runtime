@@ -1,5 +1,8 @@
 import org.antlr.v4.kotlinruntime.ANTLRInputStream
 import org.antlr.v4.kotlinruntime.CommonTokenStream
+import org.antlr.v4.kotlinruntime.ast.Point
+import org.antlr.v4.kotlinruntime.ast.Position
+import org.antlr.v4.kotlinruntime.ast.pos
 import org.antlr.v4.kotlinruntime.tree.TerminalNode
 import org.junit.Test as test
 import org.junit.Assert.*
@@ -50,15 +53,13 @@ class TestingParser {
     @test fun simplestFileUsingHetereogeneousAPI() {
         val input = ANTLRInputStream("input Int width\n")
         val lexer = MiniCalcLexer(input)
-        var parser = MiniCalcParser(CommonTokenStream(lexer))
+        val parser = MiniCalcParser(CommonTokenStream(lexer))
 
         val root = parser.miniCalcFile()
 
         val line = root.line()[0]
 
         val statement = line.statement()!!
-
-        println("STATEMENT is ${statement.javaClass}")
 
         val inputDeclStmt = statement as MiniCalcParser.InputDeclarationStatementContext
         val inputDecl = statement.inputDeclaration()!!
@@ -76,5 +77,32 @@ class TestingParser {
 
         val newline = line.NEWLINE()!!
         assertEquals("\n", newline.text)
+    }
+
+    @test fun rootStartPoint() {
+        val input = ANTLRInputStream("input Int width\n")
+        val lexer = MiniCalcLexer(input)
+        val parser = MiniCalcParser(CommonTokenStream(lexer))
+
+        val root = parser.miniCalcFile()
+        assertEquals(Point(1, 0), root.start?.startPoint())
+    }
+
+    @test fun rootStopPoint() {
+        val input = ANTLRInputStream("input Int width\n")
+        val lexer = MiniCalcLexer(input)
+        val parser = MiniCalcParser(CommonTokenStream(lexer))
+
+        val root = parser.miniCalcFile()
+        assertEquals(Point(2, 0), root.stop?.endPoint())
+    }
+
+    @test fun rootPosition() {
+        val input = ANTLRInputStream("input Int width\n")
+        val lexer = MiniCalcLexer(input)
+        val parser = MiniCalcParser(CommonTokenStream(lexer))
+
+        val root = parser.miniCalcFile()
+        assertEquals(pos(1, 0, 2, 0), root.position)
     }
 }
