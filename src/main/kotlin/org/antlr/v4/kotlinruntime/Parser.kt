@@ -153,12 +153,12 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
 //            return _parseListeners ?: return emptyList<T>()
 //        }
 //
-//    /** Tell our token source and error strategy about a new way to create tokens.  */
-//    override var tokenFactory: TokenFactory<*>
-//        get() = _input!!.tokenSource.tokenFactory
-//        set(factory) {
-//            _input!!.tokenSource.tokenFactory = factory
-//        }
+    /** Tell our token source and error strategy about a new way to create tokens.  */
+    override var tokenFactory: TokenFactory<*>
+        get() = _input!!.tokenSource!!.tokenFactory
+        set(factory) {
+            _input!!.tokenSource!!.tokenFactory = factory
+        }
 //
 //    /**
 //     * The ATN with bypass alternatives is expensive to create so we create it

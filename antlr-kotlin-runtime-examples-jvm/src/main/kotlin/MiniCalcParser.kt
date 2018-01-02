@@ -23,12 +23,6 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
         get() = MiniCalcParser.Companion.ruleNames
     override val atn: ATN
         get() = MiniCalcParser.Companion.ATN
-//    override var inputStream: IntStream?
-//        get() = this._input
-//        set(value) {}
-    override var tokenFactory: TokenFactory<*>
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
 
     enum class Tokens(val id: Int) {
         EOF(-1),
@@ -119,7 +113,19 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 
         val VOCABULARY = VocabularyImpl(LITERAL_NAMES.toTypedArray(), SYMBOLIC_NAMES.toTypedArray())
 
-        val serializedIntegersATN =
+        val tokenNames: Array<String?> = Array<String?>(SYMBOLIC_NAMES.size) {
+            var el = VOCABULARY.getLiteralName(it)
+            if (el == null) {
+                el = VOCABULARY.getSymbolicName(it)
+            }
+
+            if (el == null) {
+                el = "<INVALID>"
+            }
+            el
+        }
+
+        private val serializedIntegersATN =
         	arrayOf(3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 
         	3, 31, 99, 4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 
         	9, 6, 4, 7, 9, 7, 4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 
@@ -174,17 +180,6 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 
 
         }
-        	var tokenNames: Array<String?> = Array<String?>(SYMBOLIC_NAMES.size) {
-        			var el = VOCABULARY.getLiteralName(it)
-        			if (el == null) {
-        				el = VOCABULARY.getSymbolicName(it)
-        			}
-
-        			if (el == null) {
-        				el = "<INVALID>"
-        			}
-        			el
-        		}
 	}
 
 	//private val interpreter : ParserATNSimulator
