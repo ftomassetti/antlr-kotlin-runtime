@@ -1,13 +1,28 @@
 // Generated from java-escape by ANTLR 4.7.1
 import com.strumenta.kotlinmultiplatform.Arrays
-import org.antlr.v4.kotlinruntime.*
-import org.antlr.v4.kotlinruntime.facade.*
+import org.antlr.v4.kotlinruntime.CharStream
+import org.antlr.v4.kotlinruntime.Lexer
+import org.antlr.v4.kotlinruntime.VocabularyImpl
+import org.antlr.v4.kotlinruntime.atn.ATN
+import org.antlr.v4.kotlinruntime.atn.ATNDeserializer
+import org.antlr.v4.kotlinruntime.atn.LexerATNSimulator
+import org.antlr.v4.kotlinruntime.atn.PredictionContextCache
+import org.antlr.v4.kotlinruntime.dfa.DFA
 
-class MiniCalcLexer(val input: String) : Lexer("MiniCalcLexer.g4", input) {
+class MiniCalcLexer(val input: CharStream) : Lexer(input) {
 	// TODO Verify the runtime version is correct
 
+    override val ruleNames: Array<String>?
+        get() = Rules.values().map { it.name }.toTypedArray()
+
+    override val grammarFileName: String
+        get() = "MiniCalcLexer.g4"
+
+    override val atn: ATN
+		get() = MiniCalcLexer.Companion.ATN
+
 	companion object {
-		lateinit var decisionToDFA : Array<DFA>
+		val decisionToDFA : Array<DFA>
 		val sharedContextCache = PredictionContextCache()
 
 		private val LITERAL_NAMES = Arrays.asList<String?>(null, null, null, "'input'", 
@@ -35,9 +50,21 @@ class MiniCalcLexer(val input: String) : Lexer("MiniCalcLexer.g4", input) {
 		                                                    "STRING_CONTENT", 
 		                                                    "INTERPOLATION_CLOSE")
 
-		val VOCABULARY = VocabularyImpl(LITERAL_NAMES, SYMBOLIC_NAMES)
+		val VOCABULARY = VocabularyImpl(LITERAL_NAMES.toTypedArray(), SYMBOLIC_NAMES.toTypedArray())
 
-		val serializedIntegersATN =
+        val tokenNames: Array<String?> = Array<String?>(SYMBOLIC_NAMES.size) {
+            var el = VOCABULARY.getLiteralName(it)
+            if (el == null) {
+                el = VOCABULARY.getSymbolicName(it)
+            }
+
+            if (el == null) {
+                el = "<INVALID>"
+            }
+            el
+        }
+
+		private val serializedIntegersATN =
 			arrayOf(3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 2, 
 			31, 362, 8, 1, 8, 1, 8, 1, 4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 
 			9, 5, 4, 6, 9, 6, 4, 7, 9, 7, 4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 
@@ -208,9 +235,11 @@ class MiniCalcLexer(val input: String) : Lexer("MiniCalcLexer.g4", input) {
 			20, 2, 9, 21, 2, 9, 12, 2, 9, 22, 2)
 		val ATN = ATNDeserializer().deserializeIntegers(serializedIntegersATN)
 		init {
-			decisionToDFA = Array<DFA>(ATN.getNumberOfDecisions(), {
-                createDFA(ATN.getDecisionState(it), it)
+			decisionToDFA = Array<DFA>(ATN.numberOfDecisions, {
+				DFA(ATN.getDecisionState(it)!!, it)
 			})
+
+
 		}
 	}
 
@@ -310,7 +339,7 @@ class MiniCalcLexer(val input: String) : Lexer("MiniCalcLexer.g4", input) {
 
 
 	init {
-		setInterpreter(createLexerATNSimulator(this, ATN, decisionToDFA, sharedContextCache))
+		this.interpreter = LexerATNSimulator(this, ATN, decisionToDFA as Array<DFA?>, sharedContextCache)
 	}
 
 }
