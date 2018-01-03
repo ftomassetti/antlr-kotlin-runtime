@@ -7,7 +7,8 @@ actual object Arrays {
     }
 
     actual fun <T> copyOf(original: Array<T>, size: Int): Array<T> {
-        TODO("Arrays.copyOf not implemented")
+        val res = original.copyOf(size)
+        return res as Array<T>
     }
 
     actual fun equals(a: Array<*>, b: Array<*>) : Boolean {

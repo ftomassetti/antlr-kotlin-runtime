@@ -1,5 +1,5 @@
 package com.strumenta.kotlinmultiplatform
 
 actual fun assert(condition: Boolean) {
-    TODO("assert not implemented")
+    if (!condition) throw RuntimeException("Assertion failed")
 }

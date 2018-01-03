@@ -1,5 +1,7 @@
 package com.strumenta.kotlinmultiplatform
 
+import kotlin.math.roundToInt
+
 actual object Math {
     actual fun min(a: Int, b: Int): Int {
         return if (a <= b) a else b
@@ -10,7 +12,7 @@ actual object Math {
     }
 
     actual fun floor(d: Double): Double {
-        TODO("Math not implemented") //To change body of created functions use File | Settings | File Templates.
+        return kotlin.js.Math.floor(d).toDouble()
     }
 
 }

@@ -14,7 +14,9 @@ import org.antlr.v4.kotlinruntime.misc.IntervalSet
  * in the input, where it is in the ATN, the rule invocation stack,
  * and what kind of problem occurred.
  */
-open class RecognitionException : RuntimeException {
+open class RecognitionException(val recognizer: Recognizer<*, *>?,
+                                open val inputStream: IntStream,
+                                val ctx: ParserRuleContext?, override val message: String? = null) : RuntimeException() {
     /** The [Recognizer] where this exception originated.  */
     /**
      * Gets the [Recognizer] where this exception occurred.
@@ -25,7 +27,7 @@ open class RecognitionException : RuntimeException {
      * @return The recognizer where this exception occurred, or `null` if
      * the recognizer is not available.
      */
-    val recognizer: Recognizer<*, *>?
+    //val recognizer: Recognizer<*, *>?
 
     /**
      * Gets the [RuleContext] at the time this exception was thrown.
@@ -36,7 +38,7 @@ open class RecognitionException : RuntimeException {
      * @return The [RuleContext] at the time this exception was thrown.
      * If the context is not available, this method returns `null`.
      */
-    val ctx: RuleContext
+    //val ctx: RuleContext
 
     /**
      * Gets the input stream which is the symbol source for the recognizer where
@@ -49,7 +51,7 @@ open class RecognitionException : RuntimeException {
      * where this exception was thrown, or `null` if the stream is not
      * available.
      */
-    open val inputStream: IntStream
+    //open val inputStream: IntStream
 
     /**
      * The current [Token] when an error occurred. Since not all streams
@@ -88,22 +90,26 @@ open class RecognitionException : RuntimeException {
             recognizer!!.atn.getExpectedTokens(offendingState, ctx)
         } else null
 
-    constructor(recognizer: Recognizer<*, *>?,
-                input: IntStream,
-                ctx: ParserRuleContext?) {
-        this.recognizer = recognizer
-        this.inputStream = input
-        this.ctx = ctx!!
-        if (recognizer != null) this.offendingState = recognizer!!.state
-    }
+//    constructor(recognizer: Recognizer<*, *>?,
+//                input: IntStream,
+//                ctx: ParserRuleContext?) {
+//        this.recognizer = recognizer
+//        this.inputStream = input
+//        this.ctx = ctx!!
+//        if (recognizer != null) this.offendingState = recognizer!!.state
+//    }
+//
+//    constructor(message: String,
+//                recognizer: Recognizer<*, *>?,
+//                input: IntStream,
+//                ctx: ParserRuleContext) : super(message) {
+//        this.recognizer = recognizer
+//        this.inputStream = input
+//        this.ctx = ctx
+//        if (recognizer != null) this.offendingState = recognizer!!.state
+//    }
 
-    constructor(message: String,
-                recognizer: Recognizer<*, *>?,
-                input: IntStream,
-                ctx: ParserRuleContext) : super(message) {
-        this.recognizer = recognizer
-        this.inputStream = input
-        this.ctx = ctx
+    init {
         if (recognizer != null) this.offendingState = recognizer!!.state
     }
 }

@@ -6,7 +6,7 @@ class TestingLexer {
     @Test fun simpleTokens() {
         val input = ANTLRInputStream("1 + 2")
         val lexer = MiniCalcLexer(input)
-//        val tokens = lexer.allTokens
+        val tokens = lexer.allTokens
 //        assertEquals(5, tokens.size)
 //
 //        var i = 0
