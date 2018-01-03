@@ -12,12 +12,12 @@ fun main(args: Array<String>) {
 //        }
 //    }
 
-//    val input = ANTLRInputStream("1 + 2")
-//    val lexer = MiniCalcLexer(input)
-//    var token : Token? = null
-//    do {
-//        token = lexer.nextToken()
-//        println("TOKEN $token")
-//
-//    } while (token?.type != -1)
+    val input = ANTLRInputStream("1 + 2")
+    val lexer = MiniCalcLexer(input)
+    var token : Token? = null
+    do {
+        token = lexer.nextToken()
+        println("TOKEN $token")
+
+    } while (token?.type != -1)
 }

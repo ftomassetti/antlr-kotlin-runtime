@@ -7,14 +7,14 @@ actual object Arrays {
     }
 
     actual fun <T> copyOf(original: Array<T>, size: Int): Array<T> {
-        TODO()
+        TODO("Arrays.copyOf not implemented")
     }
 
     actual fun equals(a: Array<*>, b: Array<*>) : Boolean {
-        TODO()
+        TODO("Arrays.equals not implemented")
     }
 
     actual fun toString(a: Array<*>): String {
-        TODO()
+        TODO("Arrays.toString not implemented")
     }
 }

@@ -2,11 +2,11 @@ package com.strumenta.kotlinmultiplatform
 
 actual class BitSet {
     actual constructor() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("BitSet not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    actual fun set(value: Int) {}
-    actual fun clear(ruleIndex: Int) {}
+    actual fun set(value: Int) {TODO("BitSet not implemented")}
+    actual fun clear(ruleIndex: Int) {TODO("BitSet not implemented")}
     actual fun get(ruleIndex: Int): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -19,6 +19,6 @@ actual class BitSet {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    actual fun or(alts: BitSet) {}
+    actual fun or(alts: BitSet) {TODO("BitSet not implemented")}
 
 }
