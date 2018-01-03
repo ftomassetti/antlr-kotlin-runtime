@@ -237,7 +237,7 @@ import org.antlr.v4.kotlinruntime.misc.Utils
 //                        }
 //                    }
 //                    Transition.ATOM -> {
-//                        arg1 = (t as AtomTransition).label
+//                        arg1 = (t as AtomTransition).accessLabel
 //                        if (arg1 == Token.EOF) {
 //                            arg1 = 0
 //                            arg3 = 1

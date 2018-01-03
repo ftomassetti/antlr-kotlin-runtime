@@ -20,11 +20,11 @@ val DEFAULT_CHANNEL = 0
 class RuleTagToken
 /**
  * Constructs a new instance of [RuleTagToken] with the specified rule
- * name, bypass token type, and label.
+ * name, bypass token type, and accessLabel.
  *
  * @param ruleName The name of the parser rule this rule tag matches.
  * @param bypassTokenType The bypass token type assigned to the parser rule.
- * @param label The label associated with the rule tag, or `null` if
+ * @param label The accessLabel associated with the rule tag, or `null` if
  * the rule tag is unlabeled.
  *
  * @exception IllegalArgumentException if `ruleName` is `null`
@@ -57,9 +57,9 @@ constructor(
          * This is the backing field for [.getLabel].
          */
         /**
-         * Gets the label associated with the rule tag.
+         * Gets the accessLabel associated with the rule tag.
          *
-         * @return The name of the label associated with the rule tag, or
+         * @return The name of the accessLabel associated with the rule tag, or
          * `null` if this is an unlabeled rule tag.
          */
 
@@ -168,7 +168,7 @@ constructor(
 }
 /**
  * Constructs a new instance of [RuleTagToken] with the specified rule
- * name and bypass token type and no label.
+ * name and bypass token type and no accessLabel.
  *
  * @param ruleName The name of the parser rule this rule tag matches.
  * @param bypassTokenType The bypass token type assigned to the parser rule.

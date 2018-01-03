@@ -13,7 +13,7 @@ class RangeTransition(target: ATNState, val from: Int, val to: Int) : Transition
     override val serializationType: Int
         get() = Transition.RANGE
 
-    override fun label(): IntervalSet? {
+    override fun accessLabel(): IntervalSet? {
         return IntervalSet.of(from, to)
     }
 

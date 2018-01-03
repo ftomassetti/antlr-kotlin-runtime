@@ -38,7 +38,7 @@ import org.antlr.v4.kotlinruntime.tree.Trees
  *
  * A subsequent rule invocation of r from the start rule s pushes a
  * new context object for r whose parent points at s and use invoking
- * state is the state with r emanating as edge label.
+ * state is the state with r emanating as edge accessLabel.
  *
  * The invokingState fields from a context object to the root
  * together form a stack of rule indication states where the root

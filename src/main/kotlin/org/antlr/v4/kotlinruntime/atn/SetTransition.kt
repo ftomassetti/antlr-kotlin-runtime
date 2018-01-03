@@ -23,7 +23,7 @@ open class SetTransition// TODO (sam): should we really allow null here?
         this.set = set
     }
 
-    override fun label(): IntervalSet? {
+    override fun accessLabel(): IntervalSet? {
         return set
     }
 

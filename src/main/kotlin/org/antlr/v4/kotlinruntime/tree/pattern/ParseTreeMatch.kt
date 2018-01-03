@@ -19,7 +19,7 @@ class ParseTreeMatch
  *
  * @param tree The parse tree to match against the pattern.
  * @param pattern The parse tree pattern.
- * @param labels A mapping from label names to collections of
+ * @param labels A mapping from accessLabel names to collections of
  * [ParseTree] objects located by the tree pattern matching process.
  * @param mismatchedNode The first node which failed to match the tree
  * pattern during the matching process.
@@ -53,7 +53,7 @@ class ParseTreeMatch
          * This is the backing field for [.getLabels].
          */
         /**
-         * Return a mapping from label  [list of nodes].
+         * Return a mapping from accessLabel  [list of nodes].
          *
          *
          * The map includes special entries corresponding to the names of rules and
@@ -92,22 +92,22 @@ class ParseTreeMatch
     }
 
     /**
-     * Get the last node associated with a specific `label`.
+     * Get the last node associated with a specific `accessLabel`.
      *
      *
      * For example, for pattern `<id:ID>`, `get("id")` returns the
      * node matched for that `ID`. If more than one node
-     * matched the specified label, only the last is returned. If there is
-     * no node associated with the label, this returns `null`.
+     * matched the specified accessLabel, only the last is returned. If there is
+     * no node associated with the accessLabel, this returns `null`.
      *
      *
      * Pattern tags like `<ID>` and `<expr>` without labels are
      * considered to be labeled with `ID` and `expr`, respectively.
      *
-     * @param label The label to check.
+     * @param label The accessLabel to check.
      *
      * @return The last [ParseTree] to match a tag with the specified
-     * label, or `null` if no parse tree matched a tag with the label.
+     * accessLabel, or `null` if no parse tree matched a tag with the accessLabel.
      */
 
     operator fun get(label: String): ParseTree? {
@@ -120,14 +120,14 @@ class ParseTreeMatch
     }
 
     /**
-     * Return all nodes matching a rule or token tag with the specified label.
+     * Return all nodes matching a rule or token tag with the specified accessLabel.
      *
      *
-     * If the `label` is the name of a parser rule or token in the
+     * If the `accessLabel` is the name of a parser rule or token in the
      * grammar, the resulting list will contain both the parse trees matching
-     * rule or tags explicitly labeled with the label and the complete set of
+     * rule or tags explicitly labeled with the accessLabel and the complete set of
      * parse trees matching the labeled and unlabeled tags in the pattern for
-     * the parser rule or token. For example, if `label` is `"foo"`,
+     * the parser rule or token. For example, if `accessLabel` is `"foo"`,
      * the result will contain *all* of the following.
      *
      *
@@ -137,10 +137,10 @@ class ParseTreeMatch
      *  * Parse tree nodes matching tags of the form `<foo>`.
      *
      *
-     * @param label The label.
+     * @param label The accessLabel.
      *
      * @return A collection of all [ParseTree] nodes matching tags with
-     * the specified `label`. If no nodes matched the label, an empty list
+     * the specified `accessLabel`. If no nodes matched the accessLabel, an empty list
      * is returned.
      */
 

@@ -17,11 +17,11 @@ import org.antlr.v4.kotlinruntime.Token
 class TokenTagToken
 /**
  * Constructs a new instance of [TokenTagToken] with the specified
- * token name, type, and label.
+ * token name, type, and accessLabel.
  *
  * @param tokenName The token name.
  * @param type The token type.
- * @param label The label associated with the token tag, or `null` if
+ * @param label The accessLabel associated with the token tag, or `null` if
  * the token tag is unlabeled.
  */
 constructor(
@@ -40,9 +40,9 @@ constructor(
          */
 
         /**
-         * Gets the label associated with the rule tag.
+         * Gets the accessLabel associated with the rule tag.
          *
-         * @return The name of the label associated with the rule tag, or
+         * @return The name of the accessLabel associated with the rule tag, or
          * `null` if this is an unlabeled rule tag.
          */
 

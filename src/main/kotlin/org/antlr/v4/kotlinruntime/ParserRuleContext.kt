@@ -126,7 +126,7 @@ open class ParserRuleContext : RuleContext, TypeDeclarator {
      * (except error leaves).
      *
      * This is used in the generated parser code to flip a generic XContext
-     * node for rule X to a YContext for alt label Y. In that sense, it is
+     * node for rule X to a YContext for alt accessLabel Y. In that sense, it is
      * not really a generic copy function.
      *
      * If we do an error sync() at start of a rule, we might add error nodes
@@ -140,7 +140,7 @@ open class ParserRuleContext : RuleContext, TypeDeclarator {
         this.start = ctx.start
         this.stop = ctx.stop
 
-        // copy any error nodes to alt label node
+        // copy any error nodes to alt accessLabel node
         if (ctx.children != null) {
             this.children = ArrayList()
             // reset parent pointer for any error nodes
@@ -227,7 +227,7 @@ open class ParserRuleContext : RuleContext, TypeDeclarator {
 //    //	}
 //
     /** Used by enterOuterAlt to toss out a RuleContext previously added as
-     * we entered a rule. If we have # label, we will need to remove
+     * we entered a rule. If we have # accessLabel, we will need to remove
      * generic ruleContext object.
      */
     fun removeLastChild() {

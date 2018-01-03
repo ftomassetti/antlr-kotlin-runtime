@@ -253,10 +253,10 @@ class ParseTreePatternMatcher
 //            if (t1!!.getSymbol().getType() === t2!!.getSymbol().getType()) {
 //                if (t2!!.getSymbol() is TokenTagToken) { // x and <ID>
 //                    val tokenTagToken = t2!!.getSymbol() as TokenTagToken
-//                    // track label->list-of-nodes for both token name and label (if any)
+//                    // track accessLabel->list-of-nodes for both token name and accessLabel (if any)
 //                    labels.map(tokenTagToken.tokenName, tree)
-//                    if (tokenTagToken.label != null) {
-//                        labels.map(tokenTagToken.label, tree)
+//                    if (tokenTagToken.accessLabel != null) {
+//                        labels.map(tokenTagToken.accessLabel, tree)
 //                    }
 //                } else if (t1!!.getText().equals(t2!!.getText())) {
 //                    // x and x
@@ -285,10 +285,10 @@ class ParseTreePatternMatcher
 //            if (ruleTagToken != null) {
 //                val m: ParseTreeMatch? = null
 //                if (r1!!.getRuleContext().getRuleIndex() === r2!!.getRuleContext().getRuleIndex()) {
-//                    // track label->list-of-nodes for both rule name and label (if any)
+//                    // track accessLabel->list-of-nodes for both rule name and accessLabel (if any)
 //                    labels.map(ruleTagToken!!.ruleName, tree)
-//                    if (ruleTagToken!!.label != null) {
-//                        labels.map(ruleTagToken!!.label, tree)
+//                    if (ruleTagToken!!.accessLabel != null) {
+//                        labels.map(ruleTagToken!!.accessLabel, tree)
 //                    }
 //                } else {
 //                    if (mismatchedNode == null) {
@@ -363,7 +363,7 @@ class ParseTreePatternMatcher
 //                        throw IllegalArgumentException("Unknown rule " + tagChunk.tag + " in pattern: " + pattern)
 //                    }
 //                    val ruleImaginaryTokenType = parser.atnWithBypassAlts().ruleToTokenType[ruleIndex]
-//                    tokens.add(RuleTagToken(tagChunk.tag, ruleImaginaryTokenType, tagChunk.label))
+//                    tokens.add(RuleTagToken(tagChunk.tag, ruleImaginaryTokenType, tagChunk.accessLabel))
                 } else {
                     throw IllegalArgumentException("invalid tag: " + tagChunk.tag + " in pattern: " + pattern)
                 }

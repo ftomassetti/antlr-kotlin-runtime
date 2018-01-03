@@ -52,7 +52,7 @@ abstract class Transition protected constructor(
     }
 
 
-    open fun label(): IntervalSet? {
+    open fun accessLabel(): IntervalSet? {
         return null
     }
 

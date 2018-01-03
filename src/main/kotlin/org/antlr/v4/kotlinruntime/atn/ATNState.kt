@@ -128,8 +128,8 @@ abstract class ATNState {
         var alreadyPresent = false
         for (t in transitions) {
             if (t.target!!.stateNumber == e.target!!.stateNumber) {
-                if (t.label() != null && e.label() != null && t.label()!!.equals(e.label())) {
-                    //					System.err.println("Repeated transition upon "+e.label()+" from "+stateNumber+"->"+t.target.stateNumber);
+                if (t.accessLabel() != null && e.accessLabel() != null && t.accessLabel()!!.equals(e.accessLabel())) {
+                    //					System.err.println("Repeated transition upon "+e.accessLabel()+" from "+stateNumber+"->"+t.target.stateNumber);
                     alreadyPresent = true
                     break
                 } else if (t.isEpsilon && e.isEpsilon) {

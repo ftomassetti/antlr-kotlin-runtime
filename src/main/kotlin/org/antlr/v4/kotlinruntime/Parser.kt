@@ -199,7 +199,7 @@ abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator
         }
 //
 //    /** Match needs to return the current input symbol, which gets put
-//     * into the label for the associated token ref; e.g., x=ID.
+//     * into the accessLabel for the associated token ref; e.g., x=ID.
 //     */
 //
     val currentToken: Token?

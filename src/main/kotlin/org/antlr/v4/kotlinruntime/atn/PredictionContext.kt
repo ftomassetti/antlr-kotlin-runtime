@@ -566,12 +566,12 @@ abstract class PredictionContext protected constructor(
                     buf.append("  s").append(s)
                     var returnState = current.getReturnState(0).toString()
                     if (current is EmptyPredictionContext) returnState = "$"
-                    buf.append(" [label=\"").append(returnState).append("\"];\n")
+                    buf.append(" [accessLabel=\"").append(returnState).append("\"];\n")
                     continue
                 }
                 val arr = current as ArrayPredictionContext
                 buf.append("  s").append(arr.id)
-                buf.append(" [shape=box, label=\"")
+                buf.append(" [shape=box, accessLabel=\"")
                 buf.append("[")
                 var first = true
                 for (inv in arr!!.returnStates!!) {
@@ -596,7 +596,7 @@ abstract class PredictionContext protected constructor(
                     buf.append("s")
                     buf.append(current.getParent(i)!!.id)
                     if (current.size() > 1)
-                        buf.append(" [label=\"parent[$i]\"];\n")
+                        buf.append(" [accessLabel=\"parent[$i]\"];\n")
                     else
                         buf.append(";\n")
                 }

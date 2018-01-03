@@ -188,7 +188,7 @@ package org.antlr.v4.kotlinruntime
 //                        context!!.ruleIndex)
 //            }
 //
-//            Transition.ATOM -> match((transition as AtomTransition).label)
+//            Transition.ATOM -> match((transition as AtomTransition).accessLabel)
 //
 //            Transition.RANGE, Transition.SET, Transition.NOT_SET -> {
 //                if (!transition.matches(_input!!.LA(1), Token.MIN_USER_TOKEN_TYPE, 65535)) {

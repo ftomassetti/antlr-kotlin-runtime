@@ -10,13 +10,13 @@ import org.antlr.v4.kotlinruntime.misc.IntervalSet
 
 /** TODO: make all transitions sets? no, should remove set edges  */
 class AtomTransition(target: ATNState,
-                     /** The token type or character value; or, signifies special label.  */
+                     /** The token type or character value; or, signifies special accessLabel.  */
                      val label: Int) : Transition(target) {
 
     override val serializationType: Int
         get() = Transition.ATOM
 
-    override fun label(): IntervalSet? {
+    override fun accessLabel(): IntervalSet? {
         return IntervalSet.of(label)
     }
 

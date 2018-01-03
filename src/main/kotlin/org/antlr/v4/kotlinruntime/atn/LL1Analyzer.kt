@@ -204,7 +204,7 @@ class LL1Analyzer(val atn: ATN) {
                 look.addAll(IntervalSet.of(Token.MIN_USER_TOKEN_TYPE, atn.maxTokenType))
             } else {
                 //				System.out.println("adding "+ t);
-                var set = t.label()
+                var set = t.accessLabel()
                 if (set != null) {
                     if (t is NotSetTransition) {
                         set = set!!.complement(IntervalSet.of(Token.MIN_USER_TOKEN_TYPE, atn.maxTokenType))
