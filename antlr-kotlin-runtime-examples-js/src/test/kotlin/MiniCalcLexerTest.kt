@@ -7,7 +7,7 @@ class TestingLexer {
         val input = ANTLRInputStream("1 + 2")
         val lexer = MiniCalcLexer(input)
         val tokens = lexer.allTokens
-//        assertEquals(5, tokens.size)
+        assertEquals(5, tokens.size)
 //
 //        var i = 0
 //        assertEquals("1", tokens[i].text)
