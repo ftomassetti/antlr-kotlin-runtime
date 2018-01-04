@@ -1,7 +1,5 @@
 package com.strumenta.kotlinmultiplatform
 
-import org.antlr.v4.kotlinruntime.Parser
-
 actual class Type(val javaClass: Class<*>)
 
 actual fun Type.isInstance(any: Any?): Boolean {
