@@ -110,7 +110,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
     }
 
     protected fun matchATN(input: CharStream): Int {
-        val startState = atn.modeToStartState.get(mode)
+        val startState = atn.modeToStartState[mode]
 
         if (debug) {
             outMessage("matchATN mode $mode start: $startState\n")

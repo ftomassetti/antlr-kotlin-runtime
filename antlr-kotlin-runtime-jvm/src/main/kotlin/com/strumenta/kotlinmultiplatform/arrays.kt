@@ -1,8 +1,5 @@
 package com.strumenta.kotlinmultiplatform
 
-import java.util.Arrays
-
-
 actual fun <T> Array<T>.indices(): List<Int> {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 }
@@ -11,6 +8,13 @@ actual fun IntArray.indices(): List<Int> {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 }
 
+actual fun <T> arraycopy(tokens: Array<T>, p: Int, tokens1: Array<T>, i: Int, i1: Int) {
+    TODO()
+}
+
+actual fun <T> Array<T>.clone(): Array<T> {
+    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+}
 
 actual object Arrays {
     actual fun <T> asList(vararg elements: T): List<T> {
@@ -27,12 +31,4 @@ actual object Arrays {
     actual fun toString(a: Array<*>): String {
         return java.util.Arrays.toString(a)
     }
-}
-
-actual fun <T> arraycopy(tokens: Array<T>, p: Int, tokens1: Array<T>, i: Int, i1: Int) {
-    TODO()
-}
-
-actual fun <T> Array<T>.clone(): Array<T> {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 }

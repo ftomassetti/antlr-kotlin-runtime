@@ -1,6 +1,8 @@
 package com.strumenta.kotlinmultiplatform
 
 actual class BitSet {
+
+
     actual constructor() {
         TODO("BitSet not implemented") //To change body of created functions use File | Settings | File Templates.
     }
