@@ -1,7 +1,5 @@
 package com.strumenta.kotlinmultiplatform
 
-import java.util.function.BiConsumer
-
 actual class IdentityHashMap<K, V> : MutableMap<K, V> {
     override val size: Int
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
