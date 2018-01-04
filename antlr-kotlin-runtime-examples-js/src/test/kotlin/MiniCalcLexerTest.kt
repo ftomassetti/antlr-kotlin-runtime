@@ -3,14 +3,22 @@ import kotlin.test.*
 
 class TestingLexer {
 
-    @Test fun firstToken() {
+    @Test fun firstTokenDebug1() {
         val input = ANTLRInputStream("1 + 2")
         val lexer = MiniCalcLexer(input)
-        val token = lexer.nextToken()
-
-        assertEquals("1", token.text)
-        assertEquals(MiniCalcLexer.Tokens.INTLIT.id, token.type)
+        val interpreter = lexer.interpreter
+        val result = interpreter!!.match(input, 0)
+        assertEquals(11, result)
     }
+
+//    @Test fun firstToken() {
+//        val input = ANTLRInputStream("1 + 2")
+//        val lexer = MiniCalcLexer(input)
+//        val token = lexer.nextToken()
+//
+//        assertEquals("1", token.text)
+//        assertEquals(MiniCalcLexer.Tokens.INTLIT.id, token.type)
+//    }
 
 //    @Test fun simpleTokens() {
 //        val input = ANTLRInputStream("1 + 2")
