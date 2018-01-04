@@ -1,14 +1,12 @@
 package com.strumenta.kotlinmultiplatform
 
-import kotlin.math.roundToInt
-
 actual object Math {
     actual fun min(a: Int, b: Int): Int {
-        return if (a <= b) a else b
+        return kotlin.js.Math.min(a, b)
     }
 
     actual fun max(a: Int, b: Int): Int {
-        return if (a >= b) a else b
+        return kotlin.js.Math.max(a, b)
     }
 
     actual fun floor(d: Double): Double {

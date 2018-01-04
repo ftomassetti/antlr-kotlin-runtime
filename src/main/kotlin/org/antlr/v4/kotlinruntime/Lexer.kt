@@ -206,9 +206,9 @@ abstract class Lexer : Recognizer<Int, LexerATNSimulator>, TokenSource {
                 _text = null
                 do {
                     type = Token.INVALID_TYPE
-                    //				System.out.println("nextToken line "+tokenStartLine+" at "+((char)input.LA(1))+
-                    //								   " in mode "+mode+
-                    //								   " at index "+input.index());
+//                    				println("nextToken line "+_tokenStartLine+" at "+inputStream!!.LA(1)+
+//                    								   " in mode "+_mode+
+//                    								   " at index "+ inputStream!!.index())
                     var ttype: Int
                     try {
                         ttype = interpreter!!.match(readInputStream()!!, _mode)

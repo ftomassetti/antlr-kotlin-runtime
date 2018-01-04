@@ -557,7 +557,7 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
 
     protected fun captureSimState(settings: SimState,
                                   input: CharStream,
-                                  dfaState: DFAState?) {
+                                  dfaState: DFAState) {
         settings.index = input.index()
         settings.line = line
         settings.charPos = charPositionInLine
