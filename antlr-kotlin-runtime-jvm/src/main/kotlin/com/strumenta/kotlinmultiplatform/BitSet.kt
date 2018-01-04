@@ -5,16 +5,16 @@ actual class BitSet {
 
     actual constructor()
 
-    actual fun set(value: Int) {
-        _wrapped.set(value)
+    actual fun set(bitIndex: Int) {
+        _wrapped.set(bitIndex)
     }
 
-    actual fun clear(ruleIndex: Int) {
-        _wrapped.clear(ruleIndex)
+    actual fun clear(bitIndex: Int) {
+        _wrapped.clear(bitIndex)
     }
 
-    actual fun get(ruleIndex: Int): Boolean {
-        return _wrapped.get(ruleIndex)
+    actual fun get(bitIndex: Int): Boolean {
+        return _wrapped.get(bitIndex)
     }
 
     actual fun cardinality(): Int {

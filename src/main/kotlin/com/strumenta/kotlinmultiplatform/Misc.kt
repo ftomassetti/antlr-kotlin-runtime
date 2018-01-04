@@ -37,9 +37,9 @@ expect object Arrays {
 expect class BitSet {
     constructor()
 
-    fun set(value: Int)
-    fun clear(ruleIndex: Int)
-    fun get(ruleIndex: Int): Boolean
+    fun set(bitIndex: Int)
+    fun clear(bitIndex: Int)
+    fun get(bitIndex: Int): Boolean
     fun cardinality(): Int
     fun nextSetBit(i: Int): Int
     fun or(alts: BitSet)
