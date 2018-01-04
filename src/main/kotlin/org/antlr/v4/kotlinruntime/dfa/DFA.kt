@@ -5,8 +5,6 @@
  */
 package org.antlr.v4.kotlinruntime.dfa
 
-import com.strumenta.kotlinmultiplatform.Arrays
-import com.strumenta.kotlinmultiplatform.Collections
 import org.antlr.v4.kotlinruntime.Parser
 import org.antlr.v4.kotlinruntime.Vocabulary
 import org.antlr.v4.kotlinruntime.VocabularyImpl
@@ -65,13 +63,12 @@ class DFA constructor(
         }
 
     init {
-
         var precedenceDfa = false
         if (atnStartState is StarLoopEntryState) {
-            if ((atnStartState as StarLoopEntryState).isPrecedenceDecision) {
+            if (atnStartState.isPrecedenceDecision) {
                 precedenceDfa = true
                 val precedenceState = DFAState(ATNConfigSet())
-                precedenceState.edges = arrayOfNulls<DFAState?>(0)!!
+                precedenceState.edges = arrayOfNulls<DFAState?>(0)
                 precedenceState.isAcceptState = false
                 precedenceState.requiresFullContext = false
                 this.s0 = precedenceState
@@ -148,17 +145,7 @@ class DFA constructor(
     }
 
     override fun toString(): String {
-        TODO()
-        //return toString(VocabularyImpl.EMPTY_VOCABULARY)
-    }
-
-
-    @Deprecated("Use {@link #toString(Vocabulary)} instead.")
-    fun toString(tokenNames: Array<String>): String? {
-        if (s0 == null) return ""
-        TODO()
-        //val serializer = DFASerializer(this, tokenNames)
-        //return serializer.toString()
+        return toString(VocabularyImpl.EMPTY_VOCABULARY) ?: "null"
     }
 
     fun toString(vocabulary: Vocabulary): String? {
