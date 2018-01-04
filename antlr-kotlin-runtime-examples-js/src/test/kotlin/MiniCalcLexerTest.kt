@@ -11,6 +11,17 @@ class TestingLexer {
         assertEquals(11, result)
     }
 
+    @Test fun firstTokenDebug2() {
+        val input = ANTLRInputStream("1 + 2")
+        val lexer = MiniCalcLexer(input)
+        val interpreter = lexer.interpreter
+        val decisionToDFA = interpreter!!.decisionToDFA
+        val mode = 0
+        val dfa = decisionToDFA[mode]
+        assertEquals(true, dfa!!.s0 != null)
+        assertEquals(0, dfa!!.s0!!.stateNumber)
+    }
+
 //    @Test fun firstToken() {
 //        val input = ANTLRInputStream("1 + 2")
 //        val lexer = MiniCalcLexer(input)
