@@ -20,10 +20,6 @@ actual fun Char.Companion.toChars(codePoint: Int, resultArray: CharArray, result
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 }
 
-//actual fun toInt32(c: Char): Int {
-//    return c.toInt()
-//}
-
 actual fun isCharUppercase(firstChar: Char): Boolean {
     return firstChar.isUpperCase()
 }
