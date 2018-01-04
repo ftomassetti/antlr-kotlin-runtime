@@ -282,7 +282,8 @@ class LexerATNSimulator(protected val recog: Lexer?, atn: ATN,
         }
     }
 
-    /** Given a starting configuration set, figure out all ATN configurations
+    /**
+     * Given a starting configuration set, figure out all ATN configurations
      * we can reach upon input `t`. Parameter `reach` is a return
      * parameter.
      */
