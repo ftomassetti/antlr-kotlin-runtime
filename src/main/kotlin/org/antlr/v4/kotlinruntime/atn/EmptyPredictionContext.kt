@@ -20,7 +20,9 @@ class EmptyPredictionContext : SingletonPredictionContext(null, PredictionContex
     }
 
     override fun getReturnState(index: Int): Int {
-        return returnState
+        // It was: return returnState
+        // Changed because of https://youtrack.jetbrains.com/issue/KT-22161
+        return PredictionContext.EMPTY_RETURN_STATE
     }
 
     override fun equals(o: Any?): Boolean {
