@@ -4,5 +4,5 @@ jdk:
 install: true
 script:
   - cd antlr-kotlin-runtime-jvm && ../gradlew check
-  - cd antlr-kotlin-runtime-js && ../gradlew test
+  - cd ../antlr-kotlin-runtime-js && ../gradlew test
   
