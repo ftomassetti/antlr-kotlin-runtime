@@ -7,6 +7,7 @@ package org.antlr.v4.kotlinruntime
 
 import com.strumenta.kotlinmultiplatform.*
 import org.antlr.v4.kotlinruntime.misc.Interval
+import kotlin.reflect.KClass
 
 
 /**
@@ -97,6 +98,8 @@ class TokenStreamRewriter(
         /** Our source stream  */
         val tokenStream: TokenStream) : TypeDeclarator {
 
+    override val classesByName: List<KClass<*>>
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
     /** You may have multiple, named streams of rewrite operations.
      * I'm calling these things "programs."
      * Maps String (name)  rewrite (List)

@@ -37,7 +37,7 @@ import org.antlr.v4.kotlinruntime.tree.*
 // * group values such as this aggregate.  The getters/setters are there to
 // * satisfy the superclass interface.
 // */
-open class ParserRuleContext : RuleContext, TypeDeclarator {
+open class ParserRuleContext : RuleContext {
 //    override fun setParent(parent: RuleContext) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 //    }

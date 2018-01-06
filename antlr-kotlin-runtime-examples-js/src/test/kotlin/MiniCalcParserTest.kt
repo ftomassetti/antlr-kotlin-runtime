@@ -1,11 +1,12 @@
 import org.antlr.v4.kotlinruntime.ANTLRInputStream
 import org.antlr.v4.kotlinruntime.CommonTokenStream
 import org.antlr.v4.kotlinruntime.ast.Point
-import org.antlr.v4.kotlinruntime.ast.Position
 import org.antlr.v4.kotlinruntime.ast.pos
+import org.antlr.v4.kotlinruntime.atn.EmptyPredictionContext
+import org.antlr.v4.kotlinruntime.atn.PredictionContext
 import org.antlr.v4.kotlinruntime.tree.TerminalNode
-import org.junit.Test as test
-import org.junit.Assert.*
+import kotlin.test.*
+import kotlin.test.Test as test
 
 class TestingParser {
 
