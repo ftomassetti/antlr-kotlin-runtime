@@ -3,7 +3,7 @@ package com.strumenta.kotlinmultiplatform
 actual class Type(val javaClass: JsClass<*>)
 
 actual fun Type.isInstance(any: Any?): Boolean {
-    TODO("Type isIstance is not implemented")
+    return javaClass.kotlin.isInstance(any)
 }
 
 actual fun TypeDeclarator.getType(name: String) : Type {

@@ -1,5 +1,6 @@
 // Generated from java-escape by ANTLR 4.7.1
 import com.strumenta.kotlinmultiplatform.Arrays
+import com.strumenta.kotlinmultiplatform.TypeDeclarator
 import com.strumenta.kotlinmultiplatform.getType
 import org.antlr.v4.kotlinruntime.*
 import org.antlr.v4.kotlinruntime.atn.*
@@ -11,6 +12,27 @@ import org.antlr.v4.kotlinruntime.tree.ParseTreeListener
 import org.antlr.v4.kotlinruntime.tree.TerminalNode
 import org.antlr.v4.kotlinruntime.atn.ATN.Companion.INVALID_ALT_NUMBER
 import kotlin.reflect.KClass
+
+object solver : TypeDeclarator {
+	override val classesByName : List<KClass<*>> = listOf(MiniCalcParser.MiniCalcFileContext::class, MiniCalcParser.LineContext::class, MiniCalcParser.InputDeclarationStatementContext::class
+			, MiniCalcParser.PrintStatementContext::class, MiniCalcParser.PrintContext::class
+			, MiniCalcParser.AssignmentStatementContext::class, MiniCalcParser.AssignmentContext::class
+			, MiniCalcParser.VarDeclarationContext::class, MiniCalcParser.VarDeclarationStatementContext::class
+			, MiniCalcParser.ValueReferenceContext::class
+			, MiniCalcParser.ExpressionContext::class
+			, MiniCalcParser.DecimalLiteralContext::class
+			, MiniCalcParser.MinusExpressionContext::class
+			, MiniCalcParser.ValueReferenceContext::class
+			, MiniCalcParser.StringLiteralContext::class
+			, MiniCalcParser.IntLiteralContext::class
+			, MiniCalcParser.ParenExpressionContext::class
+			, MiniCalcParser.BinaryOperationContext::class
+			, MiniCalcParser.TypeConversionContext::class
+			, MiniCalcParser.TypeContext::class
+			, MiniCalcParser.StringContext::class
+			, MiniCalcParser.IntegerContext::class
+			, MiniCalcParser.DecimalContext::class)
+}
 
 class MiniCalcParser(input: TokenStream) : Parser(input) {
 	// TODO verify version of runtime is compatible
@@ -218,13 +240,13 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 	init {
 		interpreter = ParserATNSimulator(this, ATN, decisionToDFA, sharedContextCache)
 	}
-	open inner class MiniCalcFileContext : ParserRuleContext {
+	open class MiniCalcFileContext : ParserRuleContext {
 	    override var ruleIndex: Int
 	        get() = Rules.RULE_miniCalcFile.id
 	        set(value) { throw RuntimeException() }
 		/*RuleContextDecl*/ var lines: LineContext? = null
-		fun findLine() : List<LineContext> = getRuleContexts(this@MiniCalcParser.getType("LineContext"))
-		fun findLine(i: Int) : LineContext? = getRuleContext(this@MiniCalcParser.getType("LineContext"),i)
+		fun findLine() : List<LineContext> = getRuleContexts(solver.getType("LineContext"))
+		fun findLine(i: Int) : LineContext? = getRuleContext(solver.getType("LineContext"),i)
 		constructor(parent: ParserRuleContext?, invokingState: Int) : super(parent, invokingState){
 		}
 		override fun enterRule(listener: ParseTreeListener) {
@@ -272,11 +294,11 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		return _localctx
 	}
 
-	open inner class LineContext : ParserRuleContext {
+	open class LineContext : ParserRuleContext {
 	    override var ruleIndex: Int
 	        get() = Rules.RULE_line.id
 	        set(value) { throw RuntimeException() }
-		fun findStatement() : StatementContext? = getRuleContext(this@MiniCalcParser.getType("StatementContext"),0)
+		fun findStatement() : StatementContext? = getRuleContext(solver.getType("StatementContext"),0)
 		fun NEWLINE() : TerminalNode = getToken(MiniCalcParser.Tokens.NEWLINE.id, 0) as TerminalNode
 		fun EOF() : TerminalNode = getToken(MiniCalcParser.Tokens.EOF.id, 0) as TerminalNode
 		constructor(parent: ParserRuleContext?, invokingState: Int) : super(parent, invokingState){
@@ -322,7 +344,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		return _localctx
 	}
 
-	open inner class StatementContext : ParserRuleContext {
+	open class StatementContext : ParserRuleContext {
 	    override var ruleIndex: Int
 	        get() = Rules.RULE_statement.id
 	        set(value) { throw RuntimeException() }
@@ -334,8 +356,8 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			super.copyFrom(ctx)
 		}
 	}
-	inner class PrintStatementContext : StatementContext {
-		fun findPrint() : PrintContext? = getRuleContext(this@MiniCalcParser.getType("../PrintContext"),0)
+	class PrintStatementContext : StatementContext {
+		fun findPrint() : PrintContext? = getRuleContext(solver.getType("../PrintContext"),0)
 		constructor(ctx: StatementContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).enterPrintStatement(this)
@@ -344,8 +366,8 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitPrintStatement(this)
 		}
 	}
-	inner class AssignmentStatementContext : StatementContext {
-		fun findAssignment() : AssignmentContext? = getRuleContext(this@MiniCalcParser.getType("../AssignmentContext"),0)
+	class AssignmentStatementContext : StatementContext {
+		fun findAssignment() : AssignmentContext? = getRuleContext(solver.getType("../AssignmentContext"),0)
 		constructor(ctx: StatementContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).enterAssignmentStatement(this)
@@ -354,8 +376,8 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitAssignmentStatement(this)
 		}
 	}
-	inner class InputDeclarationStatementContext : StatementContext {
-		fun findInputDeclaration() : InputDeclarationContext? = getRuleContext(this@MiniCalcParser.getType("../InputDeclarationContext"),0)
+	class InputDeclarationStatementContext : StatementContext {
+		fun findInputDeclaration() : InputDeclarationContext? = getRuleContext(solver.getType("../InputDeclarationContext"),0)
 		constructor(ctx: StatementContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).enterInputDeclarationStatement(this)
@@ -364,8 +386,8 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitInputDeclarationStatement(this)
 		}
 	}
-	inner class VarDeclarationStatementContext : StatementContext {
-		fun findVarDeclaration() : VarDeclarationContext? = getRuleContext(this@MiniCalcParser.getType("../VarDeclarationContext"),0)
+	class VarDeclarationStatementContext : StatementContext {
+		fun findVarDeclaration() : VarDeclarationContext? = getRuleContext(solver.getType("../VarDeclarationContext"),0)
 		constructor(ctx: StatementContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).enterVarDeclarationStatement(this)
@@ -424,13 +446,13 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		return _localctx
 	}
 
-	open inner class PrintContext : ParserRuleContext {
+	open class PrintContext : ParserRuleContext {
 	    override var ruleIndex: Int
 	        get() = Rules.RULE_print.id
 	        set(value) { throw RuntimeException() }
 		fun PRINT() : TerminalNode = getToken(MiniCalcParser.Tokens.PRINT.id, 0) as TerminalNode
 		fun LPAREN() : TerminalNode = getToken(MiniCalcParser.Tokens.LPAREN.id, 0) as TerminalNode
-		fun findExpression() : ExpressionContext? = getRuleContext(this@MiniCalcParser.getType("../ExpressionContext"),0)
+		fun findExpression() : ExpressionContext? = getRuleContext(solver.getType("../ExpressionContext"),0)
 		fun RPAREN() : TerminalNode = getToken(MiniCalcParser.Tokens.RPAREN.id, 0) as TerminalNode
 		constructor(parent: ParserRuleContext?, invokingState: Int) : super(parent, invokingState){
 		}
@@ -470,13 +492,13 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		return _localctx
 	}
 
-	open inner class InputDeclarationContext : ParserRuleContext {
+	open class InputDeclarationContext : ParserRuleContext {
 	    override var ruleIndex: Int
 	        get() = Rules.RULE_inputDeclaration.id
 	        set(value) { throw RuntimeException() }
 		/*TokenDecl*/ var name: Token? = null
 		fun INPUT() : TerminalNode = getToken(MiniCalcParser.Tokens.INPUT.id, 0) as TerminalNode
-		fun findType() : TypeContext? = getRuleContext(this@MiniCalcParser.getType("../TypeContext"),0)
+		fun findType() : TypeContext? = getRuleContext(solver.getType("../TypeContext"),0)
 		fun ID() : TerminalNode = getToken(MiniCalcParser.Tokens.ID.id, 0) as TerminalNode
 		constructor(parent: ParserRuleContext?, invokingState: Int) : super(parent, invokingState){
 		}
@@ -514,12 +536,12 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		return _localctx
 	}
 
-	open inner class VarDeclarationContext : ParserRuleContext {
+	open class VarDeclarationContext : ParserRuleContext {
 	    override var ruleIndex: Int
 	        get() = Rules.RULE_varDeclaration.id
 	        set(value) { throw RuntimeException() }
 		fun VAR() : TerminalNode = getToken(MiniCalcParser.Tokens.VAR.id, 0) as TerminalNode
-		fun findAssignment() : AssignmentContext? = getRuleContext(this@MiniCalcParser.getType("../AssignmentContext"),0)
+		fun findAssignment() : AssignmentContext? = getRuleContext(solver.getType("../AssignmentContext"),0)
 		constructor(parent: ParserRuleContext?, invokingState: Int) : super(parent, invokingState){
 		}
 		override fun enterRule(listener: ParseTreeListener) {
@@ -554,13 +576,13 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		return _localctx
 	}
 
-	open inner class AssignmentContext : ParserRuleContext {
+	open class AssignmentContext : ParserRuleContext {
 	    override var ruleIndex: Int
 	        get() = Rules.RULE_assignment.id
 	        set(value) { throw RuntimeException() }
 		fun ID() : TerminalNode = getToken(MiniCalcParser.Tokens.ID.id, 0) as TerminalNode
 		fun ASSIGN() : TerminalNode = getToken(MiniCalcParser.Tokens.ASSIGN.id, 0) as TerminalNode
-		fun findExpression() : ExpressionContext? = getRuleContext(this@MiniCalcParser.getType("../ExpressionContext"),0)
+		fun findExpression() : ExpressionContext? = getRuleContext(solver.getType("../ExpressionContext"),0)
 		constructor(parent: ParserRuleContext?, invokingState: Int) : super(parent, invokingState){
 		}
 		override fun enterRule(listener: ParseTreeListener) {
@@ -597,7 +619,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		return _localctx
 	}
 
-	open inner class ExpressionContext : ParserRuleContext {
+	open class ExpressionContext : ParserRuleContext {
 	    override var ruleIndex: Int
 	        get() = Rules.RULE_expression.id
 	        set(value) { throw RuntimeException() }
@@ -609,7 +631,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			super.copyFrom(ctx)
 		}
 	}
-	inner class DecimalLiteralContext : ExpressionContext {
+	class DecimalLiteralContext : ExpressionContext {
 		fun DECLIT() : TerminalNode = getToken(MiniCalcParser.Tokens.DECLIT.id, 0) as TerminalNode
 		constructor(ctx: ExpressionContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
@@ -619,9 +641,9 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitDecimalLiteral(this)
 		}
 	}
-	inner class MinusExpressionContext : ExpressionContext {
+	class MinusExpressionContext : ExpressionContext {
 		fun MINUS() : TerminalNode = getToken(MiniCalcParser.Tokens.MINUS.id, 0) as TerminalNode
-		fun findExpression() : ExpressionContext? = getRuleContext(this@MiniCalcParser.getType("../ExpressionContext"),0)
+		fun findExpression() : ExpressionContext? = getRuleContext(solver.getType("../ExpressionContext"),0)
 		constructor(ctx: ExpressionContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).enterMinusExpression(this)
@@ -630,7 +652,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitMinusExpression(this)
 		}
 	}
-	inner class ValueReferenceContext : ExpressionContext {
+	class ValueReferenceContext : ExpressionContext {
 		fun ID() : TerminalNode = getToken(MiniCalcParser.Tokens.ID.id, 0) as TerminalNode
 		constructor(ctx: ExpressionContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
@@ -640,13 +662,13 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitValueReference(this)
 		}
 	}
-	inner class StringLiteralContext : ExpressionContext {
+	class StringLiteralContext : ExpressionContext {
 		public /*RuleContextDecl*/ var stringLiteralContent: StringLiteralContentContext? = null
 		public /*RuleContextListDecl*/ var parts : MutableList<StringLiteralContentContext> = ArrayList<StringLiteralContentContext>()
 		fun STRING_OPEN() : TerminalNode = getToken(MiniCalcParser.Tokens.STRING_OPEN.id, 0) as TerminalNode
 		fun STRING_CLOSE() : TerminalNode = getToken(MiniCalcParser.Tokens.STRING_CLOSE.id, 0) as TerminalNode
-		fun findStringLiteralContent() : List<StringLiteralContentContext> = getRuleContexts(this@MiniCalcParser.getType("../StringLiteralContentContext"))
-		fun findStringLiteralContent(i: Int) : StringLiteralContentContext? = getRuleContext(this@MiniCalcParser.getType("../StringLiteralContentContext"),i)
+		fun findStringLiteralContent() : List<StringLiteralContentContext> = getRuleContexts(solver.getType("../StringLiteralContentContext"))
+		fun findStringLiteralContent(i: Int) : StringLiteralContentContext? = getRuleContext(solver.getType("../StringLiteralContentContext"),i)
 		constructor(ctx: ExpressionContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).enterStringLiteral(this)
@@ -655,7 +677,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitStringLiteral(this)
 		}
 	}
-	inner class IntLiteralContext : ExpressionContext {
+	class IntLiteralContext : ExpressionContext {
 		fun INTLIT() : TerminalNode = getToken(MiniCalcParser.Tokens.INTLIT.id, 0) as TerminalNode
 		constructor(ctx: ExpressionContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
@@ -665,9 +687,9 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitIntLiteral(this)
 		}
 	}
-	inner class ParenExpressionContext : ExpressionContext {
+	class ParenExpressionContext : ExpressionContext {
 		fun LPAREN() : TerminalNode = getToken(MiniCalcParser.Tokens.LPAREN.id, 0) as TerminalNode
-		fun findExpression() : ExpressionContext? = getRuleContext(this@MiniCalcParser.getType("../ExpressionContext"),0)
+		fun findExpression() : ExpressionContext? = getRuleContext(solver.getType("../ExpressionContext"),0)
 		fun RPAREN() : TerminalNode = getToken(MiniCalcParser.Tokens.RPAREN.id, 0) as TerminalNode
 		constructor(ctx: ExpressionContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
@@ -677,12 +699,12 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitParenExpression(this)
 		}
 	}
-	inner class BinaryOperationContext : ExpressionContext {
+	class BinaryOperationContext : ExpressionContext {
 		public /*RuleContextDecl*/ var left: ExpressionContext? = null
 		public /*TokenDecl*/ var operator: Token? = null
 		public /*RuleContextDecl*/ var right: ExpressionContext? = null
-		fun findExpression() : List<ExpressionContext> = getRuleContexts(this@MiniCalcParser.getType("../ExpressionContext"))
-		fun findExpression(i: Int) : ExpressionContext? = getRuleContext(this@MiniCalcParser.getType("../ExpressionContext"),i)
+		fun findExpression() : List<ExpressionContext> = getRuleContexts(solver.getType("../ExpressionContext"))
+		fun findExpression(i: Int) : ExpressionContext? = getRuleContext(solver.getType("../ExpressionContext"),i)
 		fun DIVISION() : TerminalNode = getToken(MiniCalcParser.Tokens.DIVISION.id, 0) as TerminalNode
 		fun ASTERISK() : TerminalNode = getToken(MiniCalcParser.Tokens.ASTERISK.id, 0) as TerminalNode
 		fun PLUS() : TerminalNode = getToken(MiniCalcParser.Tokens.PLUS.id, 0) as TerminalNode
@@ -695,12 +717,12 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitBinaryOperation(this)
 		}
 	}
-	inner class TypeConversionContext : ExpressionContext {
+	class TypeConversionContext : ExpressionContext {
 		public /*RuleContextDecl*/ var value: ExpressionContext? = null
 		public /*RuleContextDecl*/ var targetType: TypeContext? = null
 		fun AS() : TerminalNode = getToken(MiniCalcParser.Tokens.AS.id, 0) as TerminalNode
-		fun findExpression() : ExpressionContext? = getRuleContext(this@MiniCalcParser.getType("../ExpressionContext"),0)
-		fun findType() : TypeContext? = getRuleContext(this@MiniCalcParser.getType("../TypeContext"),0)
+		fun findExpression() : ExpressionContext? = getRuleContext(solver.getType("../ExpressionContext"),0)
+		fun findType() : TypeContext? = getRuleContext(solver.getType("../TypeContext"),0)
 		constructor(ctx: ExpressionContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).enterTypeConversion(this)
@@ -893,7 +915,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		return _localctx
 	}
 
-	open inner class StringLiteralContentContext : ParserRuleContext {
+	open class StringLiteralContentContext : ParserRuleContext {
 	    override var ruleIndex: Int
 	        get() = Rules.RULE_stringLiteralContent.id
 	        set(value) { throw RuntimeException() }
@@ -905,9 +927,9 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			super.copyFrom(ctx)
 		}
 	}
-	inner class InterpolatedValueContext : StringLiteralContentContext {
+	class InterpolatedValueContext : StringLiteralContentContext {
 		fun INTERPOLATION_OPEN() : TerminalNode = getToken(MiniCalcParser.Tokens.INTERPOLATION_OPEN.id, 0) as TerminalNode
-		fun findExpression() : ExpressionContext? = getRuleContext(this@MiniCalcParser.getType("../ExpressionContext"),0)
+		fun findExpression() : ExpressionContext? = getRuleContext(solver.getType("../ExpressionContext"),0)
 		fun INTERPOLATION_CLOSE() : TerminalNode = getToken(MiniCalcParser.Tokens.INTERPOLATION_CLOSE.id, 0) as TerminalNode
 		constructor(ctx: StringLiteralContentContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
@@ -917,7 +939,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitInterpolatedValue(this)
 		}
 	}
-	inner class ConstantStringContext : StringLiteralContentContext {
+	class ConstantStringContext : StringLiteralContentContext {
 		fun STRING_CONTENT() : TerminalNode = getToken(MiniCalcParser.Tokens.STRING_CONTENT.id, 0) as TerminalNode
 		constructor(ctx: StringLiteralContentContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
@@ -967,7 +989,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 		return _localctx
 	}
 
-	open inner class TypeContext : ParserRuleContext {
+	open class TypeContext : ParserRuleContext {
 	    override var ruleIndex: Int
 	        get() = Rules.RULE_type.id
 	        set(value) { throw RuntimeException() }
@@ -979,7 +1001,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			super.copyFrom(ctx)
 		}
 	}
-	inner class StringContext : TypeContext {
+	class StringContext : TypeContext {
 		fun STRING() : TerminalNode = getToken(MiniCalcParser.Tokens.STRING.id, 0) as TerminalNode
 		constructor(ctx: TypeContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
@@ -989,7 +1011,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitString(this)
 		}
 	}
-	inner class IntegerContext : TypeContext {
+	class IntegerContext : TypeContext {
 		fun INT() : TerminalNode = getToken(MiniCalcParser.Tokens.INT.id, 0) as TerminalNode
 		constructor(ctx: TypeContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
@@ -999,7 +1021,7 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
 			if ( listener is MiniCalcParserListener ) (listener as MiniCalcParserListener).exitInteger(this)
 		}
 	}
-	inner class DecimalContext : TypeContext {
+	class DecimalContext : TypeContext {
 		fun DECIMAL() : TerminalNode = getToken(MiniCalcParser.Tokens.DECIMAL.id, 0) as TerminalNode
 		constructor(ctx: TypeContext) { copyFrom(ctx) }
 		override fun enterRule(listener: ParseTreeListener) {
