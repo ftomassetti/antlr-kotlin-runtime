@@ -17,7 +17,7 @@ import org.antlr.v4.kotlinruntime.tree.pattern.ParseTreePatternMatcher
 
 //
 ///** This is all the parsing support code essentially; most of it is error recovery stuff.  */
-abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator>(), TypeDeclarator {
+abstract class Parser(input: TokenStream) : Recognizer<Token, ParserATNSimulator>() {
 
     override fun assignInputStream(newValue: IntStream?) {
         this.inputStream = newValue

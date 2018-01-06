@@ -1,7 +1,7 @@
 // Generated from java-escape by ANTLR 4.7.1
 import com.strumenta.kotlinmultiplatform.Arrays
-import com.strumenta.kotlinmultiplatform.TypeDeclarator
 import com.strumenta.kotlinmultiplatform.getType
+import com.strumenta.kotlinmultiplatform.TypeDeclarator
 import org.antlr.v4.kotlinruntime.*
 import org.antlr.v4.kotlinruntime.atn.*
 import org.antlr.v4.kotlinruntime.atn.ATNDeserializer
@@ -14,27 +14,16 @@ import org.antlr.v4.kotlinruntime.atn.ATN.Companion.INVALID_ALT_NUMBER
 import kotlin.reflect.KClass
 
 object solver : TypeDeclarator {
-	override val classesByName : List<KClass<*>> = listOf(MiniCalcParser.MiniCalcFileContext::class, MiniCalcParser.LineContext::class,
-			MiniCalcParser.InputDeclarationStatementContext::class
-			,MiniCalcParser.InputDeclarationContext::class
-			, MiniCalcParser.PrintStatementContext::class, MiniCalcParser.PrintContext::class
-			, MiniCalcParser.AssignmentStatementContext::class, MiniCalcParser.AssignmentContext::class
-			, MiniCalcParser.VarDeclarationContext::class, MiniCalcParser.VarDeclarationStatementContext::class
-			, MiniCalcParser.ValueReferenceContext::class
-			, MiniCalcParser.ExpressionContext::class
-			, MiniCalcParser.DecimalLiteralContext::class
-			, MiniCalcParser.MinusExpressionContext::class
-			, MiniCalcParser.ValueReferenceContext::class
-			, MiniCalcParser.StatementContext::class
-			, MiniCalcParser.StringLiteralContext::class
-			, MiniCalcParser.IntLiteralContext::class
-			, MiniCalcParser.ParenExpressionContext::class
-			, MiniCalcParser.BinaryOperationContext::class
-			, MiniCalcParser.TypeConversionContext::class
-			, MiniCalcParser.TypeContext::class
-			, MiniCalcParser.StringContext::class
-			, MiniCalcParser.IntegerContext::class
-			, MiniCalcParser.DecimalContext::class)
+	override val classesByName : List<KClass<*>> = listOf(MiniCalcParser.MiniCalcFileContext::class,
+                                                       MiniCalcParser.LineContext::class,
+                                                       MiniCalcParser.StatementContext::class,
+                                                       MiniCalcParser.PrintContext::class,
+                                                       MiniCalcParser.InputDeclarationContext::class,
+                                                       MiniCalcParser.VarDeclarationContext::class,
+                                                       MiniCalcParser.AssignmentContext::class,
+                                                       MiniCalcParser.ExpressionContext::class,
+                                                       MiniCalcParser.StringLiteralContentContext::class,
+                                                       MiniCalcParser.TypeContext::class)
 }
 
 class MiniCalcParser(input: TokenStream) : Parser(input) {
@@ -238,11 +227,11 @@ class MiniCalcParser(input: TokenStream) : Parser(input) {
     private val STRING_CONTENT = Tokens.STRING_CONTENT.id
     private val INTERPOLATION_CLOSE = Tokens.INTERPOLATION_CLOSE.id
 
-	override val classesByName : List<KClass<*>> = listOf(LineContext::class)
-
+    /* Named actions */
 	init {
 		interpreter = ParserATNSimulator(this, ATN, decisionToDFA, sharedContextCache)
 	}
+	/* Funcs */
 	open class MiniCalcFileContext : ParserRuleContext {
 	    override var ruleIndex: Int
 	        get() = Rules.RULE_miniCalcFile.id
