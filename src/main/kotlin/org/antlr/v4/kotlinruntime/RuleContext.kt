@@ -74,7 +74,7 @@ open class RuleContext : RuleNode {
     /** What context invoked this rule?  */
     /** @since 4.7. {@see ParseTree#setParent} comment
      */
-    protected var parent : RuleContext? = null
+    protected var parent : RuleContext?
 
     fun assignParent(value: RuleContext?) {
         this.parent = value
@@ -156,9 +156,12 @@ open class RuleContext : RuleNode {
     override open val childCount: Int
         get() = 0
 
-    constructor() {}
+    constructor() : super() {
+        this.parent = null
+    }
 
-    constructor(parent: RuleContext?, invokingState: Int) {
+    constructor(parent: RuleContext?, invokingState: Int) : super() {
+        //assignParent(parent)
         this.parent = parent
         //if ( parent!=null ) System.out.println("invoke "+stateNumber+" from "+parent);
         this.invokingState = invokingState
