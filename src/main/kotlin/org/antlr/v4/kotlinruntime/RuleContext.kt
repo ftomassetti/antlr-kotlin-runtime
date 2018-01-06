@@ -63,6 +63,10 @@ import org.antlr.v4.kotlinruntime.tree.Trees
  *
  * @see ParserRuleContext
  */
+
+val EMPTY_RULECTX = ParserRuleContext()
+
+
 open class RuleContext : RuleNode {
     //    override fun setParent(parent: RuleContext) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -209,7 +213,7 @@ open class RuleContext : RuleNode {
     }
 
     // recog null unless ParserRuleContext, in which case we use subclass toString(...)
-    fun toString(recog: Recognizer<*, *>?, stop: RuleContext = RuleContext.EMPTY): String {
+    fun toString(recog: Recognizer<*, *>?, stop: RuleContext = EMPTY_RULECTX): String {
         val ruleNames = if (recog != null) recog!!.ruleNames else null
         val ruleNamesList = if (ruleNames != null) Arrays.asList<String>(*ruleNames!!) else null
         return toString(ruleNamesList, stop)
@@ -241,7 +245,5 @@ open class RuleContext : RuleNode {
         return buf.toString()
     }
 
-    companion object {
-        val EMPTY = ParserRuleContext()
-    }
+
 }

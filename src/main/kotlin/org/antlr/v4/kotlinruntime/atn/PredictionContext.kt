@@ -9,6 +9,7 @@ package org.antlr.v4.kotlinruntime.atn
 import com.strumenta.kotlinmultiplatform.Arrays
 import com.strumenta.kotlinmultiplatform.IdentityHashMap
 import com.strumenta.kotlinmultiplatform.assert
+import org.antlr.v4.kotlinruntime.EMPTY_RULECTX
 import org.antlr.v4.kotlinruntime.Recognizer
 import org.antlr.v4.kotlinruntime.RuleContext
 import org.antlr.v4.kotlinruntime.misc.DoubleKeyMap
@@ -157,11 +158,11 @@ abstract class PredictionContext protected constructor(
          */
         fun fromRuleContext(atn: ATN, outerContext: RuleContext?): PredictionContext {
             var outerContext = outerContext
-            if (outerContext == null) outerContext = RuleContext.EMPTY
+            if (outerContext == null) outerContext = EMPTY_RULECTX
 
             // if we are in RuleContext of start rule, s, then PredictionContext
             // is EMPTY. Nobody called us. (if we are empty, return empty)
-            if (outerContext!!.readParent() == null || outerContext === RuleContext.EMPTY) {
+            if (outerContext!!.readParent() == null || outerContext === EMPTY_RULECTX) {
                 return PredictionContext.EMPTY
             }
 

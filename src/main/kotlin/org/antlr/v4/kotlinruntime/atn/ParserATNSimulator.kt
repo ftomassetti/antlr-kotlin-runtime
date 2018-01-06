@@ -351,7 +351,7 @@ open class ParserATNSimulator(
             }
 
             if (s0 == null) {
-                if (outerContext == null) outerContext = RuleContext.EMPTY
+                if (outerContext == null) outerContext = EMPTY_RULECTX
                 if (debug || debug_list_atn_decisions) {
                     outMessage("predictATN decision " + dfa.decision +
                             " exec LA(1)==" + getLookaheadName(input) +
@@ -360,7 +360,7 @@ open class ParserATNSimulator(
 
                 val fullCtx = false
                 var s0_closure = computeStartState(dfa.atnStartState,
-                        RuleContext.EMPTY,
+                        EMPTY_RULECTX,
                         fullCtx)
 
                 if (dfa.isPrecedenceDfa) {
